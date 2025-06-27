@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YMK攻略</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #ffeef8 0%, #f0f8ff 100%);
+            font-family: 'Arial', sans-serif;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .gradient-text {
+            background: linear-gradient(45deg, #ff6b9d, #c44569);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #ff6b9d, #ffa8cc);
+            border: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4);
+        }
+        .hamburger {
+            cursor: pointer;
+            width: 30px;
+            height: 20px;
+            position: relative;
+            z-index: 1001;
+        }
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background: #ff6b9d;
+            margin: 4px 0;
+            transition: 0.3s;
+            border-radius: 3px;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: left 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .menu-overlay.active {
+            left: 0;
+        }
+        .menu-item {
+            display: block;
+            padding: 20px;
+            font-size: 24px;
+            color: #ff6b9d;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-radius: 15px;
+            margin: 10px 0;
+            min-width: 200px;
+            text-align: center;
+        }
+        .menu-item:hover {
+            background: rgba(255, 107, 157, 0.1);
+            transform: scale(1.05);
+        }
+        .day-color-mon { border-left: 6px solid #ff9ff3; }
+        .day-color-tue { border-left: 6px solid #54a0ff; }
+        .day-color-wed { border-left: 6px solid #5f27cd; }
+        .day-color-thu { border-left: 6px solid #00d2d3; }
+        .day-color-fri { border-left: 6px solid #ff9f43; }
+        .day-color-sat { border-left: 6px solid #ff6b9d; }
+        .page-content {
+            display: none;
+        }
+        .page-content.active {
+            display: block;
+        }
+        .attack-item {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #ff6b9d;
+        }
+        .tip-box {
+            background: linear-gradient(135deg, #ffeef8, #f0f8ff);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            border: 2px solid rgba(255, 107, 157, 0.2);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Header -->
+    <header class="fixed top-0 w-full z-50 bg-white bg-opacity-80 backdrop-filter backdrop-blur-lg border-b border-pink-200">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <h1 class="text-2xl font-bold gradient-text">✨ YMK攻略 ✨</h1>
+            <div class="w-8"></div>
+        </div>
+    </header>
+
+    <!-- Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay">
+        <a href="#" class="menu-item" onclick="showPage('home')">🏠 ホーム</a>
+        <a href="#" class="menu-item" onclick="showPage('monday')">🌟 月曜日</a>
+        <a href="#" class="menu-item" onclick="showPage('tuesday')">💙 火曜日</a>
+        <a href="#" class="menu-item" onclick="showPage('wednesday')">💜 水曜日</a>
+        <a href="#" class="menu-item" onclick="showPage('thursday')">💚 木曜日</a>
+        <a href="#" class="menu-item" onclick="showPage('friday')">🧡 金曜日</a>
+        <a href="#" class="menu-item" onclick="showPage('saturday')">💖 土曜日</a>
+    </div>
+
+    <!-- Main Content -->
+    <main class="pt-20 container mx-auto px-4 pb-8">
+        <!-- Home Page -->
+        <div id="home" class="page-content active">
+            <div class="text-center mb-8">
+                <h2 class="text-4xl font-bold gradient-text mb-4">🎮 YMK攻略ガイド 🎮</h2>
+                <p class="text-gray-600 text-lg">日替わりで変わるYMKの攻略情報をチェックしよう！</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                <div class="card p-6 day-color-mon cursor-pointer" onclick="showPage('monday')">
+                    <div class="flex items-center mb-4">
+                        <span class="text-3xl mr-3">🌟</span>
+                        <h3 class="text-xl font-bold text-pink-600">月曜日</h3>
+                    </div>
+                    <p class="text-gray-600">新しい週のスタート！基本攻略をマスターしよう</p>
+                </div>
+
+                <div class="card p-6 day-color-tue cursor-pointer" onclick="showPage('tuesday')">
+                    <div class="flex items-center mb-4">
+                        <span class="text-3xl mr-3">💙</span>
+                        <h3 class="text-xl font-bold text-blue-600">火曜日</h3>
+                    </div>
+                    <p class="text-gray-600">中級テクニックで差をつけよう</p>
+                </div>
+
+                <div class="card p-6 day-color-wed cursor-pointer" onclick="showPage('wednesday')">
+                    <div class="flex items-center mb-4">
+                        <span class="text-3xl mr-3">💜</span>
+                        <h3 class="text-xl font-bold text-purple-600">水曜日</h3>
+                    </div>
+                    <p class="text-gray-600">週の中盤、特別な戦略を学ぼう</p>
+                </div>
+
+                <div class="card p-6 day-color-thu cursor-pointer" onclick="showPage('thursday')">
+                    <div class="flex items-center mb-4">
+                        <span class="text-3xl mr-3">💚</span>
+                        <h3 class="text-xl font-bold text-green-600">木曜日</h3>
+                    </div>
+                    <p class="text-gray-600">上級者向けの高度な攻略法</p>
+                </div>
+
+                <div class="card p-6 day-color-fri cursor-pointer" onclick="showPage('friday')">
+                    <div class="flex items-center mb-4">
+                        <span class="text-3xl mr-3">🧡</span>
+                        <h3 class="text-xl font-bold text-orange-600">金曜日</h3>
+                    </div>
+                    <p class="text-gray-600">週末前の最終調整とコツ</p>
+                </div>
+
+                <div class="card p-6 day-color-sat cursor-pointer" onclick="showPage('saturday')">
+                    <div class="flex items-center mb-4">
+                        <span class="text-3xl mr-3">💖</span>
+                        <h3 class="text-xl font-bold text-pink-600">土曜日</h3>
+                    </div>
+                    <p class="text-gray-600">週末スペシャル攻略法</p>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <p class="text-gray-500">🎯 左上のメニューから各曜日の詳細攻略情報にアクセスできます！</p>
+            </div>
+        </div>
+
+        <!-- Monday Page -->
+        <div id="monday" class="page-content">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-8">
+                    <h2 class="text-4xl font-bold gradient-text mb-4">🌟 月曜日の攻略 🌟</h2>
+                    <p class="text-gray-600">新しい週のスタートダッシュを決めよう！</p>
+                </div>
+
+                <div class="card p-6 mb-6">
+                    <h3 class="text-2xl font-bold text-pink-600 mb-4">📝 基本攻略ポイント</h3>
+                    <div class="attack-item">
+                        <h4 class="font-bold text-lg mb-2">✨ 朝の準備</h4>
+                        <p class="text-gray-700">月曜日は気持ちを切り替えて、しっかりと準備をしよう</p>
+                    </div>
+                    <div class="attack-item">
+                        <h4 class="font-bold text-lg mb-2">🎯 目標設定</h4>
+                        <p class="text-gray-700">今週の目標を明確にして、計画を立てる</p>
+                    </div>
+                    <div class="attack-item">
+                        <h4 class="font-bold text-lg mb-2">💪 モチベーション維持</h4>
+                        <p class="text-gray-700">週の始まりを前向きに捉えて、エネルギーを高めよう</p>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <h4 class="text-xl font-bold text-pink-600 mb-3">💡 月曜日のコツ</h4>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>早起きして余裕を持った1日のスタートを</li>
+                        <li>週の計画を立てて、優先順位を決める</li>
+                        <li>体調管理を意識して、健康的な習慣を</li>
+                    </ul>
+                </div>
+
+                <div class="card p-6">
+                    <h3 class="text-2xl font-bold text-pink-600 mb-4">📊 進捗管理</h3>
+                    <div class="bg-gray-200 rounded-full h-4 mb-4">
+                        <div class="bg-gradient-to-r from-pink-400 to-pink-600 h-4 rounded-full" style="width: 20%"></div>
+                    </div>
+                    <p class="text-gray-600">今週の進捗: 20% (月曜日完了)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tuesday Page -->
+        <div id="tuesday" class="page-content">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-8">
+                    <h2 class="text-4xl font-bold gradient-text mb-4">💙 火曜日の攻略 💙</h2>
+                    <p class="text-gray-600">中級テクニックで差をつけよう！</p>
+                </div>
+
+                <div class="card p-6 mb-6">
+                    <h3 class="text-2xl font-bold text-blue-600 mb-4">🔥 中級攻略法</h3>
+                    <div class="attack-item">
+                        <h4 class="font-bold text-lg mb-2">⚡ 効率化テクニック</h4>
+                        <p class="text-gray-700">作業効率を上げる具体的な方法を実践</p>
+                    </div>
+                    <div class="attack-item">
+                        <h4 class="font-bold text-lg mb-2">🎨 クリエイティブ思考</h4>
+                        <p class="text-gray-700">新しいアイデアを生み出すための思考法</p>
+                    </div>
+                    <div class="attack-item">
+                        <h4 class="font-bold text-lg mb-2">🤝 チームワーク</h4>
+                        <p class="text-gray-700">他の人との連携を強化する方法</p>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <h4 class="text-xl font-bold text-blue-600 mb-3">💡 火曜日のコツ</h4>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>月曜日の反省点を活かして改善する</li>
+                        <li>新しい手法やツールを試してみる</li>
+                        <li>集中力を高める環境を整える</li>
+                    </ul>
+                </div>
+
+                <div class="card p-6">
+                    <h3 class="text-2xl font-bold text-blue-600 mb-4">📊 進捗管理</h3>
+                    <div class="bg-gray-200 rounded-full h-4 mb-4">
+                        <div class="bg-gradient-to-r from-blue-400 to-blue-600 h-4 rounded-full" style="width: 33%"></div>
+                    </div>
+                    <p class="text-gray-600">今週の進捗: 33% (火曜日完了)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wednesday Page -->
+        <div id="wednesday" class="page-content">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-8">
+                    <h2 class="text-4xl font-bold gradient-text mb-4">💜 水曜日の攻略 💜</h2>
+                    <p class="text-gray-600">週の中盤、特別な戦略を学ぼう！</p>
+                </div>
+
+                <div class="card p-6 mb-6">
+                    <h3 class="text-2xl font-bold text-purple-600 mb-4">🎯 特別戦略</h3>
+                    <div class="attack-item">
+                        <h4 class="font-bold text-lg mb-2">⚖️ バランス調整</h4>
+                        <p class="text-gray-700">週の中盤で疲れを感じた時の対処法</p>
+                    </div>
+                    <div class="attack-item">
+                        <h4 class="font-bold text-lg mb-2">🔄 方向修正</h4>
+                        <p class="text-gray-700">計画の見直しと軌道修正のタイミング</p>
+                    </div>
+                    <div class="attack-item">
+                        <h4 class="font-bold text-lg mb-2">💎 品質向上</h4>
+                        <p class="text-gray-700">成果物の質を高める方法</p>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <h4 class="text-xl font-bold text-purple-600 mb-3">💡 水曜日のコツ</h4>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>週の中間地点で振り返りを行う</li>
+                        <li>残り半分の計画を再確認する</li>
+                        <li>疲労回復に時間を使う</li>
+                    </ul>
+                </div>
+
+                <div class="card p-6">
+                    <h3 class="text-2xl font-bold text-purple-600 mb-4">📊 進捗管理</h3>
+                    <div class="bg-gray-200 rounded-full h-4 mb-4">
+                        <div class="bg-gradient-to-r from-purple-400 to-purple-600 h-4 rounded-full" style="width: 50%"></div>
+                    </div>
+                    <p class="text-gray-600">今週の進捗: 50% (水曜日完了)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thursday Page -->
+        <div id="thursday" class="page-content">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-8">
+                    <h2 class="text-4xl font-bold gradient-text mb-4">💚 木曜日の攻略 💚</h2>
+                    <p class="text-gray-600">上級者向けの高度な攻略法！</p>
+                </div>
+
+                <div class="card p-6 mb-6">
+                    <h3 class="text-2xl font-bold text-green-600 mb-4">🚀 上級攻略テクニック</h3>
+                    <div class="attack-item">
+                        <h4 class="font-bold text-lg mb-2">⚡ 最適化手法</h4>
+                        <p class="text-gray-700">パフォーマンスを最大化する高度な手法</p>
+                    </div>
+                    <div class="attack-item">
+                        <h4 class="font-bold text-lg mb-2">🎓 スキル向上</h4>
+                        <p class="text-gray-700">専門性を高めるための学習方法</p>
+                    </div>
+                    <div class="attack-item">
+                        <h4 class="font-bold text-lg mb-2">📈 成果最大化</h4>
+                        <p class="text-gray-700">限られた時間で最大の成果を出す方法</p>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <h4 class="text-xl font-bold text-green-600 mb-3">💡 木曜日のコツ</h4>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>難しい課題にチャレンジする</li>
+                        <li>創造性を発揮する時間を作る</li>
+                        <li>金曜日への準備を整える</li>
+                    </ul>
+                </div>
+
+                <div class="card p-6">
+                    <h3 class="text-2xl font-bold text-green-600 mb-4">📊 進捗管理</h3>
+                    <div class="bg-gray-200 rounded-full h-4 mb-4">
+                        <div class="bg-gradient-to-r from-green-400 to-green-600 h-4 rounded-full" style="width: 67%"></div>
+                    </div>
+                    <p class="text-gray-600">今週の進捗: 67% (木曜日完了)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Friday Page -->
+        <div id="friday" class="page-content">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-8">
+                    <h2 class="text-4xl font-bold gradient-text mb-4">🧡 金曜日の攻略 🧡</h2>
+                    <p class="text-gray-600">週末前の最終調整とコツ！</p>
+                </div>
+
+                <div class="card p-6 mb-6">
+                    <h3 class="text-2xl font-bold text-orange-600 mb-4">🏁 フィニッシュ戦略</h3>
+                    <div class="attack-item">
+                        <h4 class="font-bold text-lg mb-2">📋 総仕上げ</h4>
+                        <p class="text-gray-700">週の成果をまとめ、完成度を高める</p>
+                    </div>
+                    <div class="attack-item">
+                        <h4 class="font-bold text-lg mb-2">🎯 目標達成</h4>
+                        <p class="text-gray-700">週初めに立てた目標の達成度をチェック</p>
+                    </div>
+                    <div class="attack-item">
+                        <h4 class="font-bold text-lg mb-2">🔄 次週準備</h4>
+                        <p class="text-gray-700">来週への準備と引き継ぎ事項の整理</p>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <h4 class="text-xl font-bold text-orange-600 mb-3">💡 金曜日のコツ</h4>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>週の成果を振り返って達成感を味わう</li>
+                        <li>未完了のタスクを来週に整理する</li>
+                        <li>週末のリフレッシュ計画を立てる</li>
+                    </ul>
+                </div>
+
+                <div class="card p-6">
+                    <h3 class="text-2xl font-bold text-orange-600 mb-4">📊 進捗管理</h3>
+                    <div class="bg-gray-200 rounded-full h-4 mb-4">
+                        <div class="bg-gradient-to-r from-orange-400 to-orange-600 h-4 rounded-full" style="width: 83%"></div>
+                    </div>
+                    <p class="text-gray-600">今週の進捗: 83% (金曜日完了)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Saturday Page -->
+        <div id="saturday" class="page-content">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-8">
+                    <h2 class="text-4xl font-bold gradient-text mb-4">💖 土曜日の攻略 💖</h2>
+                    <p class="text-gray-600">週末スペシャル攻略法！</p>
+                </div>
+
+                <div class="card p-6 mb-6">
+                    <h3 class="text-2xl font-bold text-pink-600 mb-4">🎉 週末特別戦略</h3>
+                    <div class="attack-item">
+                        <h4 class="font-bold text-lg mb-2">🌟 リフレッシュ</h4>
+                        <p class="text-gray-700">心身のリフレッシュで来週への活力を蓄える</p>
+                    </div>
+                    <div class="attack-item">
+                        <h4 class="font-bold text-lg mb-2">🎨 趣味の時間</h4>
+                        <p class="text-gray-700">好きなことに時間を使って創造性を高める</p>
+                    </div>
+                    <div class="attack-item">
+                        <h4 class="font-bold text-lg mb-2">👥 人とのつながり</h4>
+                        <p class="text-gray-700">家族や友人との時間を大切にする</p>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <h4 class="text-xl font-bold text-pink-600 mb-3">💡 土曜日のコツ</h4>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>完全にリラックスする時間を作る</li>
+                        <li>新しい体験や学びにチャレンジ</li>
+                        <li>来週への準備を軽くしておく</li>
+                    </ul>
+                </div>
+
+                <div class="card p-6">
+                    <h3 class="text-2xl font-bold text-pink-600 mb-4">📊 週間完了</h3>
+                    <div class="bg-gray-200 rounded-full h-4 mb-4">
+                        <div class="bg-gradient-to-r from-pink-400 to-pink-600 h-4 rounded-full" style="width: 100%"></div>
+                    </div>
+                    <p class="text-gray-600">今週の進捗: 100% (土曜日完了) 🎉</p>
+                    <div class="text-center mt-4">
+                        <p class="text-2xl">🎊 お疲れ様でした！ 🎊</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function toggleMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const menuOverlay = document.getElementById('menuOverlay');
+            
+            hamburger.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+        }
+
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page-content');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+
+            // Close menu
+            const hamburger = document.querySelector('.hamburger');
+            const menuOverlay = document.getElementById('menuOverlay');
+            hamburger.classList.remove('active');
+            menuOverlay.classList.remove('active');
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menuOverlay = document.getElementById('menuOverlay');
+            const hamburger = document.querySelector('.hamburger');
+            
+            if (menuOverlay.classList.contains('active') && 
+                !menuOverlay.contains(event.target) && 
+                !hamburger.contains(event.target)) {
+                toggleMenu();
+            }
+        });
+
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
