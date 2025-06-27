@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YMK攻略</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #ffeef8 0%, #f0e6ff 50%, #e6f3ff 100%);
+            min-height: 100vh;
+            font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif;
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            display: none;
+        }
+        
+        .menu-sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100%;
+            background: linear-gradient(180deg, #ffeef8 0%, #f0e6ff 100%);
+            z-index: 999;
+            transition: left 0.3s ease;
+            padding: 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .menu-sidebar.open {
+            left: 0;
+        }
+        
+        .menu-item {
+            display: block;
+            padding: 15px 20px;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 15px;
+            text-decoration: none;
+            color: #6b46c1;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: #ec4899;
+            transform: translateY(-2px);
+        }
+        
+        .floating-emoji {
+            position: absolute;
+            font-size: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .section-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 240, 245, 0.9) 100%);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 15px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(236, 72, 153, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.05) 0%, transparent 70%);
+            animation: shimmer 4s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
+        }
+        
+        .input-area {
+            background: rgba(255, 255, 255, 0.7);
+            border: 2px solid rgba(236, 72, 153, 0.3);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 10px 0;
+            min-height: 80px;
+            resize: vertical;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .input-area:focus {
+            outline: none;
+            border-color: #ec4899;
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
+        }
+        
+        .day-header {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            color: #6b46c1;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- ハンバーガーメニューボタン -->
+    <div class="fixed top-4 left-4 z-50">
+        <button onclick="toggleMenu()" class="bg-white bg-opacity-80 rounded-full p-3 shadow-lg hover:bg-opacity-100 transition-all duration-300">
+            <i class="fas fa-bars text-purple-600 text-xl"></i>
+        </button>
+    </div>
+
+    <!-- メニューオーバーレイ -->
+    <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
+
+    <!-- サイドバーメニュー -->
+    <div class="menu-sidebar" id="menuSidebar">
+        <div class="text-2xl font-bold text-purple-600 mb-8 text-center">
+            ⭐ YMK攻略 ⭐
+        </div>
+        <nav>
+            <a href="#" class="menu-item" onclick="showPage('home')">
+                🏠 ホーム
+            </a>
+            <a href="#" class="menu-item" onclick="showPage('monday')">
+                🌙 月曜日の攻略
+            </a>
+            <a href="#" class="menu-item" onclick="showPage('tuesday')">
+                🔥 火曜日の攻略
+            </a>
+            <a href="#" class="menu-item" onclick="showPage('wednesday')">
+                💧 水曜日の攻略
+            </a>
+            <a href="#" class="menu-item" onclick="showPage('thursday')">
+                ⚡ 木曜日の攻略
+            </a>
+            <a href="#" class="menu-item" onclick="showPage('friday')">
+                🌸 金曜日の攻略
+            </a>
+            <a href="#" class="menu-item" onclick="showPage('saturday')">
+                ✨ 土曜日の攻略
+            </a>
+        </nav>
+    </div>
+
+    <!-- フローティング絵文字 -->
+    <div class="floating-emoji" style="top: 10%; left: 10%; animation-delay: 0s;">⭐</div>
+    <div class="floating-emoji" style="top: 20%; right: 15%; animation-delay: 1s;">💖</div>
+    <div class="floating-emoji" style="top: 60%; left: 5%; animation-delay: 2s;">🌟</div>
+    <div class="floating-emoji" style="top: 70%; right: 10%; animation-delay: 0.5s;">💫</div>
+
+    <!-- ホームページ -->
+    <div id="home" class="page active">
+        <div class="container mx-auto px-4 py-8 pt-20">
+            <div class="text-center mb-12">
+                <h1 class="text-5xl font-bold text-purple-600 mb-4">
+                    ⭐ YMK攻略 ⭐
+                </h1>
+                <p class="text-lg text-purple-500 mb-8">
+                    毎日の攻略情報をまとめてチェック！💖
+                </p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="card p-8 mb-8">
+                    <div class="text-center mb-6">
+                        <h2 class="text-3xl font-bold text-pink-500 mb-4">
+                            🎯 今日はどの攻略をチェックする？
+                        </h2>
+                        <p class="text-gray-600">
+                            左上のメニューから各曜日の攻略情報にアクセスできます
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+                        <div class="section-card text-center cursor-pointer hover:scale-105 transition-transform" onclick="showPage('monday')">
+                            <div class="text-2xl mb-2">🌙</div>
+                            <div class="font-bold text-purple-600">月曜日</div>
+                            <div class="text-sm text-gray-500">週の始まり攻略</div>
+                        </div>
+                        <div class="section-card text-center cursor-pointer hover:scale-105 transition-transform" onclick="showPage('tuesday')">
+                            <div class="text-2xl mb-2">🔥</div>
+                            <div class="font-bold text-purple-600">火曜日</div>
+                            <div class="text-sm text-gray-500">情熱の攻略</div>
+                        </div>
+                        <div class="section-card text-center cursor-pointer hover:scale-105 transition-transform" onclick="showPage('wednesday')">
+                            <div class="text-2xl mb-2">💧</div>
+                            <div class="font-bold text-purple-600">水曜日</div>
+                            <div class="text-sm text-gray-500">中盤戦攻略</div>
+                        </div>
+                        <div class="section-card text-center cursor-pointer hover:scale-105 transition-transform" onclick="showPage('thursday')">
+                            <div class="text-2xl mb-2">⚡</div>
+                            <div class="font-bold text-purple-600">木曜日</div>
+                            <div class="text-sm text-gray-500">スパート攻略</div>
+                        </div>
+                        <div class="section-card text-center cursor-pointer hover:scale-105 transition-transform" onclick="showPage('friday')">
+                            <div class="text-2xl mb-2">🌸</div>
+                            <div class="font-bold text-purple-600">金曜日</div>
+                            <div class="text-sm text-gray-500">華やか攻略</div>
+                        </div>
+                        <div class="section-card text-center cursor-pointer hover:scale-105 transition-transform" onclick="showPage('saturday')">
+                            <div class="text-2xl mb-2">✨</div>
+                            <div class="font-bold text-purple-600">土曜日</div>
+                            <div class="text-sm text-gray-500">輝きの攻略</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center text-purple-400 text-sm">
+                    ✨ 毎日コツコツ、攻略情報をチェックして成長しよう！ ✨
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 月曜日ページ -->
+    <div id="monday" class="page">
+        <div class="container mx-auto px-4 py-8 pt-20">
+            <div class="day-header">🌙 月曜日の攻略 🌙</div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="section-card">
+                    <h3 class="text-xl font-bold text-pink-500 mb-4">📝 今日の攻略メモ</h3>
+                    <textarea class="input-area w-full" placeholder="月曜日の攻略ポイントを記録しよう..."></textarea>
+                </div>
+
+                <div class="section-card">
+                    <h3 class="text-xl font-bold text-pink-500 mb-4">⭐ 重要ポイント</h3>
+                    <div class="space-y-3">
+                        <div class="bg-yellow-100 p-3 rounded-lg border-l-4 border-yellow-400">
+                            <span class="font-semibold">💡 週の始まりは計画立てから</span>
+                        </div>
+                        <div class="bg-blue-100 p-3 rounded-lg border-l-4 border-blue-400">
+                            <span class="font-semibold">🎯 目標設定が成功の鍵</span>
+                        </div>
+                        <div class="bg-green-100 p-3 rounded-lg border-l-4 border-green-400">
+                            <span class="font-semibold">🚀 早めのスタートで差をつける</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h3 class="text-xl font-bold text-pink-500 mb-4">🎯 今日の目標</h3>
+                    <textarea class="input-area w-full" placeholder="月曜日に達成したい目標を書いてみよう..."></textarea>
+                </div>
+
+                <div class="section-card">
+                    <h3 class="text-xl font-bold text-pink-500 mb-4">📊 進捗チェック</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-purple-100 p-4 rounded-lg">
+                            <div class="font-semibold text-purple-600 mb-2">完了したタスク</div>
+                            <div class="text-2xl font-bold text-purple-700">0/5</div>
+                        </div>
+                        <div class="bg-pink-100 p-4 rounded-lg">
+                            <div class="font-semibold text-pink-600 mb-2">達成度</div>
+                            <div class="text-2xl font-bold text-pink-700">0%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 火曜日ページ -->
+    <div id="tuesday" class="page">
+        <div class="container mx-auto px-4 py-8 pt-20">
+            <div class="day-header">🔥 火曜日の攻略 🔥</div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="section-card">
+                    <h3 class="text-xl font-bold text-pink-500 mb-4">📝 今日の攻略メモ</h3>
+                    <textarea class="input-area w-full" placeholder="火曜日の熱い攻略戦略を記録しよう..."></textarea>
+                </div>
+
+                <div class="section-card">
+                    <h3 class="text-xl font-bold text-pink-500 mb-4">🔥 火曜日の特別戦略</h3>
+                    <div class="space-y-3">
+                        <div class="bg-red-100 p-3 rounded-lg border-l-4 border-red-400">
+                            <span class="font-semibold">🚀 情熱を込めて集中攻撃</span>
+                        </div>
+                        <div class="bg-orange-100 p-3 rounded-lg border-l-4 border-orange-400">
+                            <span class="font-semibold">💪 困難な課題に挑戦する日</span>
+                        </div>
+                        <div class="bg-yellow-100 p-3 rounded-lg border-l-4 border-yellow-400">
+                            <span class="font-semibold">⚡ エネルギッシュに行動</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h3 class="text-xl font-bold text-pink-500 mb-4">🎯 火曜日の挑戦</h3>
+                    <textarea class="input-area w-full" placeholder="今日挑戦したいことを書いてみよう..."></textarea>
+                </div>
+
+                <div class="section-card">
+                    <h3 class="text-xl font-bold text-pink-500 mb-4">🌡️ 熱量メーター</h3>
+                    <div class="bg-gradient-to-r from-yellow-400 to-red-500 h-6 rounded-full">
+                        <div class="bg-red-600 h-full w-0 rounded-full transition-all duration-500" style="width: 75%;"></div>
+                    </div>
+                    <div class="text-center mt-2 font-bold text-red-600">今日の熱量: 75% 🔥</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 水曜日ページ -->
+    <div id="wednesday" class="page">
+        <div class="container mx-auto px-4 py-8 pt-20">
+            <div class="day-header">💧 水曜日の攻略 💧</div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="section-card">
+                    <h3 class="text-xl font-bold text-pink-500 mb-4">📝 今日の攻略メモ</h3>
+                    <textarea class="input-area w-full" placeholder="水曜日の冷静な戦略を記録しよう..."></textarea>
+                </div>
+
+                <div class="section-card">
+                    <h3 class="text-xl font-bold text-pink-500 mb-4">💧 中盤戦の心得</h3>
+                    <div class="space-y-3">
+                        <div class="bg-blue-100 p-3 rounded-lg border-l-4 border-blue-400">
+                            <span class="font-semibold">🧘 冷静に現状を分析</span>
+                        </div>
+                        <div class="bg-cyan-100 p-3 rounded-lg border-l-4 border-cyan-400">
+                            <span class="font-semibold">⚖️ バランスを重視した行動</span>
+                        </div>
+                        <div class="bg-teal-100 p-3 rounded-lg border-l-4 border-teal-400">
+                            <span class="font-semibold">🔄 戦略の見直しタイム</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h3 class="text-xl font-bold text-pink-500 mb-4">🔍 現状分析</h3>
+                    <textarea class="input-area w-full" placeholder="週の中間地点での振り返りを書いてみよう..."></textarea>
+                </div>
+
+                <div class="section-card">
+                    <h3 class="text-xl font-bold text-pink-500 mb-4">💫 週の中間チェック</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-blue-100 p-4 rounded-lg text-center">
+                            <div class="text-2xl mb-2">📈</div>
+                            <div class="font-semibold text-blue-600">成長度</div>
+                            <div class="text-xl font-bold text-blue-700">Good!</div>
+                        </div>
+                        <div class="bg-cyan-100 p-4 rounded-lg text-center">
+                            <div class="text-2xl mb-2">⚖️</div>
+                            <div class="font-semibold text-cyan-600">バランス</div>
+                            <div class="text-xl font-bold text-cyan-700">Perfect!</div>
+                        </div>
+                        <div class="bg-teal-100 p-4 rounded-lg text-center">
+                            <div class="text-2xl mb-2">🎯</div>
+                            <div class="font-semibold text-teal-600">目標達成</div>
+                            <div class="text-xl font-bold text-teal-700">50%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 木曜日ページ -->
+    <div id="thursday" class="page">
+        <div class="container mx-auto px-4 py-8 pt-20">
+            <div class="day-header">⚡ 木曜日の攻略 ⚡</div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="section-card">
+                    <h3 class="text-xl font-bold text-pink-500 mb-4">📝 今日の攻略メモ</h3>
+                    <textarea class="input-area w-full" placeholder="木曜日のスパート戦略を記録しよう..."></textarea>
+                </div>
+
+                <div class="section-card">
+                    <h3 class="text-xl font-bold text-pink-500 mb-4">⚡ スパート戦略</h3>
+                    <div class="space-y-3">
+                        <div class="bg-yellow-100 p-3 rounded-lg border-l-4 border-yellow-400">
+                            <span class="font-semibold">🏃‍♀️ 一気に加速モード</span>
+                        </div>
+                        <div class="bg-purple-100 p-3 rounded-lg border-l-4 border-purple-400">
+                            <span class="font-semibold">💨 効率を最大化</span>
+                        </div>
+                        <div class="bg-indigo-100 p-3 rounded-lg border-l-4 border-indigo-400">
+                            <span class="font-semibold">🎯 重要タスクに集中</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h3 class="text-xl font-bold text-pink-500 mb-4">🚀 今日の集中タスク</h3>
+                    <textarea class="input-area w-full" placeholder="最優先で取り組むタスクを書いてみよう..."></textarea>
+                </div>
+
+                <div class="section-card">
+                    <h3 class="text-xl font-bold text-pink-500 mb-4">⚡ エネルギー管理</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="font-semibold">集中力</span>
+                            <div class="w-1/2 bg-gray-200 rounded-full h-4">
+                                <div class="bg-yellow-400 h-4 rounded-full" style="width: 85%;"></div>
+                            </div>
+                            <span class="text-yellow-600 font-bold">85%</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-semibold">モチベーション</span>
+                            <div class="w-1/2 bg-gray-200 rounded-full h-4">
+                                <div class="bg-purple-400 h-4 rounded-full" style="width: 90%;"></div>
+                            </div>
+                            <span class="text-purple-600 font-bold">90%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 金曜日ページ -->
+    <div id="friday" class="page">
+        <div class="container mx-auto px-4 py-8 pt-20">
+            <div class="day-header">🌸 金曜日の攻略 🌸</div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="section-card">
+                    <h3 class="text-xl font-bold text-pink-500 mb-4">📝 今日の攻略メモ</h3>
+                    <textarea class="input-area w-full" placeholder="金曜日の華やかな戦略を記録しよう..."></textarea>
+                </div>
+
+                <div class="section-card">
+                    <h3 class="text-xl font-bold text-pink-500 mb-4">🌸 金曜日の華やか戦略</h3>
+                    <div class="space-y-3">
+                        <div class="bg-pink-100 p-3 rounded-lg border-l-4 border-pink-400">
+                            <span class="font-semibold">🎉 成果を輝かせる日</span>
+                        </div>
+                        <div class="bg-rose-100 p-3 rounded-lg border-l-4 border-rose-400">
+                            <span class="font-semibold">💖 楽しみながら取り組む</span>
+                        </div>
+                        <div class="bg-red-100 p-3 rounded-lg border-l-4 border-red-400">
+                            <span class="font-semibold">✨ 週末への準備も忘れずに</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h3 class="text-xl font-bold text-pink-500 mb-4">🎊 今日の成果発表</h3>
+                    <textarea class="input-area w-full" placeholder="今週頑張ったことや達成したことを書いてみよう..."></textarea>
+                </div>
+
+                <div class="section-card">
+                    <h3 class="text-xl font-bold text-pink-500 mb-4">🌟 週間総まとめ</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-gradient-to-r from-pink-200 to-rose-200 p-4 rounded-lg">
+                            <div class="font-semibold text-pink-700 mb-2">今週のハイライト</div>
+                            <div class="text-sm space-y-1">
+                                <div>🎯 目標達成: 80%</div>
+                                <div>💪 新しい挑戦: 3件</div>
+                                <div>🌟 成長ポイント: +15</div>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-r from-purple-200 to-pink-200 p-4 rounded-lg">
+                            <div class="font-semibold text-purple-700 mb-2">来週への準備</div>
+                            <div class="text-sm space-y-1">
+                                <div>📋 計画立案完了</div>
+                                <div>🎨 新アイデア: 5個</div>
+                                <div>💡 改善点発見</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 土曜日ページ -->
+    <div id="saturday" class="page">
+        <div class="container mx-auto px-4 py-8 pt-20">
+            <div class="day-header">✨ 土曜日の攻略 ✨</div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="section-card">
+                    <h3 class="text-xl font-bold text-pink-500 mb-4">📝 今日の攻略メモ</h3>
+                    <textarea class="input-area w-full" placeholder="土曜日の輝きの戦略を記録しよう..."></textarea>
+                </div>
+
+                <div class="section-card">
+                    <h3 class="text-xl font-bold text-pink-500 mb-4">✨ 輝きの土曜戦略</h3>
+                    <div class="space-y-3">
+                        <div class="bg-yellow-100 p-3 rounded-lg border-l-4 border-yellow-400">
+                            <span class="font-semibold">🌟 特別な時間を有効活用</span>
+                        </div>
+                        <div class="bg-amber-100 p-3 rounded-lg border-l-4 border-amber-400">
+                            <span class="font-semibold">🎨 創造性を発揮する日</span>
+                        </div>
+                        <div class="bg-orange-100 p-3 rounded-lg border-l-4 border-orange-400">
+                            <span class="font-semibold">💫 次週への充電タイム</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h3 class="text-xl font-bold text-pink-500 mb-4">🎨 創作・学習タイム</h3>
+                    <textarea class="input-area w-full" placeholder="新しいことに挑戦したり、スキルアップの時間にしよう..."></textarea>
+                </div>
+
+                <div class="section-card">
+                    <h3 class="text-xl font-bold text-pink-500 mb-4">🌈 今週の振り返り＆来週の準備</h3>
+                    <div class="space-y-4">
+                        <div class="bg-gradient-to-r from-blue-100 to-purple-100 p-4 rounded-lg">
+                            <h4 class="font-semibold text-purple-600 mb-2">🔍 今週の振り返り</h4>
+                            <textarea class="input-area w-full h-20" placeholder="今週良かったこと、改善できることを振り返ろう..."></textarea>
+                        </div>
+                        <div class="bg-gradient-to-r from-green-100 to-blue-100 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-600 mb-2">🚀 来週の計画</h4>
+                            <textarea class="input-area w-full h-20" placeholder="来週挑戦したいこと、達成したい目標を書こう..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card text-center">
+                    <div class="text-4xl mb-4">🎉</div>
+                    <h3 class="text-2xl font-bold text-pink-500 mb-2">週間攻略完了！</h3>
+                    <p class="text-gray-600">素晴らしい一週間お疲れ様でした！✨</p>
+                    <div class="mt-4 text-sm text-purple-500">
+                        また来週も一緒に頑張りましょう！💪💖
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const overlay = document.getElementById('menuOverlay');
+            const sidebar = document.getElementById('menuSidebar');
+            
+            overlay.style.display = 'block';
+            sidebar.classList.add('open');
+        }
+
+        function closeMenu() {
+            const overlay = document.getElementById('menuOverlay');
+            const sidebar = document.getElementById('menuSidebar');
+            
+            overlay.style.display = 'none';
+            sidebar.classList.remove('open');
+        }
+
+        function showPage(pageId) {
+            // 全てのページを非表示
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // 指定されたページを表示
+            document.getElementById(pageId).classList.add('active');
+            
+            // メニューを閉じる
+            closeMenu();
+        }
+
+        // ページ読み込み時にローカルストレージから保存されたデータを復元
+        window.addEventListener('load', function() {
+            const textareas = document.querySelectorAll('textarea');
+            textareas.forEach((textarea, index) => {
+                const saved = localStorage.getItem(`ymk-textarea-${index}`);
+                if (saved) {
+                    textarea.value = saved;
+                }
+                
+                // テキストエリアの変更を自動保存
+                textarea.addEventListener('input', function() {
+                    localStorage.setItem(`ymk-textarea-${index}`, this.value);
+                });
+            });
+        });
+
+        // エスケープキーでメニューを閉じる
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeMenu();
+            }
+        });
+    </script>
+</body>
+</html>
