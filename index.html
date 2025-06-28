@@ -3,629 +3,358 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YMK攻略</title>
+    <title>⭐ YMK攻略 ⭐</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <style>
         body {
-            background: linear-gradient(135deg, #ffeef8 0%, #f0e6ff 100%);
-            font-family: 'Hiragino Sans', 'ヒラギノ角ゴシック', 'Yu Gothic', 'メイリオ', sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #f0e6ff 50%, #e6f3ff 100%);
+            font-family: 'Hiragino Sans', 'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, sans-serif;
+            min-height: 100vh;
         }
-        .gradient-bg {
-            background: linear-gradient(135deg, #ff9a9e 0%, #a8e6cf 100%);
-        }
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.25);
+        
+        .gradient-card {
+            background: linear-gradient(135deg, rgba(255, 192, 203, 0.3) 0%, rgba(221, 160, 221, 0.3) 100%);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        .day-card {
-            background: linear-gradient(135deg, rgba(255, 182, 193, 0.3) 0%, rgba(221, 160, 221, 0.3) 100%);
-            transition: all 0.3s ease;
+        
+        .menu-overlay {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
         }
-        .day-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        
+        .menu-sidebar {
+            background: linear-gradient(180deg, #ff94d6 0%, #c084fc 50%, #8b5cf6 100%);
         }
-        .hamburger-line {
-            transition: all 0.3s ease;
-        }
-        .hamburger-active .line1 {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-        .hamburger-active .line2 {
-            opacity: 0;
-        }
-        .hamburger-active .line3 {
-            transform: rotate(-45deg) translate(7px, -6px);
-        }
-        .menu-slide {
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-        }
-        .menu-slide.active {
-            transform: translateX(0);
-        }
+        
         .page-content {
-            display: none;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.9) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
-        .page-content.active {
-            display: block;
+        
+        .content-card {
+            background: linear-gradient(135deg, rgba(255, 240, 245, 0.8) 0%, rgba(240, 230, 255, 0.8) 100%);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 192, 203, 0.3);
         }
-        .sparkle {
-            animation: sparkle 2s infinite;
+        
+        .importance-item {
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.2) 0%, rgba(221, 160, 221, 0.2) 100%);
+            border-left: 4px solid #ff69b4;
         }
-        @keyframes sparkle {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(1.1); }
+        
+        .title-gradient {
+            background: linear-gradient(135deg, #ff1493 0%, #9932cc 50%, #4169e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .intro-card {
-            background: linear-gradient(135deg, rgba(255, 182, 193, 0.4) 0%, rgba(221, 160, 221, 0.4) 100%);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-        @media (max-width: 430px) {
-            .container {
-                padding: 0 12px;
-            }
-            .day-card {
-                margin: 8px 0;
-                padding: 12px;
-            }
-        }
+        
+        .hidden { display: none; }
+        .block { display: block; }
     </style>
 </head>
-<body class="min-h-screen">
+<body>
     <!-- Header -->
-    <header class="glass-effect p-3 sticky top-0 z-50">
-        <div class="flex items-center justify-between max-w-sm mx-auto">
-            <button id="hamburger" class="p-2 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all">
-                <div class="w-5 h-5 flex flex-col justify-between">
-                    <div class="hamburger-line line1 w-full h-0.5 bg-purple-600 rounded"></div>
-                    <div class="hamburger-line line2 w-full h-0.5 bg-purple-600 rounded"></div>
-                    <div class="hamburger-line line3 w-full h-0.5 bg-purple-600 rounded"></div>
-                </div>
+    <header class="relative z-50 p-4">
+        <div class="flex items-center justify-between">
+            <button id="menuToggle" class="text-2xl text-purple-600 hover:text-pink-500 transition-colors">
+                <i class="fas fa-bars"></i>
             </button>
-            <h1 class="text-lg font-bold text-purple-700">
-                <i class="fas fa-star text-pink-500"></i>
-                YMK攻略
-                <i class="fas fa-star text-pink-500"></i>
-            </h1>
-            <div class="w-9"></div>
+            <h1 class="text-xl font-bold title-gradient">⭐ YMK攻略 ⭐</h1>
+            <div class="w-8"></div>
         </div>
     </header>
 
-    <!-- Side Menu -->
-    <div id="sideMenu" class="menu-slide fixed top-0 left-0 w-64 h-full glass-effect z-40 p-4">
-        <div class="mt-16">
-            <h2 class="text-lg font-bold text-purple-700 mb-4 text-center">
-                <i class="fas fa-calendar-alt text-pink-500"></i> 攻略メニュー
-            </h2>
-            <nav class="space-y-2">
-                <button onclick="showPage('home')" class="menu-item w-full text-left p-3 rounded-lg hover:bg-white hover:bg-opacity-30 transition-all text-purple-700 font-medium">
-                    <i class="fas fa-home text-pink-500 mr-2"></i> ホーム
-                </button>
-                <button onclick="showPage('guild-intro')" class="menu-item w-full text-left p-3 rounded-lg hover:bg-white hover:bg-opacity-30 transition-all text-purple-700 font-medium">
-                    <i class="fas fa-shield-alt text-purple-500 mr-2"></i> ギルド軍拡ってなに？
-                </button>
-                <button onclick="showPage('monday')" class="menu-item w-full text-left p-3 rounded-lg hover:bg-white hover:bg-opacity-30 transition-all text-purple-700 font-medium">
-                    <i class="fas fa-calendar-day text-blue-500 mr-2"></i> 月曜日
-                </button>
-                <button onclick="showPage('tuesday')" class="menu-item w-full text-left p-3 rounded-lg hover:bg-white hover:bg-opacity-30 transition-all text-purple-700 font-medium">
-                    <i class="fas fa-calendar-day text-green-500 mr-2"></i> 火曜日
-                </button>
-                <button onclick="showPage('wednesday')" class="menu-item w-full text-left p-3 rounded-lg hover:bg-white hover:bg-opacity-30 transition-all text-purple-700 font-medium">
-                    <i class="fas fa-calendar-day text-yellow-500 mr-2"></i> 水曜日
-                </button>
-                <button onclick="showPage('thursday')" class="menu-item w-full text-left p-3 rounded-lg hover:bg-white hover:bg-opacity-30 transition-all text-purple-700 font-medium">
-                    <i class="fas fa-calendar-day text-orange-500 mr-2"></i> 木曜日
-                </button>
-                <button onclick="showPage('friday')" class="menu-item w-full text-left p-3 rounded-lg hover:bg-white hover:bg-opacity-30 transition-all text-purple-700 font-medium">
-                    <i class="fas fa-calendar-day text-red-500 mr-2"></i> 金曜日
-                </button>
-                <button onclick="showPage('saturday')" class="menu-item w-full text-left p-3 rounded-lg hover:bg-white hover:bg-opacity-30 transition-all text-purple-700 font-medium">
-                    <i class="fas fa-calendar-day text-purple-500 mr-2"></i> 土曜日
-                </button>
-            </nav>
+    <!-- Menu Overlay -->
+    <div id="menuOverlay" class="fixed inset-0 z-40 menu-overlay hidden">
+        <div id="menuSidebar" class="menu-sidebar w-80 h-full shadow-2xl transform -translate-x-full transition-transform duration-300">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-8">
+                    <h2 class="text-white text-xl font-bold">📱 メニュー</h2>
+                    <button id="menuClose" class="text-white text-2xl hover:text-pink-200 transition-colors">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <nav class="space-y-3">
+                    <a href="#" class="menu-item block text-white p-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all" data-page="home">
+                        🏠 ホーム
+                    </a>
+                    <a href="#" class="menu-item block text-white p-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all" data-page="guild-expansion">
+                        🌸 ギルド軍拡ってなに？
+                    </a>
+                    <a href="#" class="menu-item block text-white p-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all" data-page="monday">
+                        📅 月曜日の攻略
+                    </a>
+                    <a href="#" class="menu-item block text-white p-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all" data-page="tuesday">
+                        🔷 火曜日の攻略
+                    </a>
+                    <a href="#" class="menu-item block text-white p-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all" data-page="wednesday">
+                        💎 水曜日の攻略
+                    </a>
+                    <a href="#" class="menu-item block text-white p-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all" data-page="thursday">
+                        📚 木曜日の攻略
+                    </a>
+                    <a href="#" class="menu-item block text-white p-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all" data-page="friday">
+                        🎁 金曜日の攻略
+                    </a>
+                    <a href="#" class="menu-item block text-white p-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all" data-page="saturday">
+                        📦 土曜日の攻略
+                    </a>
+                </nav>
+            </div>
         </div>
     </div>
 
-    <!-- Menu Overlay -->
-    <div id="menuOverlay" class="fixed inset-0 bg-black bg-opacity-30 z-30 hidden" onclick="closeMenu()"></div>
-
     <!-- Main Content -->
-    <main class="container mx-auto p-3 max-w-sm pb-6">
-        
+    <main class="container mx-auto px-4 pb-8">
         <!-- Home Page -->
-        <div id="home" class="page-content active">
-            <div class="text-center mb-6">
-                <div class="inline-block p-4 rounded-full glass-effect mb-3">
-                    <i class="fas fa-gamepad text-3xl text-pink-500"></i>
-                </div>
-                <h2 class="text-xl font-bold text-purple-700 mb-2">YMK攻略ガイド</h2>
-                <p class="text-sm text-purple-600">日替わり攻略情報をチェック！</p>
+        <div id="homePage" class="page-content rounded-2xl shadow-xl p-6 mb-6">
+            <div class="text-center mb-8">
+                <div class="text-4xl mb-4">😊</div>
+                <h2 class="text-2xl font-bold title-gradient mb-2">YMK攻略ガイド</h2>
+                <p class="text-purple-600">日替わり攻略情報をチェック！</p>
             </div>
-
-            <div class="grid gap-3">
-                <div class="day-card rounded-xl p-4 text-center" onclick="showPage('guild-intro')">
-                    <i class="fas fa-shield-alt text-purple-500 text-xl mb-2"></i>
-                    <h3 class="font-bold text-purple-700 text-sm">ギルド軍拡ってなに？</h3>
-                    <p class="text-xs text-purple-600 mt-1">基本ガイド</p>
+            
+            <div class="grid gap-4">
+                <div class="gradient-card rounded-xl p-4 text-center cursor-pointer hover:shadow-lg transition-all" onclick="showPage('guild-expansion')">
+                    <div class="text-2xl mb-2">🛡️</div>
+                    <h3 class="font-bold text-purple-700 mb-1">ギルド軍拡ってなに？</h3>
+                    <p class="text-sm text-purple-500">基本ガイド</p>
                 </div>
                 
-                <div class="day-card rounded-xl p-4 text-center" onclick="showPage('monday')">
-                    <i class="fas fa-calendar-day text-blue-500 text-xl mb-2"></i>
-                    <h3 class="font-bold text-purple-700 text-sm">月曜日の攻略</h3>
-                    <p class="text-xs text-purple-600 mt-1">週の始まりの戦略</p>
+                <div class="gradient-card rounded-xl p-4 text-center cursor-pointer hover:shadow-lg transition-all" onclick="showPage('monday')">
+                    <div class="text-2xl mb-2">📅</div>
+                    <h3 class="font-bold text-purple-700 mb-1">月曜日の攻略</h3>
+                    <p class="text-sm text-purple-500">週の始まりの戦略</p>
                 </div>
                 
-                <div class="day-card rounded-xl p-4 text-center" onclick="showPage('tuesday')">
-                    <i class="fas fa-calendar-day text-green-500 text-xl mb-2"></i>
-                    <h3 class="font-bold text-purple-700 text-sm">火曜日の攻略</h3>
-                    <p class="text-xs text-purple-600 mt-1">調子を上げる日</p>
+                <div class="gradient-card rounded-xl p-4 text-center cursor-pointer hover:shadow-lg transition-all" onclick="showPage('tuesday')">
+                    <div class="text-2xl mb-2">🔷</div>
+                    <h3 class="font-bold text-purple-700 mb-1">火曜日の攻略</h3>
+                    <p class="text-sm text-purple-500">射手を上げる日</p>
                 </div>
                 
-                <div class="day-card rounded-xl p-4 text-center" onclick="showPage('wednesday')">
-                    <i class="fas fa-calendar-day text-yellow-500 text-xl mb-2"></i>
-                    <h3 class="font-bold text-purple-700 text-sm">水曜日の攻略</h3>
-                    <p class="text-xs text-purple-600 mt-1">週の真ん中を乗り切る</p>
+                <div class="gradient-card rounded-xl p-4 text-center cursor-pointer hover:shadow-lg transition-all" onclick="showPage('wednesday')">
+                    <div class="text-2xl mb-2">💎</div>
+                    <h3 class="font-bold text-purple-700 mb-1">水曜日の攻略</h3>
+                    <p class="text-sm text-purple-500">運の豆な中を乗り切る</p>
                 </div>
                 
-                <div class="day-card rounded-xl p-4 text-center" onclick="showPage('thursday')">
-                    <i class="fas fa-calendar-day text-orange-500 text-xl mb-2"></i>
-                    <h3 class="font-bold text-purple-700 text-sm">木曜日の攻略</h3>
-                    <p class="text-xs text-purple-600 mt-1">週末への準備</p>
+                <div class="gradient-card rounded-xl p-4 text-center cursor-pointer hover:shadow-lg transition-all" onclick="showPage('thursday')">
+                    <div class="text-2xl mb-2">📚</div>
+                    <h3 class="font-bold text-purple-700 mb-1">木曜日の攻略</h3>
+                    <p class="text-sm text-purple-500">週末への準備</p>
                 </div>
                 
-                <div class="day-card rounded-xl p-4 text-center" onclick="showPage('friday')">
-                    <i class="fas fa-calendar-day text-red-500 text-xl mb-2"></i>
-                    <h3 class="font-bold text-purple-700 text-sm">金曜日の攻略</h3>
-                    <p class="text-xs text-purple-600 mt-1">週の締めくくり</p>
+                <div class="gradient-card rounded-xl p-4 text-center cursor-pointer hover:shadow-lg transition-all" onclick="showPage('friday')">
+                    <div class="text-2xl mb-2">🎁</div>
+                    <h3 class="font-bold text-purple-700 mb-1">金曜日の攻略</h3>
+                    <p class="text-sm text-purple-500">週の締めくくり</p>
                 </div>
                 
-                <div class="day-card rounded-xl p-4 text-center" onclick="showPage('saturday')">
-                    <i class="fas fa-calendar-day text-purple-500 text-xl mb-2"></i>
-                    <h3 class="font-bold text-purple-700 text-sm">土曜日の攻略</h3>
-                    <p class="text-xs text-purple-600 mt-1">週末を楽しもう</p>
+                <div class="gradient-card rounded-xl p-4 text-center cursor-pointer hover:shadow-lg transition-all" onclick="showPage('saturday')">
+                    <div class="text-2xl mb-2">📦</div>
+                    <h3 class="font-bold text-purple-700 mb-1">土曜日の攻略</h3>
+                    <p class="text-sm text-purple-500">週末を楽しもう</p>
                 </div>
             </div>
-
-            <div class="mt-6 p-4 glass-effect rounded-xl text-center">
-                <p class="text-xs text-purple-600">
-                    <i class="fas fa-heart text-pink-500"></i>
-                    毎日コツコツ攻略していこう！
-                    <i class="fas fa-heart text-pink-500"></i>
-                </p>
+            
+            <div class="text-center mt-8">
+                <p class="text-pink-500 font-bold">💖 毎日コツコツ攻略していこう！💖</p>
             </div>
         </div>
 
-        <!-- Guild Introduction Page -->
-        <div id="guild-intro" class="page-content">
+        <!-- Guild Expansion Page -->
+        <div id="guildExpansionPage" class="page-content rounded-2xl shadow-xl p-6 mb-6 hidden">
             <div class="text-center mb-6">
-                <div class="inline-block p-4 rounded-full glass-effect mb-3">
-                    <i class="fas fa-shield-alt text-3xl text-purple-500 sparkle"></i>
-                </div>
-                <h2 class="text-xl font-bold text-purple-700 mb-2">ギルド軍拡ってなに？</h2>
-                <p class="text-sm text-purple-600">基本ガイドで理解を深めよう！</p>
+                <div class="text-4xl mb-4">🛡️</div>
+                <h2 class="text-2xl font-bold title-gradient">ギルド軍拡ってなに？</h2>
             </div>
-
-            <div class="space-y-4">
+            
+            <div class="space-y-6">
                 <!-- What is Guild Expansion -->
-                <div class="intro-card rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-3 flex items-center">
-                        <i class="fas fa-crown text-yellow-500 mr-2"></i>
-                        ギルド軍拡とは？
+                <div class="content-card rounded-xl p-6">
+                    <h3 class="text-xl font-bold text-pink-600 mb-4 flex items-center">
+                        🌸 ギルド軍拡ってなぁに？
                     </h3>
-                    <div class="text-xs text-purple-600 space-y-2">
-                        <p>ギルド軍拡は、あなたの日常生活を戦略的に改善していく新しいアプローチです！</p>
-                        <p>毎日の小さな行動を「軍事作戦」のように計画的に進めることで、確実に目標を達成していきます。</p>
+                    <div class="space-y-3 text-gray-700">
+                        <p>ギルド軍拡は<span class="font-bold text-purple-600">二週間ごと</span>に繰り返している他サーバーとの対戦イベントです(*'∀')。</p>
+                        <p><span class="font-bold text-pink-500">GvG（Guild vs Guild）</span>、<span class="font-bold text-blue-500">Arms race</span>ともいわれます。</p>
+                        <div class="bg-pink-50 p-4 rounded-lg border-l-4 border-pink-400">
+                            <p class="font-semibold text-pink-700">📅 スケジュール</p>
+                            <p>• <span class="font-bold">月曜日から金曜日</span>までの準備段階</p>
+                            <p>• <span class="font-bold">土曜日</span>の戦争段階</p>
+                        </div>
+                        <p>準備段階に勝利したギルドが土曜日に相手サーバーに攻撃ができる。<span class="font-bold text-red-500">長い戦い</span>です！</p>
                     </div>
                 </div>
 
-                <!-- Why is it attractive -->
-                <div class="intro-card rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-3 flex items-center">
-                        <i class="fas fa-gem text-pink-500 mr-2"></i>
-                        なぜ魅力的なの？
+                <!-- Importance -->
+                <div class="content-card rounded-xl p-6">
+                    <h3 class="text-xl font-bold text-pink-600 mb-4 flex items-center">
+                        🌈 ギルド軍拡の重要性
                     </h3>
-                    <div class="text-xs text-purple-600 space-y-2">
-                        <div class="flex items-start">
-                            <span class="text-green-500 mr-2">⚡</span>
-                            <span>ゲーム感覚で楽しく続けられる</span>
+                    <div class="space-y-4">
+                        <div class="importance-item p-4 rounded-lg">
+                            <h4 class="font-bold text-purple-700 mb-2">① 🛡️ 守りの力</h4>
+                            <p class="text-gray-700">負けた場合、対戦ギルドが越境してきて攻撃するが、<span class="font-bold text-green-600">勝てば対戦相手は越境してこない</span>ため、攻撃されることがない。</p>
                         </div>
-                        <div class="flex items-start">
-                            <span class="text-blue-500 mr-2">📈</span>
-                            <span>確実に成果が見えるシステム</span>
+                        
+                        <div class="importance-item p-4 rounded-lg">
+                            <h4 class="font-bold text-purple-700 mb-2">② 🏆 ギルドの価値UP</h4>
+                            <p class="text-gray-700">サーバー内のギルド間では「<span class="font-bold text-blue-600">対戦相手の越境を防ぐ</span>」ことがギルドの価値の指標になりつつある</p>
+                            <div class="mt-2 p-2 bg-yellow-50 rounded border-l-4 border-yellow-400">
+                                <p class="text-sm text-yellow-700">= 価値あるギルドとして<span class="font-bold">遺跡の獲得</span>などの交渉も有利になる可能性あり（嬉しい）</p>
+                            </div>
                         </div>
-                        <div class="flex items-start">
-                            <span class="text-purple-500 mr-2">🎯</span>
-                            <span>日々の行動が明確になる</span>
-                        </div>
-                        <div class="flex items-start">
-                            <span class="text-red-500 mr-2">💪</span>
-                            <span>自分の成長を実感できる</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- How to start -->
-                <div class="intro-card rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-3 flex items-center">
-                        <i class="fas fa-rocket text-orange-500 mr-2"></i>
-                        始め方は簡単！
-                    </h3>
-                    <div class="text-xs text-purple-600 space-y-2">
-                        <div class="flex items-center">
-                            <span class="bg-blue-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 font-bold">1</span>
-                            <span>月曜日から土曜日の攻略ページを確認</span>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 font-bold">2</span>
-                            <span>その日の目標を設定する</span>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="bg-purple-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 font-bold">3</span>
-                            <span>攻略のコツを実践してみる</span>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="bg-pink-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 font-bold">4</span>
-                            <span>進捗をチェックして達成感を味わう</span>
+                        
+                        <div class="importance-item p-4 rounded-lg">
+                            <h4 class="font-bold text-purple-700 mb-2">③ 🎁 豪華報酬GET</h4>
+                            <p class="text-gray-700">日々のミッション(<span class="font-bold text-orange-600">宝箱を開ける</span>)をこなすと手に入りにくい<span class="font-bold text-purple-600">URの欠片</span>、<span class="font-bold text-pink-600">専用装備万能欠片</span>が手に入る（ハッピー）</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Important points -->
-                <div class="intro-card rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-3 flex items-center">
-                        <i class="fas fa-exclamation-triangle text-yellow-500 mr-2"></i>
-                        大切なポイント
+                <!-- Summary -->
+                <div class="content-card rounded-xl p-6">
+                    <h3 class="text-xl font-bold text-pink-600 mb-4 flex items-center">
+                        ✨ まとめ
                     </h3>
-                    <div class="text-xs text-purple-600 space-y-2">
-                        <p><strong>完璧を目指さない:</strong> 小さな進歩を積み重ねることが大切です</p>
-                        <p><strong>楽しく続ける:</strong> 辛くなったら休憩して、また始めればOK！</p>
-                        <p><strong>自分のペース:</strong> 他人と比較せず、自分の成長に集中しましょう</p>
+                    <div class="space-y-3 text-gray-700">
+                        <p>以上を踏まえて、<span class="font-bold text-purple-600">ギルド軍拡でポイントを稼ぐ</span>ことは<span class="font-bold text-pink-500">個人の勝利</span>、引いては<span class="font-bold text-blue-500">ギルドのため</span>になります👊</p>
+                        
+                        <div class="bg-gradient-to-r from-pink-50 to-purple-50 p-4 rounded-lg">
+                            <p class="font-semibold text-purple-700">では、ギルド軍拡のミッションを<span class="text-pink-600">出来るだけ楽にこなしつつ</span>、ポイントを稼ぐにはどうしたらいいのか。</p>
+                        </div>
+                        
+                        <p>みんなの意見を聞きながら、まとめました！！</p>
+                        <p class="text-center text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500">
+                            これであなたも軍拡マスター✨✨✨
+                        </p>
                     </div>
                 </div>
 
-                <!-- Call to action -->
-                <div class="glass-effect rounded-xl p-4 text-center">
-                    <h3 class="font-bold text-purple-700 text-sm mb-2">
-                        <i class="fas fa-star text-yellow-500 sparkle"></i>
-                        さあ、ギルド軍拡を始めよう！
-                        <i class="fas fa-star text-yellow-500 sparkle"></i>
-                    </h3>
-                    <p class="text-xs text-purple-600 mb-3">今日から新しい自分への第一歩を踏み出しませんか？</p>
-                    <button onclick="showPage('monday')" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-lg text-xs font-bold hover:from-purple-600 hover:to-pink-600 transition-all">
-                        月曜日の攻略を見る <i class="fas fa-arrow-right ml-1"></i>
-                    </button>
+                <!-- Credits -->
+                <div class="text-center mt-6">
+                    <p class="text-sm text-gray-500 font-medium">💖 powered by Mucho 💖</p>
                 </div>
             </div>
         </div>
 
         <!-- Monday Page -->
-        <div id="monday" class="page-content">
-            <div class="text-center mb-4">
-                <div class="inline-block p-3 rounded-full glass-effect mb-2">
-                    <i class="fas fa-calendar-day text-2xl text-blue-500"></i>
-                </div>
-                <h2 class="text-lg font-bold text-purple-700">月曜日の攻略</h2>
-                <p class="text-xs text-purple-600">週の始まりを成功させよう！</p>
+        <div id="mondayPage" class="page-content rounded-2xl shadow-xl p-6 mb-6 hidden">
+            <div class="text-center mb-6">
+                <div class="text-4xl mb-4">📅</div>
+                <h2 class="text-2xl font-bold title-gradient">月曜日の攻略</h2>
+                <p class="text-purple-600">週の始まりの戦略</p>
             </div>
-
-            <div class="space-y-3">
-                <div class="glass-effect rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-2">
-                        <i class="fas fa-target text-pink-500 mr-1"></i> 今日の目標
-                    </h3>
-                    <textarea class="w-full p-2 rounded-lg border-0 bg-white bg-opacity-50 text-xs resize-none" rows="2" placeholder="月曜日の目標を書こう..."></textarea>
-                </div>
-
-                <div class="glass-effect rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-2">
-                        <i class="fas fa-lightbulb text-yellow-500 mr-1"></i> 攻略のコツ
-                    </h3>
-                    <div class="space-y-1 text-xs text-purple-600">
-                        <p>• 週の計画を立てる</p>
-                        <p>• 前向きな気持ちで始める</p>
-                        <p>• 小さな成功を積み重ねる</p>
+            
+            <div class="content-card rounded-xl p-6">
+                <h3 class="text-lg font-bold text-pink-600 mb-4">💡 月曜日のポイント</h3>
+                <div class="space-y-4">
+                    <div class="p-4 bg-pink-50 rounded-lg">
+                        <p class="text-gray-700">月曜日は週の始まり！新しい軍拡イベントのスタートです✨</p>
                     </div>
-                </div>
-
-                <div class="glass-effect rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-2">
-                        <i class="fas fa-star text-pink-500 mr-1"></i> 重要ポイント
-                    </h3>
-                    <textarea class="w-full p-2 rounded-lg border-0 bg-white bg-opacity-50 text-xs resize-none" rows="3" placeholder="今日の重要なポイントをメモ..."></textarea>
-                </div>
-
-                <div class="glass-effect rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-2">
-                        <i class="fas fa-check-circle text-green-500 mr-1"></i> 進捗チェック
-                    </h3>
-                    <div class="space-y-2">
-                        <label class="flex items-center text-xs text-purple-600">
-                            <input type="checkbox" class="mr-2 rounded"> 朝の準備完了
-                        </label>
-                        <label class="flex items-center text-xs text-purple-600">
-                            <input type="checkbox" class="mr-2 rounded"> 目標設定完了
-                        </label>
-                        <label class="flex items-center text-xs text-purple-600">
-                            <input type="checkbox" class="mr-2 rounded"> 計画実行中
-                        </label>
+                    <div class="p-4 bg-purple-50 rounded-lg">
+                        <h4 class="font-bold text-purple-700 mb-2">📝 やることリスト</h4>
+                        <ul class="list-disc list-inside space-y-1 text-gray-700">
+                            <li>デイリーミッションの確認</li>
+                            <li>宝箱の開封</li>
+                            <li>ギルドメンバーとの連携確認</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Tuesday Page -->
-        <div id="tuesday" class="page-content">
-            <div class="text-center mb-4">
-                <div class="inline-block p-3 rounded-full glass-effect mb-2">
-                    <i class="fas fa-calendar-day text-2xl text-green-500"></i>
-                </div>
-                <h2 class="text-lg font-bold text-purple-700">火曜日の攻略</h2>
-                <p class="text-xs text-purple-600">調子を上げていこう！</p>
+        <div id="tuesdayPage" class="page-content rounded-2xl shadow-xl p-6 mb-6 hidden">
+            <div class="text-center mb-6">
+                <div class="text-4xl mb-4">🔷</div>
+                <h2 class="text-2xl font-bold title-gradient">火曜日の攻略</h2>
+                <p class="text-purple-600">射手を上げる日</p>
             </div>
-
-            <div class="space-y-3">
-                <div class="glass-effect rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-2">
-                        <i class="fas fa-target text-pink-500 mr-1"></i> 今日の目標
-                    </h3>
-                    <textarea class="w-full p-2 rounded-lg border-0 bg-white bg-opacity-50 text-xs resize-none" rows="2" placeholder="火曜日の目標を書こう..."></textarea>
-                </div>
-
-                <div class="glass-effect rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-2">
-                        <i class="fas fa-lightbulb text-yellow-500 mr-1"></i> 攻略のコツ
-                    </h3>
-                    <div class="space-y-1 text-xs text-purple-600">
-                        <p>• 昨日の振り返りをする</p>
-                        <p>• ペースを少し上げる</p>
-                        <p>• 新しいことにチャレンジ</p>
-                    </div>
-                </div>
-
-                <div class="glass-effect rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-2">
-                        <i class="fas fa-star text-pink-500 mr-1"></i> 重要ポイント
-                    </h3>
-                    <textarea class="w-full p-2 rounded-lg border-0 bg-white bg-opacity-50 text-xs resize-none" rows="3" placeholder="今日の重要なポイントをメモ..."></textarea>
-                </div>
-
-                <div class="glass-effect rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-2">
-                        <i class="fas fa-check-circle text-green-500 mr-1"></i> 進捗チェック
-                    </h3>
-                    <div class="space-y-2">
-                        <label class="flex items-center text-xs text-purple-600">
-                            <input type="checkbox" class="mr-2 rounded"> 昨日の振り返り完了
-                        </label>
-                        <label class="flex items-center text-xs text-purple-600">
-                            <input type="checkbox" class="mr-2 rounded"> 新しい取り組み開始
-                        </label>
-                        <label class="flex items-center text-xs text-purple-600">
-                            <input type="checkbox" class="mr-2 rounded"> 予定通り進行中
-                        </label>
+            
+            <div class="content-card rounded-xl p-6">
+                <h3 class="text-lg font-bold text-pink-600 mb-4">🏹 火曜日のポイント</h3>
+                <div class="space-y-4">
+                    <div class="p-4 bg-blue-50 rounded-lg">
+                        <p class="text-gray-700">火曜日は射手部隊の強化に集中しましょう！</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Wednesday Page -->
-        <div id="wednesday" class="page-content">
-            <div class="text-center mb-4">
-                <div class="inline-block p-3 rounded-full glass-effect mb-2">
-                    <i class="fas fa-calendar-day text-2xl text-yellow-500"></i>
-                </div>
-                <h2 class="text-lg font-bold text-purple-700">水曜日の攻略</h2>
-                <p class="text-xs text-purple-600">週の真ん中を乗り切ろう！</p>
+        <div id="wednesdayPage" class="page-content rounded-2xl shadow-xl p-6 mb-6 hidden">
+            <div class="text-center mb-6">
+                <div class="text-4xl mb-4">💎</div>
+                <h2 class="text-2xl font-bold title-gradient">水曜日の攻略</h2>
+                <p class="text-purple-600">運の豆な中を乗り切る</p>
             </div>
-
-            <div class="space-y-3">
-                <div class="glass-effect rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-2">
-                        <i class="fas fa-target text-pink-500 mr-1"></i> 今日の目標
-                    </h3>
-                    <textarea class="w-full p-2 rounded-lg border-0 bg-white bg-opacity-50 text-xs resize-none" rows="2" placeholder="水曜日の目標を書こう..."></textarea>
-                </div>
-
-                <div class="glass-effect rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-2">
-                        <i class="fas fa-lightbulb text-yellow-500 mr-1"></i> 攻略のコツ
-                    </h3>
-                    <div class="space-y-1 text-xs text-purple-600">
-                        <p>• 中間地点での見直し</p>
-                        <p>• エネルギーを維持する</p>
-                        <p>• 後半戦への準備</p>
-                    </div>
-                </div>
-
-                <div class="glass-effect rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-2">
-                        <i class="fas fa-star text-pink-500 mr-1"></i> 重要ポイント
-                    </h3>
-                    <textarea class="w-full p-2 rounded-lg border-0 bg-white bg-opacity-50 text-xs resize-none" rows="3" placeholder="今日の重要なポイントをメモ..."></textarea>
-                </div>
-
-                <div class="glass-effect rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-2">
-                        <i class="fas fa-check-circle text-green-500 mr-1"></i> 進捗チェック
-                    </h3>
-                    <div class="space-y-2">
-                        <label class="flex items-center text-xs text-purple-600">
-                            <input type="checkbox" class="mr-2 rounded"> 週の中間チェック完了
-                        </label>
-                        <label class="flex items-center text-xs text-purple-600">
-                            <input type="checkbox" class="mr-2 rounded"> モチベーション維持
-                        </label>
-                        <label class="flex items-center text-xs text-purple-600">
-                            <input type="checkbox" class="mr-2 rounded"> 後半戦の準備OK
-                        </label>
+            
+            <div class="content-card rounded-xl p-6">
+                <h3 class="text-lg font-bold text-pink-600 mb-4">💫 水曜日のポイント</h3>
+                <div class="space-y-4">
+                    <div class="p-4 bg-indigo-50 rounded-lg">
+                        <p class="text-gray-700">週の中盤、ここが踏ん張りどころです💪</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Thursday Page -->
-        <div id="thursday" class="page-content">
-            <div class="text-center mb-4">
-                <div class="inline-block p-3 rounded-full glass-effect mb-2">
-                    <i class="fas fa-calendar-day text-2xl text-orange-500"></i>
-                </div>
-                <h2 class="text-lg font-bold text-purple-700">木曜日の攻略</h2>
-                <p class="text-xs text-purple-600">週末への準備を始めよう！</p>
+        <div id="thursdayPage" class="page-content rounded-2xl shadow-xl p-6 mb-6 hidden">
+            <div class="text-center mb-6">
+                <div class="text-4xl mb-4">📚</div>
+                <h2 class="text-2xl font-bold title-gradient">木曜日の攻略</h2>
+                <p class="text-purple-600">週末への準備</p>
             </div>
-
-            <div class="space-y-3">
-                <div class="glass-effect rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-2">
-                        <i class="fas fa-target text-pink-500 mr-1"></i> 今日の目標
-                    </h3>
-                    <textarea class="w-full p-2 rounded-lg border-0 bg-white bg-opacity-50 text-xs resize-none" rows="2" placeholder="木曜日の目標を書こう..."></textarea>
-                </div>
-
-                <div class="glass-effect rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-2">
-                        <i class="fas fa-lightbulb text-yellow-500 mr-1"></i> 攻略のコツ
-                    </h3>
-                    <div class="space-y-1 text-xs text-purple-600">
-                        <p>• 週末への下準備</p>
-                        <p>• 残りタスクの整理</p>
-                        <p>• 集中力を高める</p>
-                    </div>
-                </div>
-
-                <div class="glass-effect rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-2">
-                        <i class="fas fa-star text-pink-500 mr-1"></i> 重要ポイント
-                    </h3>
-                    <textarea class="w-full p-2 rounded-lg border-0 bg-white bg-opacity-50 text-xs resize-none" rows="3" placeholder="今日の重要なポイントをメモ..."></textarea>
-                </div>
-
-                <div class="glass-effect rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-2">
-                        <i class="fas fa-check-circle text-green-500 mr-1"></i> 進捗チェック
-                    </h3>
-                    <div class="space-y-2">
-                        <label class="flex items-center text-xs text-purple-600">
-                            <input type="checkbox" class="mr-2 rounded"> 週末準備開始
-                        </label>
-                        <label class="flex items-center text-xs text-purple-600">
-                            <input type="checkbox" class="mr-2 rounded"> タスク整理完了
-                        </label>
-                        <label class="flex items-center text-xs text-purple-600">
-                            <input type="checkbox" class="mr-2 rounded"> 集中モード継続中
-                        </label>
+            
+            <div class="content-card rounded-xl p-6">
+                <h3 class="text-lg font-bold text-pink-600 mb-4">📖 木曜日のポイント</h3>
+                <div class="space-y-4">
+                    <div class="p-4 bg-green-50 rounded-lg">
+                        <p class="text-gray-700">週末の戦争に向けて最終準備を進めましょう！</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Friday Page -->
-        <div id="friday" class="page-content">
-            <div class="text-center mb-4">
-                <div class="inline-block p-3 rounded-full glass-effect mb-2">
-                    <i class="fas fa-calendar-day text-2xl text-red-500"></i>
-                </div>
-                <h2 class="text-lg font-bold text-purple-700">金曜日の攻略</h2>
-                <p class="text-xs text-purple-600">週の締めくくりを完璧に！</p>
+        <div id="fridayPage" class="page-content rounded-2xl shadow-xl p-6 mb-6 hidden">
+            <div class="text-center mb-6">
+                <div class="text-4xl mb-4">🎁</div>
+                <h2 class="text-2xl font-bold title-gradient">金曜日の攻略</h2>
+                <p class="text-purple-600">週の締めくくり</p>
             </div>
-
-            <div class="space-y-3">
-                <div class="glass-effect rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-2">
-                        <i class="fas fa-target text-pink-500 mr-1"></i> 今日の目標
-                    </h3>
-                    <textarea class="w-full p-2 rounded-lg border-0 bg-white bg-opacity-50 text-xs resize-none" rows="2" placeholder="金曜日の目標を書こう..."></textarea>
-                </div>
-
-                <div class="glass-effect rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-2">
-                        <i class="fas fa-lightbulb text-yellow-500 mr-1"></i> 攻略のコツ
-                    </h3>
-                    <div class="space-y-1 text-xs text-purple-600">
-                        <p>• 週の総仕上げ</p>
-                        <p>• 未完了タスクの処理</p>
-                        <p>• 来週への引き継ぎ</p>
-                    </div>
-                </div>
-
-                <div class="glass-effect rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-2">
-                        <i class="fas fa-star text-pink-500 mr-1"></i> 重要ポイント
-                    </h3>
-                    <textarea class="w-full p-2 rounded-lg border-0 bg-white bg-opacity-50 text-xs resize-none" rows="3" placeholder="今日の重要なポイントをメモ..."></textarea>
-                </div>
-
-                <div class="glass-effect rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-2">
-                        <i class="fas fa-check-circle text-green-500 mr-1"></i> 進捗チェック
-                    </h3>
-                    <div class="space-y-2">
-                        <label class="flex items-center text-xs text-purple-600">
-                            <input type="checkbox" class="mr-2 rounded"> 週の総仕上げ完了
-                        </label>
-                        <label class="flex items-center text-xs text-purple-600">
-                            <input type="checkbox" class="mr-2 rounded"> 未完了タスク整理
-                        </label>
-                        <label class="flex items-center text-xs text-purple-600">
-                            <input type="checkbox" class="mr-2 rounded"> 来週の準備OK
-                        </label>
+            
+            <div class="content-card rounded-xl p-6">
+                <h3 class="text-lg font-bold text-pink-600 mb-4">🎉 金曜日のポイント</h3>
+                <div class="space-y-4">
+                    <div class="p-4 bg-yellow-50 rounded-lg">
+                        <p class="text-gray-700">準備段階の最終日！しっかりと仕上げましょう✨</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Saturday Page -->
-        <div id="saturday" class="page-content">
-            <div class="text-center mb-4">
-                <div class="inline-block p-3 rounded-full glass-effect mb-2">
-                    <i class="fas fa-calendar-day text-2xl text-purple-500"></i>
-                </div>
-                <h2 class="text-lg font-bold text-purple-700">土曜日の攻略</h2>
-                <p class="text-xs text-purple-600">週末を楽しもう！</p>
+        <div id="saturdayPage" class="page-content rounded-2xl shadow-xl p-6 mb-6 hidden">
+            <div class="text-center mb-6">
+                <div class="text-4xl mb-4">📦</div>
+                <h2 class="text-2xl font-bold title-gradient">土曜日の攻略</h2>
+                <p class="text-purple-600">週末を楽しもう</p>
             </div>
-
-            <div class="space-y-3">
-                <div class="glass-effect rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-2">
-                        <i class="fas fa-target text-pink-500 mr-1"></i> 今日の目標
-                    </h3>
-                    <textarea class="w-full p-2 rounded-lg border-0 bg-white bg-opacity-50 text-xs resize-none" rows="2" placeholder="土曜日の目標を書こう..."></textarea>
-                </div>
-
-                <div class="glass-effect rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-2">
-                        <i class="fas fa-lightbulb text-yellow-500 mr-1"></i> 攻略のコツ
-                    </h3>
-                    <div class="space-y-1 text-xs text-purple-600">
-                        <p>• リフレッシュタイム</p>
-                        <p>• 好きなことを楽しむ</p>
-                        <p>• 週の振り返りをする</p>
-                    </div>
-                </div>
-
-                <div class="glass-effect rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-2">
-                        <i class="fas fa-star text-pink-500 mr-1"></i> 重要ポイント
-                    </h3>
-                    <textarea class="w-full p-2 rounded-lg border-0 bg-white bg-opacity-50 text-xs resize-none" rows="3" placeholder="今日の重要なポイントをメモ..."></textarea>
-                </div>
-
-                <div class="glass-effect rounded-xl p-4">
-                    <h3 class="font-bold text-purple-700 text-sm mb-2">
-                        <i class="fas fa-check-circle text-green-500 mr-1"></i> 進捗チェック
-                    </h3>
-                    <div class="space-y-2">
-                        <label class="flex items-center text-xs text-purple-600">
-                            <input type="checkbox" class="mr-2 rounded"> リフレッシュ完了
-                        </label>
-                        <label class="flex items-center text-xs text-purple-600">
-                            <input type="checkbox" class="mr-2 rounded"> 楽しい時間を過ごした
-                        </label>
-                        <label class="flex items-center text-xs text-purple-600">
-                            <input type="checkbox" class="mr-2 rounded"> 週の振り返り完了
-                        </label>
+            
+            <div class="content-card rounded-xl p-6">
+                <h3 class="text-lg font-bold text-pink-600 mb-4">⚔️ 土曜日のポイント</h3>
+                <div class="space-y-4">
+                    <div class="p-4 bg-red-50 rounded-lg">
+                        <p class="text-gray-700">いよいよ戦争段階！今までの準備の成果を発揮しましょう🔥</p>
                     </div>
                 </div>
             </div>
@@ -634,73 +363,89 @@
 
     <script>
         // Menu functionality
-        const hamburger = document.getElementById('hamburger');
-        const sideMenu = document.getElementById('sideMenu');
+        const menuToggle = document.getElementById('menuToggle');
         const menuOverlay = document.getElementById('menuOverlay');
+        const menuSidebar = document.getElementById('menuSidebar');
+        const menuClose = document.getElementById('menuClose');
+        const menuItems = document.querySelectorAll('.menu-item');
 
-        function toggleMenu() {
-            hamburger.classList.toggle('hamburger-active');
-            sideMenu.classList.toggle('active');
-            menuOverlay.classList.toggle('hidden');
+        function openMenu() {
+            menuOverlay.classList.remove('hidden');
+            setTimeout(() => {
+                menuSidebar.classList.remove('-translate-x-full');
+            }, 10);
         }
 
         function closeMenu() {
-            hamburger.classList.remove('hamburger-active');
-            sideMenu.classList.remove('active');
-            menuOverlay.classList.add('hidden');
+            menuSidebar.classList.add('-translate-x-full');
+            setTimeout(() => {
+                menuOverlay.classList.add('hidden');
+            }, 300);
         }
 
-        hamburger.addEventListener('click', toggleMenu);
+        menuToggle.addEventListener('click', openMenu);
+        menuClose.addEventListener('click', closeMenu);
+        menuOverlay.addEventListener('click', (e) => {
+            if (e.target === menuOverlay) {
+                closeMenu();
+            }
+        });
 
         // Page navigation
         function showPage(pageId) {
             // Hide all pages
-            const pages = document.querySelectorAll('.page-content');
-            pages.forEach(page => page.classList.remove('active'));
-            
+            const pages = document.querySelectorAll('[id$="Page"]');
+            pages.forEach(page => page.classList.add('hidden'));
+
             // Show selected page
-            document.getElementById(pageId).classList.add('active');
-            
-            // Close menu
+            let targetPage;
+            switch(pageId) {
+                case 'home':
+                    targetPage = document.getElementById('homePage');
+                    break;
+                case 'guild-expansion':
+                    targetPage = document.getElementById('guildExpansionPage');
+                    break;
+                case 'monday':
+                    targetPage = document.getElementById('mondayPage');
+                    break;
+                case 'tuesday':
+                    targetPage = document.getElementById('tuesdayPage');
+                    break;
+                case 'wednesday':
+                    targetPage = document.getElementById('wednesdayPage');
+                    break;
+                case 'thursday':
+                    targetPage = document.getElementById('thursdayPage');
+                    break;
+                case 'friday':
+                    targetPage = document.getElementById('fridayPage');
+                    break;
+                case 'saturday':
+                    targetPage = document.getElementById('saturdayPage');
+                    break;
+                default:
+                    targetPage = document.getElementById('homePage');
+            }
+
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+            }
+
             closeMenu();
         }
 
-        // Save data to localStorage
-        function saveData() {
-            const textareas = document.querySelectorAll('textarea');
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            
-            textareas.forEach((textarea, index) => {
-                localStorage.setItem(`textarea-${index}`, textarea.value);
+        // Menu item click handlers
+        menuItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageId = item.getAttribute('data-page');
+                showPage(pageId);
             });
-            
-            checkboxes.forEach((checkbox, index) => {
-                localStorage.setItem(`checkbox-${index}`, checkbox.checked);
-            });
-        }
+        });
 
-        // Load data from localStorage
-        function loadData() {
-            const textareas = document.querySelectorAll('textarea');
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            
-            textareas.forEach((textarea, index) => {
-                const saved = localStorage.getItem(`textarea-${index}`);
-                if (saved) textarea.value = saved;
-            });
-            
-            checkboxes.forEach((checkbox, index) => {
-                const saved = localStorage.getItem(`checkbox-${index}`);
-                if (saved === 'true') checkbox.checked = true;
-            });
-        }
-
-        // Auto-save functionality
-        document.addEventListener('input', saveData);
-        document.addEventListener('change', saveData);
-
-        // Load data on page load
-        window.addEventListener('load', loadData);
+        // Initialize - show home page
+        showPage('home');
     </script>
 </body>
 </html>
