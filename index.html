@@ -52,6 +52,17 @@
         .page-content.active {
             display: block;
         }
+        .sparkle {
+            animation: sparkle 2s infinite;
+        }
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+        .intro-card {
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.4) 0%, rgba(221, 160, 221, 0.4) 100%);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
         @media (max-width: 430px) {
             .container {
                 padding: 0 12px;
@@ -93,6 +104,9 @@
                 <button onclick="showPage('home')" class="menu-item w-full text-left p-3 rounded-lg hover:bg-white hover:bg-opacity-30 transition-all text-purple-700 font-medium">
                     <i class="fas fa-home text-pink-500 mr-2"></i> ホーム
                 </button>
+                <button onclick="showPage('guild-intro')" class="menu-item w-full text-left p-3 rounded-lg hover:bg-white hover:bg-opacity-30 transition-all text-purple-700 font-medium">
+                    <i class="fas fa-shield-alt text-purple-500 mr-2"></i> ギルド軍拡ってなに？
+                </button>
                 <button onclick="showPage('monday')" class="menu-item w-full text-left p-3 rounded-lg hover:bg-white hover:bg-opacity-30 transition-all text-purple-700 font-medium">
                     <i class="fas fa-calendar-day text-blue-500 mr-2"></i> 月曜日
                 </button>
@@ -132,6 +146,12 @@
             </div>
 
             <div class="grid gap-3">
+                <div class="day-card rounded-xl p-4 text-center" onclick="showPage('guild-intro')">
+                    <i class="fas fa-shield-alt text-purple-500 text-xl mb-2"></i>
+                    <h3 class="font-bold text-purple-700 text-sm">ギルド軍拡ってなに？</h3>
+                    <p class="text-xs text-purple-600 mt-1">基本ガイド</p>
+                </div>
+                
                 <div class="day-card rounded-xl p-4 text-center" onclick="showPage('monday')">
                     <i class="fas fa-calendar-day text-blue-500 text-xl mb-2"></i>
                     <h3 class="font-bold text-purple-700 text-sm">月曜日の攻略</h3>
@@ -175,6 +195,109 @@
                     毎日コツコツ攻略していこう！
                     <i class="fas fa-heart text-pink-500"></i>
                 </p>
+            </div>
+        </div>
+
+        <!-- Guild Introduction Page -->
+        <div id="guild-intro" class="page-content">
+            <div class="text-center mb-6">
+                <div class="inline-block p-4 rounded-full glass-effect mb-3">
+                    <i class="fas fa-shield-alt text-3xl text-purple-500 sparkle"></i>
+                </div>
+                <h2 class="text-xl font-bold text-purple-700 mb-2">ギルド軍拡ってなに？</h2>
+                <p class="text-sm text-purple-600">基本ガイドで理解を深めよう！</p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- What is Guild Expansion -->
+                <div class="intro-card rounded-xl p-4">
+                    <h3 class="font-bold text-purple-700 text-sm mb-3 flex items-center">
+                        <i class="fas fa-crown text-yellow-500 mr-2"></i>
+                        ギルド軍拡とは？
+                    </h3>
+                    <div class="text-xs text-purple-600 space-y-2">
+                        <p>ギルド軍拡は、あなたの日常生活を戦略的に改善していく新しいアプローチです！</p>
+                        <p>毎日の小さな行動を「軍事作戦」のように計画的に進めることで、確実に目標を達成していきます。</p>
+                    </div>
+                </div>
+
+                <!-- Why is it attractive -->
+                <div class="intro-card rounded-xl p-4">
+                    <h3 class="font-bold text-purple-700 text-sm mb-3 flex items-center">
+                        <i class="fas fa-gem text-pink-500 mr-2"></i>
+                        なぜ魅力的なの？
+                    </h3>
+                    <div class="text-xs text-purple-600 space-y-2">
+                        <div class="flex items-start">
+                            <span class="text-green-500 mr-2">⚡</span>
+                            <span>ゲーム感覚で楽しく続けられる</span>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-blue-500 mr-2">📈</span>
+                            <span>確実に成果が見えるシステム</span>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-purple-500 mr-2">🎯</span>
+                            <span>日々の行動が明確になる</span>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-red-500 mr-2">💪</span>
+                            <span>自分の成長を実感できる</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- How to start -->
+                <div class="intro-card rounded-xl p-4">
+                    <h3 class="font-bold text-purple-700 text-sm mb-3 flex items-center">
+                        <i class="fas fa-rocket text-orange-500 mr-2"></i>
+                        始め方は簡単！
+                    </h3>
+                    <div class="text-xs text-purple-600 space-y-2">
+                        <div class="flex items-center">
+                            <span class="bg-blue-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 font-bold">1</span>
+                            <span>月曜日から土曜日の攻略ページを確認</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 font-bold">2</span>
+                            <span>その日の目標を設定する</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="bg-purple-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 font-bold">3</span>
+                            <span>攻略のコツを実践してみる</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="bg-pink-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 font-bold">4</span>
+                            <span>進捗をチェックして達成感を味わう</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Important points -->
+                <div class="intro-card rounded-xl p-4">
+                    <h3 class="font-bold text-purple-700 text-sm mb-3 flex items-center">
+                        <i class="fas fa-exclamation-triangle text-yellow-500 mr-2"></i>
+                        大切なポイント
+                    </h3>
+                    <div class="text-xs text-purple-600 space-y-2">
+                        <p><strong>完璧を目指さない:</strong> 小さな進歩を積み重ねることが大切です</p>
+                        <p><strong>楽しく続ける:</strong> 辛くなったら休憩して、また始めればOK！</p>
+                        <p><strong>自分のペース:</strong> 他人と比較せず、自分の成長に集中しましょう</p>
+                    </div>
+                </div>
+
+                <!-- Call to action -->
+                <div class="glass-effect rounded-xl p-4 text-center">
+                    <h3 class="font-bold text-purple-700 text-sm mb-2">
+                        <i class="fas fa-star text-yellow-500 sparkle"></i>
+                        さあ、ギルド軍拡を始めよう！
+                        <i class="fas fa-star text-yellow-500 sparkle"></i>
+                    </h3>
+                    <p class="text-xs text-purple-600 mb-3">今日から新しい自分への第一歩を踏み出しませんか？</p>
+                    <button onclick="showPage('monday')" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-lg text-xs font-bold hover:from-purple-600 hover:to-pink-600 transition-all">
+                        月曜日の攻略を見る <i class="fas fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
             </div>
         </div>
 
