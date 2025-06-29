@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⭐ YMK攻略 ⭐</title>
+    <title>YMK攻略</title>
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,706 +13,874 @@
         }
 
         body {
-            font-family: 'Hiragino Sans', 'ヒラギノ角ゴシック', 'Yu Gothic', 'メイリオ', sans-serif;
-            background: linear-gradient(135deg, #ffeef8 0%, #f0e6ff 50%, #e6f3ff 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #f0e6ff 100%);
             min-height: 100vh;
+            color: #333;
             line-height: 1.6;
-            color: #5a4b7c;
-            overflow-x: hidden;
         }
 
         .container {
-            max-width: 100%;
+            max-width: 390px;
             margin: 0 auto;
             padding: 10px;
+            min-height: 100vh;
         }
 
-        @media (min-width: 768px) {
-            .container {
-                max-width: 600px;
-                padding: 20px;
-            }
-        }
-
-        /* Header */
         .header {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 10px 0;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 20px rgba(218, 165, 232, 0.3);
-        }
-
-        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 15px;
-            max-width: 600px;
-            margin: 0 auto;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(255, 182, 193, 0.3);
         }
 
-        .hamburger {
-            background: none;
-            border: none;
+        .menu-btn {
             font-size: 24px;
-            color: #8b7ab8;
+            color: #9b59b6;
+            border: none;
+            background: none;
             cursor: pointer;
             padding: 8px;
-            border-radius: 8px;
+            border-radius: 50%;
             transition: all 0.3s ease;
         }
 
-        .hamburger:hover {
-            background: rgba(139, 122, 184, 0.1);
+        .menu-btn:hover {
+            background: rgba(155, 89, 182, 0.1);
         }
 
-        .logo {
-            font-size: 18px;
+        .title {
+            font-size: 20px;
             font-weight: bold;
-            color: #8b7ab8;
-            text-decoration: none;
+            color: #9b59b6;
+            text-align: center;
+            flex-grow: 1;
         }
 
-        /* Side Menu */
-        .side-menu {
+        .lang-toggle {
+            display: flex;
+            gap: 5px;
+        }
+
+        .lang-btn {
+            padding: 5px 10px;
+            border: 2px solid #9b59b6;
+            background: white;
+            color: #9b59b6;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn.active {
+            background: #9b59b6;
+            color: white;
+        }
+
+        .lang-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .sidebar {
             position: fixed;
             top: 0;
-            left: -300px;
+            left: -100%;
             width: 280px;
             height: 100vh;
-            background: linear-gradient(180deg, #ffeef8 0%, #f0e6ff 100%);
+            background: linear-gradient(135deg, #ff99cc 0%, #cc99ff 100%);
+            z-index: 1000;
             transition: left 0.3s ease;
-            z-index: 1001;
-            padding: 80px 0 20px 0;
-            box-shadow: 2px 0 20px rgba(218, 165, 232, 0.3);
+            padding: 20px;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
         }
 
-        .side-menu.active {
+        .sidebar.active {
             left: 0;
         }
 
-        .menu-overlay {
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .sidebar-title {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 15px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(10px);
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.4);
+            transform: translateX(10px);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: white;
+            border: none;
+            background: none;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .overlay {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
+            width: 100%;
+            height: 100%;
             background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
-            z-index: 1000;
         }
 
-        .menu-overlay.active {
+        .overlay.active {
             opacity: 1;
             visibility: visible;
         }
 
-        .menu-item {
-            display: block;
-            padding: 15px 25px;
-            color: #8b7ab8;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 16px;
-            border-bottom: 1px solid rgba(139, 122, 184, 0.1);
-        }
-
-        .menu-item:hover, .menu-item.active {
-            background: rgba(255, 255, 255, 0.7);
-            color: #6b5b95;
-        }
-
-        /* Main Content */
-        .main-content {
-            margin-top: 70px;
-            padding: 20px 10px;
-        }
-
         .page {
             display: none;
+            animation: fadeIn 0.5s ease;
         }
 
         .page.active {
             display: block;
         }
 
-        .page-title {
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .welcome-section {
             text-align: center;
-            font-size: 24px;
-            color: #8b7ab8;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 30px rgba(255, 182, 193, 0.3);
+        }
+
+        .welcome-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .welcome-title {
+            font-size: 28px;
+            color: #9b59b6;
             margin-bottom: 10px;
             font-weight: bold;
         }
 
-        .page-subtitle {
-            text-align: center;
-            font-size: 14px;
-            color: #a888c7;
-            margin-bottom: 30px;
+        .welcome-subtitle {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 20px;
         }
 
-        /* Cards */
         .card {
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 20px;
             padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 8px 32px rgba(218, 165, 232, 0.3);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 30px rgba(255, 182, 193, 0.3);
+            border: 2px solid rgba(255, 182, 193, 0.2);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(155, 89, 182, 0.1);
+        }
+
+        .card-icon {
+            font-size: 24px;
+            margin-right: 15px;
+            color: #9b59b6;
         }
 
         .card-title {
             font-size: 18px;
             font-weight: bold;
-            color: #8b7ab8;
-            margin-bottom: 15px;
-            padding: 10px 15px;
-            background: linear-gradient(135deg, rgba(218, 165, 232, 0.2), rgba(139, 122, 184, 0.2));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            color: #9b59b6;
         }
 
         .card-content {
-            color: #6b5b95;
+            color: #555;
             line-height: 1.8;
         }
 
+        .card-content h3 {
+            color: #9b59b6;
+            margin: 15px 0 10px 0;
+            font-size: 16px;
+        }
+
         .card-content p {
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
-        .highlight-box {
-            background: linear-gradient(135deg, rgba(255, 238, 248, 0.8), rgba(240, 230, 255, 0.8));
-            border-left: 4px solid #daa5e8;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 0 12px 12px 0;
-        }
-
-        .importance-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .importance-list li {
-            background: rgba(255, 255, 255, 0.6);
+        .card-content ol {
+            margin-left: 20px;
             margin-bottom: 15px;
-            padding: 15px;
-            border-radius: 12px;
-            border-left: 4px solid #daa5e8;
         }
 
-        .importance-list li strong {
-            color: #8b7ab8;
-            display: block;
+        .card-content li {
             margin-bottom: 8px;
         }
 
-        .footer-text {
+        .highlight {
+            background: linear-gradient(135deg, #ff99cc, #cc99ff);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        .footer {
             text-align: center;
-            margin: 40px 0 20px 0;
-            color: #a888c7;
+            padding: 20px;
+            color: #9b59b6;
             font-size: 14px;
+            margin-top: 30px;
         }
 
         .powered-by {
-            text-align: center;
             margin-top: 20px;
-            font-size: 12px;
-            color: #c4a4d3;
-            font-style: italic;
-        }
-
-        /* Home page specific */
-        .intro-card {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
             text-align: center;
-            background: linear-gradient(135deg, rgba(255, 238, 248, 0.9), rgba(240, 230, 255, 0.9));
+            font-style: italic;
+            color: #9b59b6;
         }
 
-        .day-grid {
+        .day-cards {
             display: grid;
-            grid-template-columns: 1fr;
             gap: 15px;
             margin-top: 20px;
         }
 
-        @media (min-width: 480px) {
-            .day-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
         .day-card {
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
             padding: 20px;
             text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: 2px solid transparent;
+            box-shadow: 0 4px 20px rgba(255, 182, 193, 0.3);
+            transition: transform 0.3s ease;
+            border: 2px solid rgba(255, 182, 193, 0.2);
         }
 
         .day-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(218, 165, 232, 0.4);
-            border-color: rgba(218, 165, 232, 0.5);
         }
 
-        .day-card .icon {
+        .day-card-icon {
             font-size: 32px;
             margin-bottom: 10px;
-            display: block;
         }
 
-        .day-card .title {
+        .day-card-title {
             font-size: 16px;
             font-weight: bold;
-            color: #8b7ab8;
+            color: #9b59b6;
             margin-bottom: 5px;
         }
 
-        .day-card .subtitle {
+        .day-card-subtitle {
             font-size: 12px;
-            color: #a888c7;
+            color: #888;
         }
 
-        /* Responsive adjustments */
+        .strategy-section {
+            margin-bottom: 25px;
+        }
+
+        .strategy-title {
+            font-size: 20px;
+            color: #9b59b6;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .strategy-item {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(255, 182, 193, 0.2);
+            display: flex;
+            align-items: center;
+        }
+
+        .strategy-icon {
+            font-size: 20px;
+            margin-right: 15px;
+            color: #9b59b6;
+            width: 30px;
+            text-align: center;
+        }
+
+        .strategy-text {
+            flex: 1;
+            color: #555;
+        }
+
         @media (max-width: 480px) {
-            .main-content {
-                padding: 15px 8px;
+            .container {
+                max-width: 100%;
+                padding: 5px;
+            }
+            
+            .header {
+                padding: 10px 15px;
+                margin-bottom: 15px;
+            }
+            
+            .title {
+                font-size: 18px;
             }
             
             .card {
                 padding: 15px;
                 margin-bottom: 15px;
-                border-radius: 16px;
-            }
-            
-            .card-title {
-                font-size: 16px;
-                padding: 8px 12px;
-            }
-            
-            .page-title {
-                font-size: 20px;
-            }
-            
-            .day-card {
-                padding: 15px;
-            }
-            
-            .day-card .icon {
-                font-size: 28px;
-            }
-            
-            .day-card .title {
-                font-size: 14px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="menu-overlay" onclick="closeMenu()"></div>
-    
-    <header class="header">
-        <div class="header-content">
-            <button class="hamburger" onclick="toggleMenu()">☰</button>
-            <a href="#" class="logo">⭐ YMK攻略 ⭐</a>
-            <div></div>
+    <div class="container">
+        <div class="header">
+            <button class="menu-btn" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="title">
+                ⭐ <span id="headerTitle">YMK攻略</span> ⭐
+            </div>
+            <div class="lang-toggle">
+                <button class="lang-btn active" onclick="setLanguage('ja')">日本語</button>
+                <button class="lang-btn" onclick="setLanguage('en')">English</button>
+            </div>
         </div>
-    </header>
 
-    <nav class="side-menu" id="sideMenu">
-        <a href="#" class="menu-item active" onclick="showPage('home')">🏠 ホーム</a>
-        <a href="#" class="menu-item" onclick="showPage('guild-expansion')">🛡️ ギルド軍拡ってなに？</a>
-        <a href="#" class="menu-item" onclick="showPage('monday')">📅 月曜日の攻略</a>
-        <a href="#" class="menu-item" onclick="showPage('tuesday')">🔷 火曜日の攻略</a>
-        <a href="#" class="menu-item" onclick="showPage('wednesday')">💎 水曜日の攻略</a>
-        <a href="#" class="menu-item" onclick="showPage('thursday')">📚 木曜日の攻略</a>
-        <a href="#" class="menu-item" onclick="showPage('friday')">🎁 金曜日の攻略</a>
-        <a href="#" class="menu-item" onclick="showPage('saturday')">📦 土曜日の攻略</a>
-    </nav>
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <button class="close-btn" onclick="toggleSidebar()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="sidebar-header">
+                <div class="sidebar-title" id="sidebarTitle">YMK攻略</div>
+                <div class="sidebar-subtitle" id="sidebarSubtitle">日替わり攻略情報をチェック！</div>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" onclick="showPage('home')" id="navHome">
+                        🏠 ホーム
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="showPage('about')" id="navAbout">
+                        🛡️ ギルド軍拡ってなに？
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="showPage('monday')" id="navMonday">
+                        📅 月曜日の攻略
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="showPage('tuesday')" id="navTuesday">
+                        🔷 火曜日の攻略
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="showPage('wednesday')" id="navWednesday">
+                        💎 水曜日の攻略
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="showPage('thursday')" id="navThursday">
+                        📚 木曜日の攻略
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="showPage('friday')" id="navFriday">
+                        🎁 金曜日の攻略
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="showPage('saturday')" id="navSaturday">
+                        📦 土曜日の攻略
+                    </a>
+                </li>
+            </ul>
+        </div>
 
-    <main class="main-content">
-        <div class="container">
-            <!-- Home Page -->
-            <div id="home" class="page active">
-                <div class="card intro-card">
-                    <div style="font-size: 32px; margin-bottom: 15px;">💖</div>
-                    <h1 class="page-title">YMK攻略ガイド</h1>
-                    <p class="page-subtitle">日替わり攻略情報をチェック！</p>
-                </div>
+        <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
-                <div class="day-grid">
-                    <div class="day-card" onclick="showPage('guild-expansion')">
-                        <span class="icon">🛡️</span>
-                        <div class="title">ギルド軍拡ってなに？</div>
-                        <div class="subtitle">基本ガイド</div>
-                    </div>
-                    <div class="day-card" onclick="showPage('monday')">
-                        <span class="icon">📅</span>
-                        <div class="title">月曜日の攻略</div>
-                        <div class="subtitle">週の始まりの戦略</div>
-                    </div>
-                    <div class="day-card" onclick="showPage('tuesday')">
-                        <span class="icon">🔷</span>
-                        <div class="title">火曜日の攻略</div>
-                        <div class="subtitle">調子を上げる日</div>
-                    </div>
-                    <div class="day-card" onclick="showPage('wednesday')">
-                        <span class="icon">💎</span>
-                        <div class="title">水曜日の攻略</div>
-                        <div class="subtitle">週の真ん中を乗り切る</div>
-                    </div>
-                    <div class="day-card" onclick="showPage('thursday')">
-                        <span class="icon">📚</span>
-                        <div class="title">木曜日の攻略</div>
-                        <div class="subtitle">週末への準備</div>
-                    </div>
-                    <div class="day-card" onclick="showPage('friday')">
-                        <span class="icon">🎁</span>
-                        <div class="title">金曜日の攻略</div>
-                        <div class="subtitle">週の締めくくり</div>
-                    </div>
-                    <div class="day-card" onclick="showPage('saturday')">
-                        <span class="icon">📦</span>
-                        <div class="title">土曜日の攻略</div>
-                        <div class="subtitle">週末を楽しもう</div>
-                    </div>
-                </div>
-
-                <div class="footer-text">💖 毎日コツコツ攻略していこう！💖</div>
+        <!-- Home Page -->
+        <div class="page active" id="home">
+            <div class="welcome-section">
+                <div class="welcome-icon">👑</div>
+                <div class="welcome-title" id="homeTitle">YMK攻略ガイド</div>
+                <div class="welcome-subtitle" id="homeSubtitle">日替わり攻略情報をチェック！</div>
             </div>
 
-            <!-- Guild Expansion Page -->
-            <div id="guild-expansion" class="page">
-                <h1 class="page-title">🛡️ ギルド軍拡ってなに？</h1>
-                <p class="page-subtitle">基本から重要性まで徹底解説✨</p>
-
-                <div class="card">
-                    <div class="card-title">
-                        🏰 ギルド軍拡ってなぁに？
-                    </div>
-                    <div class="card-content">
-                        <p>ギルド軍拡は二週間ごとに繰り返している他サーバーとの対戦イベントです(*'∀')。<strong>GvG（Guild vs Guild）</strong>、<strong>Arms race</strong>ともいわれます。</p>
-                        
-                        <div class="highlight-box">
-                            <p><strong>📅 スケジュール</strong></p>
-                            <p>🌙 <strong>月曜日から金曜日まで</strong>の準備段階<br>
-                            ⚔️ <strong>土曜日</strong>の戦争段階に分かれています</p>
-                        </div>
-                        
-                        <p>準備段階に勝利したギルドが土曜日に相手サーバーに攻撃ができる。長い戦いです！</p>
-                    </div>
+            <div class="day-cards">
+                <div class="day-card">
+                    <div class="day-card-icon">🛡️</div>
+                    <div class="day-card-title" id="homeAboutTitle">ギルド軍拡ってなに？</div>
+                    <div class="day-card-subtitle" id="homeAboutSubtitle">基本ガイド</div>
                 </div>
-
-                <div class="card">
-                    <div class="card-title">
-                        ⭐ ギルド軍拡の重要性
-                    </div>
-                    <div class="card-content">
-                        <ul class="importance-list">
-                            <li>
-                                <strong>🛡️ 守りの力</strong>
-                                負けた場合、対戦ギルドが越境してきて攻撃するが、勝てば対戦相手は越境してこないため、攻撃されることがない。
-                            </li>
-                            <li>
-                                <strong>🏆 ギルドの価値UP</strong>
-                                サーバー内のギルド間では「対戦相手の越境を防ぐ」ことがギルドの価値の指標になりつつある<br>
-                                = 価値あるギルドとして遺跡の獲得などの交渉も有利になる可能性あり✨
-                            </li>
-                            <li>
-                                <strong>🎁 豪華報酬GET</strong>
-                                日々のミッション(宝箱を開ける)をこなすと手に入りにくいURの欠片、専用装備万能欠片が手に入る✨
-                            </li>
-                        </ul>
-                    </div>
+                <div class="day-card">
+                    <div class="day-card-icon">📅</div>
+                    <div class="day-card-title" id="homeMondayTitle">月曜日の攻略</div>
+                    <div class="day-card-subtitle" id="homeMondaySubtitle">週の始まりの戦略</div>
                 </div>
-
-                <div class="card">
-                    <div class="card-title">
-                        ✨ まとめ
-                    </div>
-                    <div class="card-content">
-                        <p>以上を踏まえて、<strong>ギルド軍拡でポイントを稼ぐこと</strong>は<strong>個人の勝利</strong>、引いては<strong>ギルドのため</strong>になります👊</p>
-                        
-                        <div class="highlight-box">
-                            <p>では、ギルド軍拡のミッションを<strong>出来るだけ楽にこなしつつ</strong>、ポイントを稼ぐにはどうしたらいいのか。</p>
-                            <p>みんなの意見を聞きながら、まとめました！！</p>
-                            <p><strong>これであなたも軍拡マスター</strong>✨✨✨</p>
-                        </div>
-                    </div>
+                <div class="day-card">
+                    <div class="day-card-icon">🔷</div>
+                    <div class="day-card-title" id="homeTuesdayTitle">火曜日の攻略</div>
+                    <div class="day-card-subtitle" id="homeTuesdaySubtitle">戦力を上げる日</div>
                 </div>
-
-                <div class="powered-by">💖 powered by Mucho 💖</div>
-            </div>
-
-            <!-- Monday Page -->
-            <div id="monday" class="page">
-                <h1 class="page-title">📅 月曜日の攻略</h1>
-                <p class="page-subtitle">週の始まりの戦略</p>
-
-                <div class="card">
-                    <div class="card-title">
-                        📝 月曜日のポイント
-                    </div>
-                    <div class="card-content">
-                        <p>週の始まりは準備が大切！しっかりと計画を立てて、効率的に進めましょう。</p>
-                        <div class="highlight-box">
-                            <p>⭐ 今日の重要事項をチェック<br>
-                            💡 週間目標を設定<br>
-                            🎯 優先タスクを決める</p>
-                        </div>
-                    </div>
+                <div class="day-card">
+                    <div class="day-card-icon">💎</div>
+                    <div class="day-card-title" id="homeWednesdayTitle">水曜日の攻略</div>
+                    <div class="day-card-subtitle" id="homeWednesdaySubtitle">週の真ん中を乗り切る</div>
                 </div>
-
-                <div class="card">
-                    <div class="card-title">
-                        🎯 攻略メモ
-                    </div>
-                    <div class="card-content">
-                        <p>ここに月曜日の具体的な攻略情報を記入できます。</p>
-                        <p>例：デイリーミッション、ギルド活動、イベント参加など</p>
-                    </div>
+                <div class="day-card">
+                    <div class="day-card-icon">📚</div>
+                    <div class="day-card-title" id="homeThursdayTitle">木曜日の攻略</div>
+                    <div class="day-card-subtitle" id="homeThursdaySubtitle">週末への準備</div>
+                </div>
+                <div class="day-card">
+                    <div class="day-card-icon">🎁</div>
+                    <div class="day-card-title" id="homeFridayTitle">金曜日の攻略</div>
+                    <div class="day-card-subtitle" id="homeFridaySubtitle">週の締めくくり</div>
+                </div>
+                <div class="day-card">
+                    <div class="day-card-icon">📦</div>
+                    <div class="day-card-title" id="homeSaturdayTitle">土曜日の攻略</div>
+                    <div class="day-card-subtitle" id="homeSaturdaySubtitle">週末を楽しもう</div>
                 </div>
             </div>
 
-            <!-- Tuesday Page -->
-            <div id="tuesday" class="page">
-                <h1 class="page-title">🔷 火曜日の攻略</h1>
-                <p class="page-subtitle">調子を上げる日</p>
+            <div class="footer">
+                💖 <span id="homeFooter">毎日コツコツ攻略していこう！</span> 💖
+            </div>
+        </div>
 
-                <div class="card">
-                    <div class="card-title">
-                        📝 火曜日のポイント
-                    </div>
-                    <div class="card-content">
-                        <p>月曜日の準備を活かして、本格的に活動を開始する日です。</p>
-                        <div class="highlight-box">
-                            <p>⚡ エネルギー効率を重視<br>
-                            📊 進捗をチェック<br>
-                            🔄 必要に応じて計画を調整</p>
-                        </div>
-                    </div>
+        <!-- About Page -->
+        <div class="page" id="about">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🛡️</div>
+                    <div class="card-title" id="aboutTitle">ギルド軍拡ってなぁに？</div>
                 </div>
-
-                <div class="card">
-                    <div class="card-title">
-                        🎯 攻略メモ
-                    </div>
-                    <div class="card-content">
-                        <p>ここに火曜日の具体的な攻略情報を記入できます。</p>
-                    </div>
+                <div class="card-content">
+                    <p id="aboutDescription">ギルド軍拡は二週間ごとに繰り返している他サーバーとの対戦イベントです(*'∀')。GvG（Guild vs Guild）,Arms raceともいわれます。</p>
+                    <p id="aboutSchedule">月曜日から金曜日までの準備段階、土曜日の戦争段階に分かれています。準備段階に勝利したギルドが土曜日に相手サーバーに攻撃ができる。長い戦いです！</p>
                 </div>
             </div>
 
-            <!-- Wednesday Page -->
-            <div id="wednesday" class="page">
-                <h1 class="page-title">💎 水曜日の攻略</h1>
-                <p class="page-subtitle">週の真ん中を乗り切る</p>
-
-                <div class="card">
-                    <div class="card-title">
-                        📝 水曜日のポイント
-                    </div>
-                    <div class="card-content">
-                        <p>週の中盤で疲れが出やすい時期。効率と休息のバランスを取りましょう。</p>
-                        <div class="highlight-box">
-                            <p>⚖️ バランスの取れた活動<br>
-                            💪 継続的なモチベーション維持<br>
-                            🔍 中間評価を実施</p>
-                        </div>
-                    </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">⭐</div>
+                    <div class="card-title" id="aboutImportanceTitle">ギルド軍拡の重要性</div>
                 </div>
-
-                <div class="card">
-                    <div class="card-title">
-                        🎯 攻略メモ
-                    </div>
-                    <div class="card-content">
-                        <p>ここに水曜日の具体的な攻略情報を記入できます。</p>
-                    </div>
+                <div class="card-content">
+                    <p><strong>①</strong> <span id="aboutPoint1">負けた場合、対戦ギルドが越境してきて攻撃するが、勝てば対戦相手は越境してこないため、攻撃されることがない。</span></p>
+                    <p><strong>②</strong> <span id="aboutPoint2">サーバー内のギルド間では「対戦相手の越境を防ぐ」ことがギルドの価値の指標になりつつある = 価値あるギルドとして遺跡の獲得などの交渉も有利になる可能性あり（嬉しい）</span></p>
+                    <p><strong>③</strong> <span id="aboutPoint3">日々のミッション(宝箱を開ける)をこなすと手に入りにくいURの欠片、専用装備万能欠片が手に入る（ハッピー）</span></p>
                 </div>
             </div>
 
-            <!-- Thursday Page -->
-            <div id="thursday" class="page">
-                <h1 class="page-title">📚 木曜日の攻略</h1>
-                <p class="page-subtitle">週末への準備</p>
-
-                <div class="card">
-                    <div class="card-title">
-                        📝 木曜日のポイント
-                    </div>
-                    <div class="card-content">
-                        <p>週末に向けて準備を整える重要な日。来週への準備も考えましょう。</p>
-                        <div class="highlight-box">
-                            <p>📋 週末の準備を完了<br>
-                            🔮 来週の計画を検討<br>
-                            ✅ 未完了タスクを整理</p>
-                        </div>
-                    </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-title" id="aboutConclusionTitle">まとめ</div>
                 </div>
-
-                <div class="card">
-                    <div class="card-title">
-                        🎯 攻略メモ
-                    </div>
-                    <div class="card-content">
-                        <p>ここに木曜日の具体的な攻略情報を記入できます。</p>
-                    </div>
+                <div class="card-content">
+                    <p id="aboutConclusion">以上を踏まえて、ギルド軍拡でポイントを稼ぐことは個人の勝利、引いてはギルドのためになります👊</p>
+                    <p id="aboutGoal">では、ギルド軍拡のミッションを出来るだけ楽にこなしつつ、ポイントを稼ぐにはどうしたらいいのか。みんなの意見を聞きながら、まとめました！！</p>
+                    <p id="aboutMaster">これであなたも軍拡マスター✨✨✨</p>
                 </div>
             </div>
 
-            <!-- Friday Page -->
-            <div id="friday" class="page">
-                <h1 class="page-title">🎁 金曜日の攻略</h1>
-                <p class="page-subtitle">週の締めくくり</p>
-
-                <div class="card">
-                    <div class="card-title">
-                        📝 金曜日のポイント
-                    </div>
-                    <div class="card-content">
-                        <p>平日最後の日。週の成果をまとめて、達成感を味わいましょう。</p>
-                        <div class="highlight-box">
-                            <p>🏁 週の目標達成度をチェック<br>
-                            🎉 成果を振り返り<br>
-                            🌅 週末への気持ちを切り替え</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">
-                        🎯 攻略メモ
-                    </div>
-                    <div class="card-content">
-                        <p>ここに金曜日の具体的な攻略情報を記入できます。</p>
-                    </div>
-                </div>
+            <div class="powered-by">
+                powered by Mucho
             </div>
+        </div>
 
-            <!-- Saturday Page -->
-            <div id="saturday" class="page">
-                <h1 class="page-title">📦 土曜日の攻略</h1>
-                <p class="page-subtitle">週末を楽しもう</p>
-
-                <div class="card">
-                    <div class="card-title">
-                        📝 土曜日のポイント
-                    </div>
-                    <div class="card-content">
-                        <p>週末の始まり！リラックスしつつ、楽しみながら攻略を進めましょう。</p>
-                        <div class="highlight-box">
-                            <p>🎮 ゲームを楽しむ<br>
-                            😌 リラックスした攻略<br>
-                            👥 ギルドメンバーとの交流</p>
-                        </div>
-                    </div>
+        <!-- Monday Page -->
+        <div class="page" id="monday">
+            <div class="strategy-section">
+                <div class="strategy-title" id="mondayTitle">📅 月曜日の攻略</div>
+                <div class="strategy-item">
+                    <div class="strategy-icon">🌅</div>
+                    <div class="strategy-text" id="mondayStrategy1">週の始まりの戦略</div>
                 </div>
-
-                <div class="card">
-                    <div class="card-title">
-                        🎯 攻略メモ
-                    </div>
-                    <div class="card-content">
-                        <p>ここに土曜日の具体的な攻略情報を記入できます。</p>
-                    </div>
+                <div class="strategy-item">
+                    <div class="strategy-icon">📋</div>
+                    <div class="strategy-text" id="mondayStrategy2">計画を立てる</div>
+                </div>
+                <div class="strategy-item">
+                    <div class="strategy-icon">💪</div>
+                    <div class="strategy-text" id="mondayStrategy3">モチベーションを上げる</div>
                 </div>
             </div>
         </div>
-    </main>
+
+        <!-- Tuesday Page -->
+        <div class="page" id="tuesday">
+            <div class="strategy-section">
+                <div class="strategy-title" id="tuesdayTitle">🔷 火曜日の攻略</div>
+                <div class="strategy-item">
+                    <div class="strategy-icon">⚔️</div>
+                    <div class="strategy-text" id="tuesdayStrategy1">戦力を上げる日</div>
+                </div>
+                <div class="strategy-item">
+                    <div class="strategy-icon">🛡️</div>
+                    <div class="strategy-text" id="tuesdayStrategy2">防御力を強化</div>
+                </div>
+                <div class="strategy-item">
+                    <div class="strategy-icon">🎯</div>
+                    <div class="strategy-text" id="tuesdayStrategy3">目標を明確に</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wednesday Page -->
+        <div class="page" id="wednesday">
+            <div class="strategy-section">
+                <div class="strategy-title" id="wednesdayTitle">💎 水曜日の攻略</div>
+                <div class="strategy-item">
+                    <div class="strategy-icon">🔄</div>
+                    <div class="strategy-text" id="wednesdayStrategy1">週の真ん中を乗り切る</div>
+                </div>
+                <div class="strategy-item">
+                    <div class="strategy-icon">⚡</div>
+                    <div class="strategy-text" id="wednesdayStrategy2">エネルギーを回復</div>
+                </div>
+                <div class="strategy-item">
+                    <div class="strategy-icon">🔥</div>
+                    <div class="strategy-text" id="wednesdayStrategy3">情熱を保つ</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thursday Page -->
+        <div class="page" id="thursday">
+            <div class="strategy-section">
+                <div class="strategy-title" id="thursdayTitle">📚 木曜日の攻略</div>
+                <div class="strategy-item">
+                    <div class="strategy-icon">🚀</div>
+                    <div class="strategy-text" id="thursdayStrategy1">週末への準備</div>
+                </div>
+                <div class="strategy-item">
+                    <div class="strategy-icon">📈</div>
+                    <div class="strategy-text" id="thursdayStrategy2">成長を確認</div>
+                </div>
+                <div class="strategy-item">
+                    <div class="strategy-icon">💼</div>
+                    <div class="strategy-text" id="thursdayStrategy3">スキルを磨く</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Friday Page -->
+        <div class="page" id="friday">
+            <div class="strategy-section">
+                <div class="strategy-title" id="fridayTitle">🎁 金曜日の攻略</div>
+                <div class="strategy-item">
+                    <div class="strategy-icon">🎉</div>
+                    <div class="strategy-text" id="fridayStrategy1">週の締めくくり</div>
+                </div>
+                <div class="strategy-item">
+                    <div class="strategy-icon">🏆</div>
+                    <div class="strategy-text" id="fridayStrategy2">達成感を味わう</div>
+                </div>
+                <div class="strategy-item">
+                    <div class="strategy-icon">🎊</div>
+                    <div class="strategy-text" id="fridayStrategy3">次週への準備</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Saturday Page -->
+        <div class="page" id="saturday">
+            <div class="strategy-section">
+                <div class="strategy-title" id="saturdayTitle">📦 土曜日の攻略</div>
+                <div class="strategy-item">
+                    <div class="strategy-icon">🌟</div>
+                    <div class="strategy-text" id="saturdayStrategy1">週末を楽しもう</div>
+                </div>
+                <div class="strategy-item">
+                    <div class="strategy-icon">🎮</div>
+                    <div class="strategy-text" id="saturdayStrategy2">リラックスタイム</div>
+                </div>
+                <div class="strategy-item">
+                    <div class="strategy-icon">💭</div>
+                    <div class="strategy-text" id="saturdayStrategy3">振り返りと計画</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
-        function toggleMenu() {
-            const menu = document.getElementById('sideMenu');
-            const overlay = document.querySelector('.menu-overlay');
-            menu.classList.toggle('active');
+        let currentLanguage = 'ja';
+        
+        const translations = {
+            ja: {
+                headerTitle: 'YMK攻略',
+                sidebarTitle: 'YMK攻略',
+                sidebarSubtitle: '日替わり攻略情報をチェック！',
+                navHome: '🏠 ホーム',
+                navAbout: '🛡️ ギルド軍拡ってなに？',
+                navMonday: '📅 月曜日の攻略',
+                navTuesday: '🔷 火曜日の攻略',
+                navWednesday: '💎 水曜日の攻略',
+                navThursday: '📚 木曜日の攻略',
+                navFriday: '🎁 金曜日の攻略',
+                navSaturday: '📦 土曜日の攻略',
+                homeTitle: 'YMK攻略ガイド',
+                homeSubtitle: '日替わり攻略情報をチェック！',
+                homeAboutTitle: 'ギルド軍拡ってなに？',
+                homeAboutSubtitle: '基本ガイド',
+                homeMondayTitle: '月曜日の攻略',
+                homeMondaySubtitle: '週の始まりの戦略',
+                homeTuesdayTitle: '火曜日の攻略',
+                homeTuesdaySubtitle: '戦力を上げる日',
+                homeWednesdayTitle: '水曜日の攻略',
+                homeWednesdaySubtitle: '週の真ん中を乗り切る',
+                homeThursdayTitle: '木曜日の攻略',
+                homeThursdaySubtitle: '週末への準備',
+                homeFridayTitle: '金曜日の攻略',
+                homeFridaySubtitle: '週の締めくくり',
+                homeSaturdayTitle: '土曜日の攻略',
+                homeSaturdaySubtitle: '週末を楽しもう',
+                homeFooter: '毎日コツコツ攻略していこう！',
+                aboutTitle: 'ギルド軍拡ってなぁに？',
+                aboutDescription: 'ギルド軍拡は二週間ごとに繰り返している他サーバーとの対戦イベントです(*\'∀\')。GvG（Guild vs Guild）,Arms raceともいわれます。',
+                aboutSchedule: '月曜日から金曜日までの準備段階、土曜日の戦争段階に分かれています。準備段階に勝利したギルドが土曜日に相手サーバーに攻撃ができる。長い戦いです！',
+                aboutImportanceTitle: 'ギルド軍拡の重要性',
+                aboutPoint1: '負けた場合、対戦ギルドが越境してきて攻撃するが、勝てば対戦相手は越境してこないため、攻撃されることがない。',
+                aboutPoint2: 'サーバー内のギルド間では「対戦相手の越境を防ぐ」ことがギルドの価値の指標になりつつある = 価値あるギルドとして遺跡の獲得などの交渉も有利になる可能性あり（嬉しい）',
+                aboutPoint3: '日々のミッション(宝箱を開ける)をこなすと手に入りにくいURの欠片、専用装備万能欠片が手に入る（ハッピー）',
+                aboutConclusionTitle: 'まとめ',
+                aboutConclusion: '以上を踏まえて、ギルド軍拡でポイントを稼ぐことは個人の勝利、引いてはギルドのためになります👊',
+                aboutGoal: 'では、ギルド軍拡のミッションを出来るだけ楽にこなしつつ、ポイントを稼ぐにはどうしたらいいのか。みんなの意見を聞きながら、まとめました！！',
+                aboutMaster: 'これであなたも軍拡マスター✨✨✨',
+                mondayTitle: '📅 月曜日の攻略',
+                mondayStrategy1: '週の始まりの戦略',
+                mondayStrategy2: '計画を立てる',
+                mondayStrategy3: 'モチベーションを上げる',
+                tuesdayTitle: '🔷 火曜日の攻略',
+                tuesdayStrategy1: '戦力を上げる日',
+                tuesdayStrategy2: '防御力を強化',
+                tuesdayStrategy3: '目標を明確に',
+                wednesdayTitle: '💎 水曜日の攻略',
+                wednesdayStrategy1: '週の真ん中を乗り切る',
+                wednesdayStrategy2: 'エネルギーを回復',
+                wednesdayStrategy3: '情熱を保つ',
+                thursdayTitle: '📚 木曜日の攻略',
+                thursdayStrategy1: '週末への準備',
+                thursdayStrategy2: '成長を確認',
+                thursdayStrategy3: 'スキルを磨く',
+                fridayTitle: '🎁 金曜日の攻略',
+                fridayStrategy1: '週の締めくくり',
+                fridayStrategy2: '達成感を味わう',
+                fridayStrategy3: '次週への準備',
+                saturdayTitle: '📦 土曜日の攻略',
+                saturdayStrategy1: '週末を楽しもう',
+                saturdayStrategy2: 'リラックスタイム',
+                saturdayStrategy3: '振り返りと計画'
+            },
+            en: {
+                headerTitle: 'YMK Strategy',
+                sidebarTitle: 'YMK Strategy',
+                sidebarSubtitle: 'Check daily strategy information!',
+                navHome: '🏠 Home',
+                navAbout: '🛡️ What is Guild Expansion?',
+                navMonday: '📅 Monday Strategy',
+                navTuesday: '🔷 Tuesday Strategy',
+                navWednesday: '💎 Wednesday Strategy',
+                navThursday: '📚 Thursday Strategy',
+                navFriday: '🎁 Friday Strategy',
+                navSaturday: '📦 Saturday Strategy',
+                homeTitle: 'YMK Strategy Guide',
+                homeSubtitle: 'Check daily strategy information!',
+                homeAboutTitle: 'What is Guild Expansion?',
+                homeAboutSubtitle: 'Basic Guide',
+                homeMondayTitle: 'Monday Strategy',
+                homeMondaySubtitle: 'Start of the week strategy',
+                homeTuesdayTitle: 'Tuesday Strategy',
+                homeTuesdaySubtitle: 'Power up day',
+                homeWednesdayTitle: 'Wednesday Strategy',
+                homeWednesdaySubtitle: 'Get through mid-week',
+                homeThursdayTitle: 'Thursday Strategy',
+                homeThursdaySubtitle: 'Prepare for weekend',
+                homeFridayTitle: 'Friday Strategy',
+                homeFridaySubtitle: 'Week\'s finale',
+                homeSaturdayTitle: 'Saturday Strategy',
+                homeSaturdaySubtitle: 'Enjoy the weekend',
+                homeFooter: 'Let\'s work on strategy every day!',
+                aboutTitle: 'What is Guild Expansion?',
+                aboutDescription: 'Guild Expansion is a cross-server battle event that repeats every two weeks (*\'∀\'). It\'s also called GvG (Guild vs Guild) or Arms race.',
+                aboutSchedule: 'It consists of preparation stages from Monday to Friday and a war stage on Saturday. Guilds that win the preparation stage can attack the opponent server on Saturday. It\'s a long battle!',
+                aboutImportanceTitle: 'Importance of Guild Expansion',
+                aboutPoint1: 'If you lose, the opposing guild will cross over and attack, but if you win, the opponent won\'t cross over, so you won\'t be attacked.',
+                aboutPoint2: 'Among guilds within the server, "preventing opponent\'s cross-border" is becoming an indicator of guild value = there\'s a possibility of gaining advantages in negotiations such as relic acquisition as a valuable guild (happy)',
+                aboutPoint3: 'By completing daily missions (opening treasure chests), you can get hard-to-obtain UR fragments and universal equipment fragments (happy)',
+                aboutConclusionTitle: 'Summary',
+                aboutConclusion: 'Based on the above, earning points in Guild Expansion leads to individual victory and ultimately benefits the guild👊',
+                aboutGoal: 'So, how can we complete Guild Expansion missions as easily as possible while earning points? We\'ve compiled this based on everyone\'s opinions!!',
+                aboutMaster: 'Now you\'re also an expansion master✨✨✨',
+                mondayTitle: '📅 Monday Strategy',
+                mondayStrategy1: 'Start of the week strategy',
+                mondayStrategy2: 'Make plans',
+                mondayStrategy3: 'Boost motivation',
+                tuesdayTitle: '🔷 Tuesday Strategy',
+                tuesdayStrategy1: 'Power up day',
+                tuesdayStrategy2: 'Strengthen defense',
+                tuesdayStrategy3: 'Clarify goals',
+                wednesdayTitle: '💎 Wednesday Strategy',
+                wednesdayStrategy1: 'Get through mid-week',
+                wednesdayStrategy2: 'Recover energy',
+                wednesdayStrategy3: 'Maintain passion',
+                thursdayTitle: '📚 Thursday Strategy',
+                thursdayStrategy1: 'Prepare for weekend',
+                thursdayStrategy2: 'Check growth',
+                thursdayStrategy3: 'Polish skills',
+                fridayTitle: '🎁 Friday Strategy',
+                fridayStrategy1: 'Week\'s finale',
+                fridayStrategy2: 'Taste achievement',
+                fridayStrategy3: 'Prepare for next week',
+                saturdayTitle: '📦 Saturday Strategy',
+                saturdayStrategy1: 'Enjoy the weekend',
+                saturdayStrategy2: 'Relaxation time',
+                saturdayStrategy3: 'Reflection and planning'
+            }
+        };
+
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Update language buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update all text content
+            const texts = translations[lang];
+            for (const [key, value] of Object.entries(texts)) {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.textContent = value;
+                }
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            
+            sidebar.classList.toggle('active');
             overlay.classList.toggle('active');
         }
 
-        function closeMenu() {
-            const menu = document.getElementById('sideMenu');
-            const overlay = document.querySelector('.menu-overlay');
-            menu.classList.remove('active');
-            overlay.classList.remove('active');
-        }
-
-        function showPage(pageId) {
+        function showPage(pageName) {
             // Hide all pages
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
-
-            // Show selected page
-            document.getElementById(pageId).classList.add('active');
-
-            // Update menu active state
-            const menuItems = document.querySelectorAll('.menu-item');
-            menuItems.forEach(item => item.classList.remove('active'));
-            
-            // Close menu
-            closeMenu();
-
-            // Scroll to top
-            window.scrollTo(0, 0);
-        }
-
-        // Update active menu item based on page
-        function updateActiveMenuItem(pageId) {
-            const menuItems = document.querySelectorAll('.menu-item');
-            menuItems.forEach((item, index) => {
-                item.classList.remove('active');
-                if ((pageId === 'home' && index === 0) ||
-                    (pageId === 'guild-expansion' && index === 1) ||
-                    (pageId === 'monday' && index === 2) ||
-                    (pageId === 'tuesday' && index === 3) ||
-                    (pageId === 'wednesday' && index === 4) ||
-                    (pageId === 'thursday' && index === 5) ||
-                    (pageId === 'friday' && index === 6) ||
-                    (pageId === 'saturday' && index === 7)) {
-                    item.classList.add('active');
-                }
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
             });
-        }
-
-        // Enhanced showPage function
-        function showPage(pageId) {
-            // Hide all pages
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
-
+            
             // Show selected page
-            document.getElementById(pageId).classList.add('active');
-
-            // Update menu active state
-            updateActiveMenuItem(pageId);
+            document.getElementById(pageName).classList.add('active');
             
-            // Close menu
-            closeMenu();
-
-            // Scroll to top
-            window.scrollTo(0, 0);
+            // Update active nav link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Find and activate the corresponding nav link
+            const navLinks = {
+                'home': 'navHome',
+                'about': 'navAbout',
+                'monday': 'navMonday',
+                'tuesday': 'navTuesday',
+                'wednesday': 'navWednesday',
+                'thursday': 'navThursday',
+                'friday': 'navFriday',
+                'saturday': 'navSaturday'
+            };
+            
+            if (navLinks[pageName]) {
+                document.querySelector(`[onclick="showPage('${pageName}')"]`).classList.add('active');
+            }
+            
+            // Close sidebar
+            toggleSidebar();
         }
 
-        // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const menu = document.getElementById('sideMenu');
-            const hamburger = document.querySelector('.hamburger');
-            
-            if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
-                closeMenu();
-            }
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            setLanguage('ja');
         });
     </script>
 </body>
