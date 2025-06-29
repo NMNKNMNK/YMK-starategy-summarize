@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YMK攻略</title>
-    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,165 +12,77 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #ffeef8 0%, #f0e6ff 100%);
+            font-family: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #f0e6ff 50%, #e6f3ff 100%);
             min-height: 100vh;
-            color: #333;
             line-height: 1.6;
         }
 
         .container {
-            max-width: 390px;
+            max-width: 400px;
             margin: 0 auto;
             padding: 10px;
-            min-height: 100vh;
+            position: relative;
         }
 
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 20px rgba(255, 182, 193, 0.3);
+            padding: 15px 0;
+            position: relative;
         }
 
-        .menu-btn {
-            font-size: 24px;
-            color: #9b59b6;
-            border: none;
+        .hamburger {
             background: none;
+            border: none;
+            font-size: 24px;
+            color: #8B5CF6;
             cursor: pointer;
-            padding: 8px;
-            border-radius: 50%;
-            transition: all 0.3s ease;
+            padding: 5px;
+            border-radius: 10px;
+            transition: background-color 0.3s;
         }
 
-        .menu-btn:hover {
-            background: rgba(155, 89, 182, 0.1);
+        .hamburger:hover {
+            background-color: rgba(139, 92, 246, 0.1);
         }
 
         .title {
             font-size: 20px;
             font-weight: bold;
-            color: #9b59b6;
+            color: #8B5CF6;
             text-align: center;
             flex-grow: 1;
         }
 
-        .lang-toggle {
+        .lang-switcher {
             display: flex;
             gap: 5px;
         }
 
         .lang-btn {
             padding: 5px 10px;
-            border: 2px solid #9b59b6;
-            background: white;
-            color: #9b59b6;
+            border: none;
             border-radius: 15px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .lang-btn.active {
-            background: #9b59b6;
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
             color: white;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
         .lang-btn:hover {
-            transform: scale(1.05);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
 
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: -100%;
-            width: 280px;
-            height: 100vh;
-            background: linear-gradient(135deg, #ff99cc 0%, #cc99ff 100%);
-            z-index: 1000;
-            transition: left 0.3s ease;
-            padding: 20px;
-            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+        .lang-btn.active {
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
-        .sidebar.active {
-            left: 0;
-        }
-
-        .sidebar-header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .sidebar-title {
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .sidebar-subtitle {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 14px;
-        }
-
-        .nav-menu {
-            list-style: none;
-        }
-
-        .nav-item {
-            margin-bottom: 15px;
-        }
-
-        .nav-link {
-            display: block;
-            padding: 15px 20px;
-            color: white;
-            text-decoration: none;
-            border-radius: 15px;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .nav-link:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateX(10px);
-        }
-
-        .nav-link.active {
-            background: rgba(255, 255, 255, 0.4);
-            transform: translateX(10px);
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 24px;
-            color: white;
-            border: none;
-            background: none;
-            cursor: pointer;
-            padding: 5px;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-
-        .close-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .overlay {
+        .menu-overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -179,19 +90,75 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
             z-index: 999;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
+            display: none;
         }
 
-        .overlay.active {
-            opacity: 1;
-            visibility: visible;
+        .menu-sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 280px;
+            height: 100%;
+            background: linear-gradient(135deg, #ffeef8 0%, #f0e6ff 100%);
+            z-index: 1000;
+            transition: left 0.3s ease;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            overflow-y: auto;
+        }
+
+        .menu-sidebar.active {
+            left: 0;
+        }
+
+        .menu-header {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .menu-header h2 {
+            color: #8B5CF6;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .menu-items {
+            padding: 20px 0;
+        }
+
+        .menu-item {
+            padding: 15px 25px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-left: 4px solid transparent;
+            color: #8B5CF6;
+            font-weight: 500;
+        }
+
+        .menu-item:hover {
+            background-color: rgba(139, 92, 246, 0.1);
+            border-left-color: #8B5CF6;
+        }
+
+        .menu-item.active {
+            background-color: rgba(139, 92, 246, 0.2);
+            border-left-color: #ec4899;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #8B5CF6;
+            cursor: pointer;
         }
 
         .page {
             display: none;
-            animation: fadeIn 0.5s ease;
+            animation: fadeIn 0.5s ease-in;
         }
 
         .page.active {
@@ -205,200 +172,132 @@
 
         .welcome-section {
             text-align: center;
-            padding: 30px 20px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 30px rgba(255, 182, 193, 0.3);
+            margin: 30px 0;
         }
 
         .welcome-icon {
-            font-size: 60px;
-            margin-bottom: 20px;
+            font-size: 48px;
+            margin-bottom: 15px;
         }
 
         .welcome-title {
-            font-size: 28px;
-            color: #9b59b6;
+            font-size: 24px;
+            color: #8B5CF6;
             margin-bottom: 10px;
             font-weight: bold;
         }
 
         .welcome-subtitle {
-            color: #666;
-            font-size: 16px;
-            margin-bottom: 20px;
+            color: #6B7280;
+            font-size: 14px;
+            margin-bottom: 30px;
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.7);
             border-radius: 20px;
             padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 30px rgba(255, 182, 193, 0.3);
-            border: 2px solid rgba(255, 182, 193, 0.2);
+            margin: 15px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .card-header {
             display: flex;
             align-items: center;
             margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid rgba(155, 89, 182, 0.1);
         }
 
         .card-icon {
             font-size: 24px;
-            margin-right: 15px;
-            color: #9b59b6;
+            margin-right: 10px;
         }
 
         .card-title {
             font-size: 18px;
             font-weight: bold;
-            color: #9b59b6;
+            color: #8B5CF6;
         }
 
         .card-content {
-            color: #555;
+            color: #4B5563;
             line-height: 1.8;
         }
 
-        .card-content h3 {
-            color: #9b59b6;
-            margin: 15px 0 10px 0;
-            font-size: 16px;
-        }
-
-        .card-content p {
-            margin-bottom: 10px;
-        }
-
-        .card-content ol {
-            margin-left: 20px;
-            margin-bottom: 15px;
-        }
-
-        .card-content li {
-            margin-bottom: 8px;
-        }
-
         .highlight {
-            background: linear-gradient(135deg, #ff99cc, #cc99ff);
-            color: white;
-            padding: 2px 8px;
-            border-radius: 10px;
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             font-weight: bold;
         }
 
         .footer {
             text-align: center;
-            padding: 20px;
-            color: #9b59b6;
+            margin: 30px 0;
+            color: #8B5CF6;
             font-size: 14px;
-            margin-top: 30px;
         }
 
-        .powered-by {
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 15px;
+        .section-title {
+            font-size: 22px;
+            color: #8B5CF6;
             text-align: center;
-            font-style: italic;
-            color: #9b59b6;
-        }
-
-        .day-cards {
-            display: grid;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .day-card {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(255, 182, 193, 0.3);
-            transition: transform 0.3s ease;
-            border: 2px solid rgba(255, 182, 193, 0.2);
-        }
-
-        .day-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .day-card-icon {
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-
-        .day-card-title {
-            font-size: 16px;
-            font-weight: bold;
-            color: #9b59b6;
-            margin-bottom: 5px;
-        }
-
-        .day-card-subtitle {
-            font-size: 12px;
-            color: #888;
-        }
-
-        .strategy-section {
-            margin-bottom: 25px;
-        }
-
-        .strategy-title {
-            font-size: 20px;
-            color: #9b59b6;
-            margin-bottom: 15px;
-            text-align: center;
+            margin: 20px 0;
             font-weight: bold;
         }
 
-        .strategy-item {
-            background: rgba(255, 255, 255, 0.9);
+        .strategy-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .strategy-list li {
+            background: rgba(255, 255, 255, 0.5);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 15px;
+            border-left: 4px solid #ec4899;
+            transition: transform 0.3s;
+        }
+
+        .strategy-list li:hover {
+            transform: translateX(5px);
+        }
+
+        .emoji {
+            font-size: 18px;
+            margin-right: 8px;
+        }
+
+        .important-note {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 2px solid #f59e0b;
             border-radius: 15px;
             padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 15px rgba(255, 182, 193, 0.2);
-            display: flex;
-            align-items: center;
-        }
-
-        .strategy-icon {
-            font-size: 20px;
-            margin-right: 15px;
-            color: #9b59b6;
-            width: 30px;
-            text-align: center;
-        }
-
-        .strategy-text {
-            flex: 1;
-            color: #555;
+            margin: 15px 0;
+            color: #92400e;
+            font-weight: 500;
         }
 
         @media (max-width: 480px) {
             .container {
                 max-width: 100%;
-                padding: 5px;
-            }
-            
-            .header {
-                padding: 10px 15px;
-                margin-bottom: 15px;
-            }
-            
-            .title {
-                font-size: 18px;
+                padding: 8px;
             }
             
             .card {
                 padding: 15px;
-                margin-bottom: 15px;
+                margin: 10px 0;
+            }
+            
+            .welcome-title {
+                font-size: 20px;
+            }
+            
+            .card-title {
+                font-size: 16px;
             }
         }
     </style>
@@ -406,481 +305,543 @@
 <body>
     <div class="container">
         <div class="header">
-            <button class="menu-btn" onclick="toggleSidebar()">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="title">
-                ⭐ <span id="headerTitle">YMK攻略</span> ⭐
-            </div>
-            <div class="lang-toggle">
-                <button class="lang-btn active" onclick="setLanguage('ja')">日本語</button>
-                <button class="lang-btn" onclick="setLanguage('en')">English</button>
+            <button class="hamburger" id="hamburger">☰</button>
+            <div class="title">⭐ YMK攻略 ⭐</div>
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="ja">日本語</button>
+                <button class="lang-btn" data-lang="en">English</button>
             </div>
         </div>
 
-        <!-- Sidebar -->
-        <div class="sidebar" id="sidebar">
-            <button class="close-btn" onclick="toggleSidebar()">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="sidebar-header">
-                <div class="sidebar-title" id="sidebarTitle">YMK攻略</div>
-                <div class="sidebar-subtitle" id="sidebarSubtitle">日替わり攻略情報をチェック！</div>
+        <!-- Menu Overlay -->
+        <div class="menu-overlay" id="menuOverlay"></div>
+        
+        <!-- Menu Sidebar -->
+        <div class="menu-sidebar" id="menuSidebar">
+            <button class="close-menu" id="closeMenu">×</button>
+            <div class="menu-header">
+                <h2 data-ja="メニュー" data-en="Menu">メニュー</h2>
+                <div>🌸✨</div>
             </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#" class="nav-link active" onclick="showPage('home')" id="navHome">
-                        🏠 ホーム
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" onclick="showPage('about')" id="navAbout">
-                        🛡️ ギルド軍拡ってなに？
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" onclick="showPage('monday')" id="navMonday">
-                        📅 月曜日の攻略
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" onclick="showPage('tuesday')" id="navTuesday">
-                        🔷 火曜日の攻略
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" onclick="showPage('wednesday')" id="navWednesday">
-                        💎 水曜日の攻略
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" onclick="showPage('thursday')" id="navThursday">
-                        📚 木曜日の攻略
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" onclick="showPage('friday')" id="navFriday">
-                        🎁 金曜日の攻略
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" onclick="showPage('saturday')" id="navSaturday">
-                        📦 土曜日の攻略
-                    </a>
-                </li>
-            </ul>
+            <div class="menu-items">
+                <div class="menu-item active" data-page="home">
+                    <span data-ja="🏠 ホーム" data-en="🏠 Home">🏠 ホーム</span>
+                </div>
+                <div class="menu-item" data-page="guild-expansion">
+                    <span data-ja="🌸 ギルド軍拡ってなに？" data-en="🌸 What is Guild Military Expansion?">🌸 ギルド軍拡ってなに？</span>
+                </div>
+                <div class="menu-item" data-page="frozen-battlefield">
+                    <span data-ja="❄️ 氷原の戦場" data-en="❄️ Frozen Battlefield">❄️ 氷原の戦場</span>
+                </div>
+                <div class="menu-item" data-page="monday">
+                    <span data-ja="📅 月曜日の攻略" data-en="📅 Monday Strategy">📅 月曜日の攻略</span>
+                </div>
+                <div class="menu-item" data-page="tuesday">
+                    <span data-ja="🔷 火曜日の攻略" data-en="🔷 Tuesday Strategy">🔷 火曜日の攻略</span>
+                </div>
+                <div class="menu-item" data-page="wednesday">
+                    <span data-ja="💎 水曜日の攻略" data-en="💎 Wednesday Strategy">💎 水曜日の攻略</span>
+                </div>
+                <div class="menu-item" data-page="thursday">
+                    <span data-ja="📚 木曜日の攻略" data-en="📚 Thursday Strategy">📚 木曜日の攻略</span>
+                </div>
+                <div class="menu-item" data-page="friday">
+                    <span data-ja="🎁 金曜日の攻略" data-en="🎁 Friday Strategy">🎁 金曜日の攻略</span>
+                </div>
+                <div class="menu-item" data-page="saturday">
+                    <span data-ja="📦 土曜日の攻略" data-en="📦 Saturday Strategy">📦 土曜日の攻略</span>
+                </div>
+            </div>
         </div>
-
-        <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
         <!-- Home Page -->
         <div class="page active" id="home">
             <div class="welcome-section">
-                <div class="welcome-icon">👑</div>
-                <div class="welcome-title" id="homeTitle">YMK攻略ガイド</div>
-                <div class="welcome-subtitle" id="homeSubtitle">日替わり攻略情報をチェック！</div>
+                <div class="welcome-icon">🎮</div>
+                <div class="welcome-title" data-ja="YMK攻略ガイド" data-en="YMK Strategy Guide">YMK攻略ガイド</div>
+                <div class="welcome-subtitle" data-ja="日替わり攻略情報をチェック！" data-en="Check daily strategy information!">日替わり攻略情報をチェック！</div>
             </div>
 
-            <div class="day-cards">
-                <div class="day-card">
-                    <div class="day-card-icon">🛡️</div>
-                    <div class="day-card-title" id="homeAboutTitle">ギルド軍拡ってなに？</div>
-                    <div class="day-card-subtitle" id="homeAboutSubtitle">基本ガイド</div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🌸</div>
+                    <div class="card-title" data-ja="ギルド軍拡ってなに？" data-en="What is Guild Military Expansion?">ギルド軍拡ってなに？</div>
                 </div>
-                <div class="day-card">
-                    <div class="day-card-icon">📅</div>
-                    <div class="day-card-title" id="homeMondayTitle">月曜日の攻略</div>
-                    <div class="day-card-subtitle" id="homeMondaySubtitle">週の始まりの戦略</div>
+                <div class="card-content">
+                    <span data-ja="基本ガイド" data-en="Basic Guide">基本ガイド</span>
                 </div>
-                <div class="day-card">
-                    <div class="day-card-icon">🔷</div>
-                    <div class="day-card-title" id="homeTuesdayTitle">火曜日の攻略</div>
-                    <div class="day-card-subtitle" id="homeTuesdaySubtitle">戦力を上げる日</div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">❄️</div>
+                    <div class="card-title" data-ja="氷原の戦場" data-en="Frozen Battlefield">氷原の戦場</div>
                 </div>
-                <div class="day-card">
-                    <div class="day-card-icon">💎</div>
-                    <div class="day-card-title" id="homeWednesdayTitle">水曜日の攻略</div>
-                    <div class="day-card-subtitle" id="homeWednesdaySubtitle">週の真ん中を乗り切る</div>
+                <div class="card-content">
+                    <span data-ja="魔法水晶鉱山と浮遊島の攻略" data-en="Mana Mine and Floating Land Strategy">魔法水晶鉱山と浮遊島の攻略</span>
                 </div>
-                <div class="day-card">
-                    <div class="day-card-icon">📚</div>
-                    <div class="day-card-title" id="homeThursdayTitle">木曜日の攻略</div>
-                    <div class="day-card-subtitle" id="homeThursdaySubtitle">週末への準備</div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📅</div>
+                    <div class="card-title" data-ja="月曜日の攻略" data-en="Monday Strategy">月曜日の攻略</div>
                 </div>
-                <div class="day-card">
-                    <div class="day-card-icon">🎁</div>
-                    <div class="day-card-title" id="homeFridayTitle">金曜日の攻略</div>
-                    <div class="day-card-subtitle" id="homeFridaySubtitle">週の締めくくり</div>
+                <div class="card-content">
+                    <span data-ja="週の始まりの戦略" data-en="Start of the week strategy">週の始まりの戦略</span>
                 </div>
-                <div class="day-card">
-                    <div class="day-card-icon">📦</div>
-                    <div class="day-card-title" id="homeSaturdayTitle">土曜日の攻略</div>
-                    <div class="day-card-subtitle" id="homeSaturdaySubtitle">週末を楽しもう</div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🔷</div>
+                    <div class="card-title" data-ja="火曜日の攻略" data-en="Tuesday Strategy">火曜日の攻略</div>
+                </div>
+                <div class="card-content">
+                    <span data-ja="戦術を上げる日" data-en="Improve tactics day">戦術を上げる日</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">💎</div>
+                    <div class="card-title" data-ja="水曜日の攻略" data-en="Wednesday Strategy">水曜日の攻略</div>
+                </div>
+                <div class="card-content">
+                    <span data-ja="週の真ん中を乗り切る" data-en="Get through the middle of the week">週の真ん中を乗り切る</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📚</div>
+                    <div class="card-title" data-ja="木曜日の攻略" data-en="Thursday Strategy">木曜日の攻略</div>
+                </div>
+                <div class="card-content">
+                    <span data-ja="週末への準備" data-en="Preparation for the weekend">週末への準備</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🎁</div>
+                    <div class="card-title" data-ja="金曜日の攻略" data-en="Friday Strategy">金曜日の攻略</div>
+                </div>
+                <div class="card-content">
+                    <span data-ja="週の締めくくり" data-en="End of the week">週の締めくくり</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📦</div>
+                    <div class="card-title" data-ja="土曜日の攻略" data-en="Saturday Strategy">土曜日の攻略</div>
+                </div>
+                <div class="card-content">
+                    <span data-ja="週末を楽しもう" data-en="Enjoy the weekend">週末を楽しもう</span>
                 </div>
             </div>
 
             <div class="footer">
-                💖 <span id="homeFooter">毎日コツコツ攻略していこう！</span> 💖
+                <span data-ja="💖 毎日コツコツ攻略していこう！ 💖" data-en="💖 Let's work on strategies every day! 💖">💖 毎日コツコツ攻略していこう！ 💖</span>
             </div>
         </div>
 
-        <!-- About Page -->
-        <div class="page" id="about">
+        <!-- Guild Expansion Page -->
+        <div class="page" id="guild-expansion">
+            <div class="section-title" data-ja="🌸 ギルド軍拡ってなに？ 🌸" data-en="🌸 What is Guild Military Expansion? 🌸">🌸 ギルド軍拡ってなに？ 🌸</div>
+            
             <div class="card">
                 <div class="card-header">
-                    <div class="card-icon">🛡️</div>
-                    <div class="card-title" id="aboutTitle">ギルド軍拡ってなぁに？</div>
+                    <div class="card-icon">🏰</div>
+                    <div class="card-title" data-ja="ギルド軍拡ってなぁに？" data-en="What is Guild Military Expansion?">ギルド軍拡ってなぁに？</div>
                 </div>
                 <div class="card-content">
-                    <p id="aboutDescription">ギルド軍拡は二週間ごとに繰り返している他サーバーとの対戦イベントです(*'∀')。GvG（Guild vs Guild）,Arms raceともいわれます。</p>
-                    <p id="aboutSchedule">月曜日から金曜日までの準備段階、土曜日の戦争段階に分かれています。準備段階に勝利したギルドが土曜日に相手サーバーに攻撃ができる。長い戦いです！</p>
+                    <p data-ja="ギルド軍拡は二週間ごとに繰り返している他サーバーとの対戦イベントです(*'∀')♡ GvG（Guild vs Guild）、Arms race ともいわれます🏰⚔️" data-en="Guild Military Expansion is a bi-weekly battle event against other servers (*'∀')♡ Also called GvG (Guild vs Guild) or Arms race 🏰⚔️">ギルド軍拡は二週間ごとに繰り返している他サーバーとの対戦イベントです(*'∀')♡ <br>GvG（Guild vs Guild）、Arms race ともいわれます🏰⚔️</p>
+                    <br>
+                    <p><strong data-ja="📅 スケジュール" data-en="📅 Schedule">📅 スケジュール</strong></p>
+                    <p data-ja="🌙 月曜日～金曜日: 準備段階でがんばる期間！" data-en="🌙 Monday to Friday: Preparation stage!">🌙 <strong>月曜日～金曜日</strong>: 準備段階でがんばる期間！</p>
+                    <p data-ja="⚔️ 土曜日: 戦争段階でドキドキバトル！" data-en="⚔️ Saturday: Battle stage!">⚔️ <strong>土曜日</strong>: 戦争段階でドキドキバトル！</p>
+                    <br>
+                    <p data-ja="準備段階で勝利したギルドが土曜日に相手サーバーに攻撃できるよ〜！長い戦いだけど、みんなで頑張ろうね💪✨" data-en="The guild that wins the preparation stage can attack the opponent server on Saturday! It's a long battle, but let's do our best together 💪✨">準備段階で勝利したギルドが土曜日に相手サーバーに攻撃できるよ〜！長い戦いだけど、みんなで頑張ろうね💪✨</p>
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-header">
-                    <div class="card-icon">⭐</div>
-                    <div class="card-title" id="aboutImportanceTitle">ギルド軍拡の重要性</div>
+                    <div class="card-icon">🌈</div>
+                    <div class="card-title" data-ja="ギルド軍拡の重要性" data-en="Importance of Guild Military Expansion">ギルド軍拡の重要性</div>
                 </div>
                 <div class="card-content">
-                    <p><strong>①</strong> <span id="aboutPoint1">負けた場合、対戦ギルドが越境してきて攻撃するが、勝てば対戦相手は越境してこないため、攻撃されることがない。</span></p>
-                    <p><strong>②</strong> <span id="aboutPoint2">サーバー内のギルド間では「対戦相手の越境を防ぐ」ことがギルドの価値の指標になりつつある = 価値あるギルドとして遺跡の獲得などの交渉も有利になる可能性あり（嬉しい）</span></p>
-                    <p><strong>③</strong> <span id="aboutPoint3">日々のミッション(宝箱を開ける)をこなすと手に入りにくいURの欠片、専用装備万能欠片が手に入る（ハッピー）</span></p>
+                    <div class="important-note">
+                        <p><strong data-ja="① 🛡️ 守りの力" data-en="① 🛡️ Defensive Power">① 🛡️ 守りの力</strong></p>
+                        <p data-ja="負けちゃうと対戦ギルドが越境してきて攻撃されちゃう😭 でも勝てば対戦相手は越境してこないから、攻撃されることがないの〜！安心安全💖" data-en="If you lose, the opposing guild will cross borders and attack 😭 But if you win, the opponent won't cross borders, so you won't be attacked! Safe and secure 💖">負けちゃうと対戦ギルドが越境してきて攻撃されちゃう😭<br>でも<strong>勝てば</strong>対戦相手は越境してこないから、攻撃されることがないの〜！安心安全💖</p>
+                    </div>
+                    
+                    <div class="important-note">
+                        <p><strong data-ja="② 🏆 ギルドの価値UP" data-en="② 🏆 Guild Value UP">② 🏆 ギルドの価値UP</strong></p>
+                        <p data-ja="サーバー内のギルド間では「対戦相手の越境を防ぐ」ことがギルドの価値の指標になりつつあるよ〜📈 = 価値あるギルドとして遺跡の獲得などの交渉も有利になる可能性あり🎯✨（嬉しい〜！）" data-en="Among guilds in the server, 'preventing opponent's border crossing' is becoming a measure of guild value 📈 = Possibility of favorable negotiations for relic acquisition as a valuable guild 🎯✨ (Happy!)">サーバー内のギルド間では「<strong>対戦相手の越境を防ぐ</strong>」ことがギルドの価値の指標になりつつあるよ〜📈<br>= 価値あるギルドとして<strong>遺跡の獲得</strong>などの交渉も有利になる可能性あり🎯✨（嬉しい〜！）</p>
+                    </div>
+                    
+                    <div class="important-note">
+                        <p><strong data-ja="③ 🎁 豪華報酬GET" data-en="③ 🎁 Luxury Rewards GET">③ 🎁 豪華報酬GET</strong></p>
+                        <p data-ja="日々のミッション(宝箱を開ける)をこなすと手に入りにくいURの欠片、専用装備万能欠片が手に入る🎁💎（ハッピー〜♡）" data-en="Daily missions (opening treasure chests) give you hard-to-get UR fragments and universal equipment fragments 🎁💎 (Happy~♡)">日々のミッション(<strong>宝箱を開ける</strong>)をこなすと手に入りにくい<strong>URの欠片</strong>、<strong>専用装備万能欠片</strong>が手に入る🎁💎（ハッピー〜♡）</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🌟</div>
+                    <div class="card-title" data-ja="まとめ" data-en="Summary">まとめ</div>
+                </div>
+                <div class="card-content">
+                    <p data-ja="以上を踏まえて、ギルド軍拡でポイントを稼ぐことは個人の勝利、引いてはギルドのためになります👊💕" data-en="Based on the above, earning points in guild military expansion is a personal victory and ultimately benefits the guild 👊💕">以上を踏まえて、<strong>ギルド軍拡でポイントを稼ぐ</strong>ことは<strong>個人の勝利</strong>、引いては<strong>ギルドのため</strong>になります👊💕</p>
+                    <br>
+                    <p data-ja="では、ギルド軍拡のミッションを出来るだけ楽にこなしつつ、ポイントを稼ぐにはどうしたらいいのか🤔💭" data-en="So, how can we complete guild military expansion missions as easily as possible while earning points? 🤔💭">では、ギルド軍拡のミッションを<strong>出来るだけ楽にこなしつつ</strong>、ポイントを稼ぐにはどうしたらいいのか🤔💭</p>
+                    <br>
+                    <p data-ja="みんなの意見を聞きながら、まとめました！！🎉 これであなたも軍拡マスター✨✨✨" data-en="We compiled this by listening to everyone's opinions!! 🎉 Now you can be a military expansion master ✨✨✨">みんなの意見を聞きながら、まとめました！！🎉<br><strong>これであなたも軍拡マスター</strong>✨✨✨</p>
+                </div>
+            </div>
+
+            <div class="footer">
+                <span data-ja="💖 powered by Mucho 💖" data-en="💖 powered by Mucho 💖"><em>💖 powered by Mucho 💖</em></span>
+            </div>
+        </div>
+
+        <!-- Frozen Battlefield Page -->
+        <div class="page" id="frozen-battlefield">
+            <div class="section-title" data-ja="❄️ 氷原の戦場 ❄️" data-en="❄️ Frozen Battlefield ❄️">❄️ 氷原の戦場 ❄️</div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🗺️</div>
+                    <div class="card-title" data-ja="概要" data-en="Overview">概要</div>
+                </div>
+                <div class="card-content">
+                    <p data-ja="基本的なマップは古戦場と変わりません。ただし、ポイントの稼ぎ方が大きく異なります💥" data-en="The basic map is the same as the ancient battlefield. However, the way to earn points is significantly different 💥">基本的なマップは古戦場と変わりません。ただし、<strong>ポイントの稼ぎ方が大きく異なります</strong>💥</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">💎</div>
+                    <div class="card-title" data-ja="基本的なポイントの取り方" data-en="Basic Point Earning Method">基本的なポイントの取り方</div>
+                </div>
+                <div class="card-content">
+                    <p data-ja="とにかく、6分毎に出現する"魔法水晶鉱山"="Mana mine"の占拠でポイントを稼ぐことが勝利の鍵です👊" data-en="The key to victory is earning points by occupying the 'Mana mine' that appears every 6 minutes 👊">とにかく、6分毎に出現する<strong>"魔法水晶鉱山"="Mana mine"</strong>の占拠でポイントを稼ぐことが勝利の鍵です👊</p>
+                    <br>
+                    <div class="important-note">
+                        <p data-ja="この"魔法水晶鉱山"場所はマップの真ん中の両脇です。始まってすぐ出現します。動けるようになったらすぐに取りに行こう😘" data-en="The 'Mana mine' locations are on both sides of the map center. They appear immediately at the start. Go get them as soon as you can move 😘">この<strong>"魔法水晶鉱山"</strong>場所はマップの真ん中の両脇です。始まってすぐ出現します。動けるようになったらすぐに取りに行こう😘</p>
+                    </div>
+                    <br>
+                    <p data-ja="そのあとは残り38分ごろから6分刻みで鉱山は出現しするよ👍" data-en="After that, mines appear every 6 minutes starting around 38 minutes remaining 👍">そのあとは残り38分ごろから6分刻みで鉱山は出現しするよ👍</p>
+                    <br>
+                    <div class="important-note">
+                        <p data-ja="鉱山を見つけたプレーヤーはギルドチャットにすぐに共有してね👍早ーくみつけてみんなで取りにいったギルドがとても有利🥳ここ、定期テストに出るから覚えてね！🥳" data-en="Players who find mines should immediately share in guild chat 👍 Guilds that find them quickly and go together have a big advantage 🥳 Remember this, it'll be on the regular test! 🥳">鉱山を見つけたプレーヤーはギルドチャットにすぐに<strong>共有してね</strong>👍早ーくみつけてみんなで取りにいったギルドがとても有利🥳<br><strong>ここ、定期テストに出るから覚えてね！</strong>🥳</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">⚔️</div>
+                    <div class="card-title" data-ja="強い人の戦い方" data-en="Strategy for Strong Players">強い人の戦い方</div>
+                </div>
+                <div class="card-content">
+                    <p data-ja="残り時間が半分になると、マップの中心に"浮遊島"＝"Floating land"が出現します🤯" data-en="When half the time is left, a 'Floating land' appears in the center of the map 🤯">残り時間が半分になると、マップの中心に<strong>"浮遊島"＝"Floating land"</strong>が出現します🤯</p>
+                    <br>
+                    <p data-ja="基本的にここは30m~40mのプレイヤーが集まるので強い人はこの浮遊島の占拠を目指してください👍" data-en="Basically, players with 30m-40m power gather here, so strong players should aim to occupy this floating island 👍">基本的にここは30m~40mのプレイヤーが集まるので<strong>強い人はこの浮遊島の占拠を目指してください</strong>👍</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🏰</div>
+                    <div class="card-title" data-ja="中盤～後半までの戦い方" data-en="Mid to Late Game Strategy">中盤～後半までの戦い方</div>
+                </div>
+                <div class="card-content">
+                    <p data-ja="浮遊島が出現したあとは、浮遊島の四角に四つの施設が出現。ここに移動すると他の三つのサーバーと乱戦する可能性があるけど、鉱山にとても近くなるという大きなメリットがあるよ…😎" data-en="After the floating island appears, four facilities appear around the floating island. Moving here may result in battles with the other three servers, but it has the big advantage of being very close to the mines... 😎">浮遊島が出現したあとは、浮遊島の四角に四つの施設が出現。ここに移動すると他の三つのサーバーと乱戦する可能性があるけど、<strong>鉱山にとても近くなるという大きなメリット</strong>があるよ…😎</p>
+                    <br>
+                    <p data-ja="もちろん、相手の拠点を攻撃して成功した場合も、点数に加算されるよ😘 つまり、ここでの戦い方はあなたのテクニックしだいだね！" data-en="Of course, if you successfully attack enemy bases, points are added 😘 So the way you fight here depends on your technique!">もちろん、相手の拠点を攻撃して成功した場合も、点数に加算されるよ😘 つまり、<strong>ここでの戦い方はあなたのテクニックしだい</strong>だね！</p>
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-header">
                     <div class="card-icon">🎯</div>
-                    <div class="card-title" id="aboutConclusionTitle">まとめ</div>
+                    <div class="card-title" data-ja="まとめ" data-en="Summary">まとめ</div>
                 </div>
                 <div class="card-content">
-                    <p id="aboutConclusion">以上を踏まえて、ギルド軍拡でポイントを稼ぐことは個人の勝利、引いてはギルドのためになります👊</p>
-                    <p id="aboutGoal">では、ギルド軍拡のミッションを出来るだけ楽にこなしつつ、ポイントを稼ぐにはどうしたらいいのか。みんなの意見を聞きながら、まとめました！！</p>
-                    <p id="aboutMaster">これであなたも軍拡マスター✨✨✨</p>
+                    <p data-ja="以上が氷原の戦場の大まかな戦い方！" data-en="These are the general strategies for the frozen battlefield!">以上が氷原の戦場の大まかな戦い方！</p>
+                    <br>
+                    <div class="important-note">
+                        <p data-ja="とにかく宝箱を見つけたら採取＆みんなに共有😎これが一番大事！" data-en="Most importantly, if you find treasure chests, collect them & share with everyone 😎 This is the most important!">とにかく<strong>宝箱を見つけたら採取＆みんなに共有</strong>😎<br><strong>これが一番大事！</strong></p>
+                    </div>
+                    <br>
+                    <p data-ja="ほかのギルドと戦いたい人は、浮遊島とその周辺の四つの施設で遊ぼう🥳" data-en="If you want to fight other guilds, play around the floating island and its four surrounding facilities 🥳">ほかのギルドと戦いたい人は、<strong>浮遊島とその周辺の四つの施設</strong>で遊ぼう🥳</p>
                 </div>
-            </div>
-
-            <div class="powered-by">
-                powered by Mucho
             </div>
         </div>
 
-        <!-- Monday Page -->
+        <!-- Monday Strategy Page -->
         <div class="page" id="monday">
-            <div class="strategy-section">
-                <div class="strategy-title" id="mondayTitle">📅 月曜日の攻略</div>
-                <div class="strategy-item">
-                    <div class="strategy-icon">🌅</div>
-                    <div class="strategy-text" id="mondayStrategy1">週の始まりの戦略</div>
+            <div class="section-title" data-ja="📅 月曜日の攻略" data-en="📅 Monday Strategy">📅 月曜日の攻略</div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🌅</div>
+                    <div class="card-title" data-ja="月曜日のポイント" data-en="Monday Points">月曜日のポイント</div>
                 </div>
-                <div class="strategy-item">
-                    <div class="strategy-icon">📋</div>
-                    <div class="strategy-text" id="mondayStrategy2">計画を立てる</div>
+                <div class="card-content">
+                    <ul class="strategy-list">
+                        <li data-ja="📝 今週の目標設定をしよう" data-en="📝 Set this week's goals"><span class="emoji">📝</span><span data-ja="今週の目標設定をしよう" data-en="Set this week's goals">今週の目標設定をしよう</span></li>
+                        <li data-ja="⚡ エネルギーを効率的に使おう" data-en="⚡ Use energy efficiently"><span class="emoji">⚡</span><span data-ja="エネルギーを効率的に使おう" data-en="Use energy efficiently">エネルギーを効率的に使おう</span></li>
+                        <li data-ja="🎯 デイリーミッションを忘れずに" data-en="🎯 Don't forget daily missions"><span class="emoji">🎯</span><span data-ja="デイリーミッションを忘れずに" data-en="Don't forget daily missions">デイリーミッションを忘れずに</span></li>
+                        <li data-ja="💪 装備の強化を始めよう" data-en="💪 Start equipment enhancement"><span class="emoji">💪</span><span data-ja="装備の強化を始めよう" data-en="Start equipment enhancement">装備の強化を始めよう</span></li>
+                    </ul>
                 </div>
-                <div class="strategy-item">
-                    <div class="strategy-icon">💪</div>
-                    <div class="strategy-text" id="mondayStrategy3">モチベーションを上げる</div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📊</div>
+                    <div class="card-title" data-ja="効率的な進め方" data-en="Efficient Progress">効率的な進め方</div>
+                </div>
+                <div class="card-content">
+                    <p data-ja="月曜日は週のスタートです。計画的に進めることで、1週間を効率的に過ごせます。" data-en="Monday is the start of the week. By proceeding systematically, you can spend the week efficiently.">月曜日は週のスタートです。計画的に進めることで、1週間を効率的に過ごせます。</p>
                 </div>
             </div>
         </div>
 
-        <!-- Tuesday Page -->
+        <!-- Tuesday Strategy Page -->
         <div class="page" id="tuesday">
-            <div class="strategy-section">
-                <div class="strategy-title" id="tuesdayTitle">🔷 火曜日の攻略</div>
-                <div class="strategy-item">
-                    <div class="strategy-icon">⚔️</div>
-                    <div class="strategy-text" id="tuesdayStrategy1">戦力を上げる日</div>
+            <div class="section-title" data-ja="🔷 火曜日の攻略" data-en="🔷 Tuesday Strategy">🔷 火曜日の攻略</div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🔥</div>
+                    <div class="card-title" data-ja="火曜日のポイント" data-en="Tuesday Points">火曜日のポイント</div>
                 </div>
-                <div class="strategy-item">
-                    <div class="strategy-icon">🛡️</div>
-                    <div class="strategy-text" id="tuesdayStrategy2">防御力を強化</div>
+                <div class="card-content">
+                    <ul class="strategy-list">
+                        <li data-ja="⚔️ 戦闘スキルを磨こう" data-en="⚔️ Polish combat skills"><span class="emoji">⚔️</span><span data-ja="戦闘スキルを磨こう" data-en="Polish combat skills">戦闘スキルを磨こう</span></li>
+                        <li data-ja="🛡️ 防御力を強化しよう" data-en="🛡️ Strengthen defense"><span class="emoji">🛡️</span><span data-ja="防御力を強化しよう" data-en="Strengthen defense">防御力を強化しよう</span></li>
+                        <li data-ja="🎲 リスクを取って挑戦" data-en="🎲 Take risks and challenge"><span class="emoji">🎲</span><span data-ja="リスクを取って挑戦" data-en="Take risks and challenge">リスクを取って挑戦</span></li>
+                        <li data-ja="🏆 競技モードに参加" data-en="🏆 Participate in competitive mode"><span class="emoji">🏆</span><span data-ja="競技モードに参加" data-en="Participate in competitive mode">競技モードに参加</span></li>
+                    </ul>
                 </div>
-                <div class="strategy-item">
-                    <div class="strategy-icon">🎯</div>
-                    <div class="strategy-text" id="tuesdayStrategy3">目標を明確に</div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">💡</div>
+                    <div class="card-title" data-ja="おすすめアクション" data-en="Recommended Actions">おすすめアクション</div>
+                </div>
+                <div class="card-content">
+                    <p data-ja="火曜日は積極的に行動する日です。新しい戦術を試したり、難しいクエストに挑戦してみましょう。" data-en="Tuesday is a day for active action. Try new tactics and challenge difficult quests.">火曜日は積極的に行動する日です。新しい戦術を試したり、難しいクエストに挑戦してみましょう。</p>
                 </div>
             </div>
         </div>
 
-        <!-- Wednesday Page -->
+        <!-- Wednesday Strategy Page -->
         <div class="page" id="wednesday">
-            <div class="strategy-section">
-                <div class="strategy-title" id="wednesdayTitle">💎 水曜日の攻略</div>
-                <div class="strategy-item">
-                    <div class="strategy-icon">🔄</div>
-                    <div class="strategy-text" id="wednesdayStrategy1">週の真ん中を乗り切る</div>
+            <div class="section-title" data-ja="💎 水曜日の攻略" data-en="💎 Wednesday Strategy">💎 水曜日の攻略</div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">⚖️</div>
+                    <div class="card-title" data-ja="水曜日のポイント" data-en="Wednesday Points">水曜日のポイント</div>
                 </div>
-                <div class="strategy-item">
-                    <div class="strategy-icon">⚡</div>
-                    <div class="strategy-text" id="wednesdayStrategy2">エネルギーを回復</div>
+                <div class="card-content">
+                    <ul class="strategy-list">
+                        <li data-ja="🔄 進捗を見直そう" data-en="🔄 Review progress"><span class="emoji">🔄</span><span data-ja="進捗を見直そう" data-en="Review progress">進捗を見直そう</span></li>
+                        <li data-ja="⚡ 中間調整を行う" data-en="⚡ Make mid-week adjustments"><span class="emoji">⚡</span><span data-ja="中間調整を行う" data-en="Make mid-week adjustments">中間調整を行う</span></li>
+                        <li data-ja="🎯 効率を最適化" data-en="🎯 Optimize efficiency"><span class="emoji">🎯</span><span data-ja="効率を最適化" data-en="Optimize efficiency">効率を最適化</span></li>
+                        <li data-ja="💰 リソース管理を見直し" data-en="💰 Review resource management"><span class="emoji">💰</span><span data-ja="リソース管理を見直し" data-en="Review resource management">リソース管理を見直し</span></li>
+                    </ul>
                 </div>
-                <div class="strategy-item">
-                    <div class="strategy-icon">🔥</div>
-                    <div class="strategy-text" id="wednesdayStrategy3">情熱を保つ</div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🎨</div>
+                    <div class="card-title" data-ja="バランス調整" data-en="Balance Adjustment">バランス調整</div>
+                </div>
+                <div class="card-content">
+                    <p data-ja="週の中間地点で、これまでの戦略を見直し、必要に応じて調整を行いましょう。" data-en="At the midpoint of the week, review your strategies so far and make adjustments as needed.">週の中間地点で、これまでの戦略を見直し、必要に応じて調整を行いましょう。</p>
                 </div>
             </div>
         </div>
 
-        <!-- Thursday Page -->
+        <!-- Thursday Strategy Page -->
         <div class="page" id="thursday">
-            <div class="strategy-section">
-                <div class="strategy-title" id="thursdayTitle">📚 木曜日の攻略</div>
-                <div class="strategy-item">
-                    <div class="strategy-icon">🚀</div>
-                    <div class="strategy-text" id="thursdayStrategy1">週末への準備</div>
+            <div class="section-title" data-ja="📚 木曜日の攻略" data-en="📚 Thursday Strategy">📚 木曜日の攻略</div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📈</div>
+                    <div class="card-title" data-ja="木曜日のポイント" data-en="Thursday Points">木曜日のポイント</div>
                 </div>
-                <div class="strategy-item">
-                    <div class="strategy-icon">📈</div>
-                    <div class="strategy-text" id="thursdayStrategy2">成長を確認</div>
+                <div class="card-content">
+                    <ul class="strategy-list">
+                        <li data-ja="📖 知識を深めよう" data-en="📖 Deepen knowledge"><span class="emoji">📖</span><span data-ja="知識を深めよう" data-en="Deepen knowledge">知識を深めよう</span></li>
+                        <li data-ja="🔬 新しい戦術を研究" data-en="🔬 Research new tactics"><span class="emoji">🔬</span><span data-ja="新しい戦術を研究" data-en="Research new tactics">新しい戦術を研究</span></li>
+                        <li data-ja="🎪 スキルを練習" data-en="🎪 Practice skills"><span class="emoji">🎪</span><span data-ja="スキルを練習" data-en="Practice skills">スキルを練習</span></li>
+                        <li data-ja="🧠 データを分析" data-en="🧠 Analyze data"><span class="emoji">🧠</span><span data-ja="データを分析" data-en="Analyze data">データを分析</span></li>
+                    </ul>
                 </div>
-                <div class="strategy-item">
-                    <div class="strategy-icon">💼</div>
-                    <div class="strategy-text" id="thursdayStrategy3">スキルを磨く</div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🎓</div>
+                    <div class="card-title" data-ja="学習と成長" data-en="Learning and Growth">学習と成長</div>
+                </div>
+                <div class="card-content">
+                    <p data-ja="木曜日は学習の日です。新しい攻略法を研究したり、他のプレイヤーの戦術を観察してみましょう。" data-en="Thursday is a learning day. Research new strategies and observe other players' tactics.">木曜日は学習の日です。新しい攻略法を研究したり、他のプレイヤーの戦術を観察してみましょう。</p>
                 </div>
             </div>
         </div>
 
-        <!-- Friday Page -->
+        <!-- Friday Strategy Page -->
         <div class="page" id="friday">
-            <div class="strategy-section">
-                <div class="strategy-title" id="fridayTitle">🎁 金曜日の攻略</div>
-                <div class="strategy-item">
-                    <div class="strategy-icon">🎉</div>
-                    <div class="strategy-text" id="fridayStrategy1">週の締めくくり</div>
+            <div class="section-title" data-ja="🎁 金曜日の攻略" data-en="🎁 Friday Strategy">🎁 金曜日の攻略</div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🎉</div>
+                    <div class="card-title" data-ja="金曜日のポイント" data-en="Friday Points">金曜日のポイント</div>
                 </div>
-                <div class="strategy-item">
-                    <div class="strategy-icon">🏆</div>
-                    <div class="strategy-text" id="fridayStrategy2">達成感を味わう</div>
+                <div class="card-content">
+                    <ul class="strategy-list">
+                        <li data-ja="🏁 週の目標を完了" data-en="🏁 Complete weekly goals"><span class="emoji">🏁</span><span data-ja="週の目標を完了" data-en="Complete weekly goals">週の目標を完了</span></li>
+                        <li data-ja="🎊 成果を振り返る" data-en="🎊 Reflect on achievements"><span class="emoji">🎊</span><span data-ja="成果を振り返る" data-en="Reflect on achievements">成果を振り返る</span></li>
+                        <li data-ja="🎈 お楽しみ要素を満喫" data-en="🎈 Enjoy fun elements"><span class="emoji">🎈</span><span data-ja="お楽しみ要素を満喫" data-en="Enjoy fun elements">お楽しみ要素を満喫</span></li>
+                        <li data-ja="🌟 特別イベントに参加" data-en="🌟 Participate in special events"><span class="emoji">🌟</span><span data-ja="特別イベントに参加" data-en="Participate in special events">特別イベントに参加</span></li>
+                    </ul>
                 </div>
-                <div class="strategy-item">
-                    <div class="strategy-icon">🎊</div>
-                    <div class="strategy-text" id="fridayStrategy3">次週への準備</div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-title" data-ja="週の締めくくり" data-en="Week's Conclusion">週の締めくくり</div>
+                </div>
+                <div class="card-content">
+                    <p data-ja="金曜日は週の締めくくりです。今週の成果を確認し、来週に向けての準備を始めましょう。" data-en="Friday is the week's conclusion. Check this week's achievements and start preparing for next week.">金曜日は週の締めくくりです。今週の成果を確認し、来週に向けての準備を始めましょう。</p>
                 </div>
             </div>
         </div>
 
-        <!-- Saturday Page -->
+        <!-- Saturday Strategy Page -->
         <div class="page" id="saturday">
-            <div class="strategy-section">
-                <div class="strategy-title" id="saturdayTitle">📦 土曜日の攻略</div>
-                <div class="strategy-item">
-                    <div class="strategy-icon">🌟</div>
-                    <div class="strategy-text" id="saturdayStrategy1">週末を楽しもう</div>
+            <div class="section-title" data-ja="📦 土曜日の攻略" data-en="📦 Saturday Strategy">📦 土曜日の攻略</div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🎮</div>
+                    <div class="card-title" data-ja="土曜日のポイント" data-en="Saturday Points">土曜日のポイント</div>
                 </div>
-                <div class="strategy-item">
-                    <div class="strategy-icon">🎮</div>
-                    <div class="strategy-text" id="saturdayStrategy2">リラックスタイム</div>
+                <div class="card-content">
+                    <ul class="strategy-list">
+                        <li data-ja="🎪 自由に楽しもう" data-en="🎪 Enjoy freely"><span class="emoji">🎪</span><span data-ja="自由に楽しもう" data-en="Enjoy freely">自由に楽しもう</span></li>
+                        <li data-ja="🌈 新しいことに挑戦" data-en="🌈 Try new things"><span class="emoji">🌈</span><span data-ja="新しいことに挑戦" data-en="Try new things">新しいことに挑戦</span></li>
+                        <li data-ja="🎨 創造性を発揮" data-en="🎨 Express creativity"><span class="emoji">🎨</span><span data-ja="創造性を発揮" data-en="Express creativity">創造性を発揮</span></li>
+                        <li data-ja="🤝 他のプレイヤーと交流" data-en="🤝 Interact with other players"><span class="emoji">🤝</span><span data-ja="他のプレイヤーと交流" data-en="Interact with other players">他のプレイヤーと交流</span></li>
+                    </ul>
                 </div>
-                <div class="strategy-item">
-                    <div class="strategy-icon">💭</div>
-                    <div class="strategy-text" id="saturdayStrategy3">振り返りと計画</div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🌟</div>
+                    <div class="card-title" data-ja="週末を楽しもう" data-en="Enjoy the Weekend">週末を楽しもう</div>
+                </div>
+                <div class="card-content">
+                    <p data-ja="土曜日は自由な時間です。普段できないことに挑戦したり、のんびりと過ごしたりしましょう。" data-en="Saturday is free time. Challenge yourself with things you can't usually do or relax.">土曜日は自由な時間です。普段できないことに挑戦したり、のんびりと過ごしたりしましょう。</p>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        let currentLanguage = 'ja';
+        // Language switching functionality
+        let currentLang = 'ja';
         
-        const translations = {
-            ja: {
-                headerTitle: 'YMK攻略',
-                sidebarTitle: 'YMK攻略',
-                sidebarSubtitle: '日替わり攻略情報をチェック！',
-                navHome: '🏠 ホーム',
-                navAbout: '🛡️ ギルド軍拡ってなに？',
-                navMonday: '📅 月曜日の攻略',
-                navTuesday: '🔷 火曜日の攻略',
-                navWednesday: '💎 水曜日の攻略',
-                navThursday: '📚 木曜日の攻略',
-                navFriday: '🎁 金曜日の攻略',
-                navSaturday: '📦 土曜日の攻略',
-                homeTitle: 'YMK攻略ガイド',
-                homeSubtitle: '日替わり攻略情報をチェック！',
-                homeAboutTitle: 'ギルド軍拡ってなに？',
-                homeAboutSubtitle: '基本ガイド',
-                homeMondayTitle: '月曜日の攻略',
-                homeMondaySubtitle: '週の始まりの戦略',
-                homeTuesdayTitle: '火曜日の攻略',
-                homeTuesdaySubtitle: '戦力を上げる日',
-                homeWednesdayTitle: '水曜日の攻略',
-                homeWednesdaySubtitle: '週の真ん中を乗り切る',
-                homeThursdayTitle: '木曜日の攻略',
-                homeThursdaySubtitle: '週末への準備',
-                homeFridayTitle: '金曜日の攻略',
-                homeFridaySubtitle: '週の締めくくり',
-                homeSaturdayTitle: '土曜日の攻略',
-                homeSaturdaySubtitle: '週末を楽しもう',
-                homeFooter: '毎日コツコツ攻略していこう！',
-                aboutTitle: 'ギルド軍拡ってなぁに？',
-                aboutDescription: 'ギルド軍拡は二週間ごとに繰り返している他サーバーとの対戦イベントです(*\'∀\')。GvG（Guild vs Guild）,Arms raceともいわれます。',
-                aboutSchedule: '月曜日から金曜日までの準備段階、土曜日の戦争段階に分かれています。準備段階に勝利したギルドが土曜日に相手サーバーに攻撃ができる。長い戦いです！',
-                aboutImportanceTitle: 'ギルド軍拡の重要性',
-                aboutPoint1: '負けた場合、対戦ギルドが越境してきて攻撃するが、勝てば対戦相手は越境してこないため、攻撃されることがない。',
-                aboutPoint2: 'サーバー内のギルド間では「対戦相手の越境を防ぐ」ことがギルドの価値の指標になりつつある = 価値あるギルドとして遺跡の獲得などの交渉も有利になる可能性あり（嬉しい）',
-                aboutPoint3: '日々のミッション(宝箱を開ける)をこなすと手に入りにくいURの欠片、専用装備万能欠片が手に入る（ハッピー）',
-                aboutConclusionTitle: 'まとめ',
-                aboutConclusion: '以上を踏まえて、ギルド軍拡でポイントを稼ぐことは個人の勝利、引いてはギルドのためになります👊',
-                aboutGoal: 'では、ギルド軍拡のミッションを出来るだけ楽にこなしつつ、ポイントを稼ぐにはどうしたらいいのか。みんなの意見を聞きながら、まとめました！！',
-                aboutMaster: 'これであなたも軍拡マスター✨✨✨',
-                mondayTitle: '📅 月曜日の攻略',
-                mondayStrategy1: '週の始まりの戦略',
-                mondayStrategy2: '計画を立てる',
-                mondayStrategy3: 'モチベーションを上げる',
-                tuesdayTitle: '🔷 火曜日の攻略',
-                tuesdayStrategy1: '戦力を上げる日',
-                tuesdayStrategy2: '防御力を強化',
-                tuesdayStrategy3: '目標を明確に',
-                wednesdayTitle: '💎 水曜日の攻略',
-                wednesdayStrategy1: '週の真ん中を乗り切る',
-                wednesdayStrategy2: 'エネルギーを回復',
-                wednesdayStrategy3: '情熱を保つ',
-                thursdayTitle: '📚 木曜日の攻略',
-                thursdayStrategy1: '週末への準備',
-                thursdayStrategy2: '成長を確認',
-                thursdayStrategy3: 'スキルを磨く',
-                fridayTitle: '🎁 金曜日の攻略',
-                fridayStrategy1: '週の締めくくり',
-                fridayStrategy2: '達成感を味わう',
-                fridayStrategy3: '次週への準備',
-                saturdayTitle: '📦 土曜日の攻略',
-                saturdayStrategy1: '週末を楽しもう',
-                saturdayStrategy2: 'リラックスタイム',
-                saturdayStrategy3: '振り返りと計画'
-            },
-            en: {
-                headerTitle: 'YMK Strategy',
-                sidebarTitle: 'YMK Strategy',
-                sidebarSubtitle: 'Check daily strategy information!',
-                navHome: '🏠 Home',
-                navAbout: '🛡️ What is Guild Expansion?',
-                navMonday: '📅 Monday Strategy',
-                navTuesday: '🔷 Tuesday Strategy',
-                navWednesday: '💎 Wednesday Strategy',
-                navThursday: '📚 Thursday Strategy',
-                navFriday: '🎁 Friday Strategy',
-                navSaturday: '📦 Saturday Strategy',
-                homeTitle: 'YMK Strategy Guide',
-                homeSubtitle: 'Check daily strategy information!',
-                homeAboutTitle: 'What is Guild Expansion?',
-                homeAboutSubtitle: 'Basic Guide',
-                homeMondayTitle: 'Monday Strategy',
-                homeMondaySubtitle: 'Start of the week strategy',
-                homeTuesdayTitle: 'Tuesday Strategy',
-                homeTuesdaySubtitle: 'Power up day',
-                homeWednesdayTitle: 'Wednesday Strategy',
-                homeWednesdaySubtitle: 'Get through mid-week',
-                homeThursdayTitle: 'Thursday Strategy',
-                homeThursdaySubtitle: 'Prepare for weekend',
-                homeFridayTitle: 'Friday Strategy',
-                homeFridaySubtitle: 'Week\'s finale',
-                homeSaturdayTitle: 'Saturday Strategy',
-                homeSaturdaySubtitle: 'Enjoy the weekend',
-                homeFooter: 'Let\'s work on strategy every day!',
-                aboutTitle: 'What is Guild Expansion?',
-                aboutDescription: 'Guild Expansion is a cross-server battle event that repeats every two weeks (*\'∀\'). It\'s also called GvG (Guild vs Guild) or Arms race.',
-                aboutSchedule: 'It consists of preparation stages from Monday to Friday and a war stage on Saturday. Guilds that win the preparation stage can attack the opponent server on Saturday. It\'s a long battle!',
-                aboutImportanceTitle: 'Importance of Guild Expansion',
-                aboutPoint1: 'If you lose, the opposing guild will cross over and attack, but if you win, the opponent won\'t cross over, so you won\'t be attacked.',
-                aboutPoint2: 'Among guilds within the server, "preventing opponent\'s cross-border" is becoming an indicator of guild value = there\'s a possibility of gaining advantages in negotiations such as relic acquisition as a valuable guild (happy)',
-                aboutPoint3: 'By completing daily missions (opening treasure chests), you can get hard-to-obtain UR fragments and universal equipment fragments (happy)',
-                aboutConclusionTitle: 'Summary',
-                aboutConclusion: 'Based on the above, earning points in Guild Expansion leads to individual victory and ultimately benefits the guild👊',
-                aboutGoal: 'So, how can we complete Guild Expansion missions as easily as possible while earning points? We\'ve compiled this based on everyone\'s opinions!!',
-                aboutMaster: 'Now you\'re also an expansion master✨✨✨',
-                mondayTitle: '📅 Monday Strategy',
-                mondayStrategy1: 'Start of the week strategy',
-                mondayStrategy2: 'Make plans',
-                mondayStrategy3: 'Boost motivation',
-                tuesdayTitle: '🔷 Tuesday Strategy',
-                tuesdayStrategy1: 'Power up day',
-                tuesdayStrategy2: 'Strengthen defense',
-                tuesdayStrategy3: 'Clarify goals',
-                wednesdayTitle: '💎 Wednesday Strategy',
-                wednesdayStrategy1: 'Get through mid-week',
-                wednesdayStrategy2: 'Recover energy',
-                wednesdayStrategy3: 'Maintain passion',
-                thursdayTitle: '📚 Thursday Strategy',
-                thursdayStrategy1: 'Prepare for weekend',
-                thursdayStrategy2: 'Check growth',
-                thursdayStrategy3: 'Polish skills',
-                fridayTitle: '🎁 Friday Strategy',
-                fridayStrategy1: 'Week\'s finale',
-                fridayStrategy2: 'Taste achievement',
-                fridayStrategy3: 'Prepare for next week',
-                saturdayTitle: '📦 Saturday Strategy',
-                saturdayStrategy1: 'Enjoy the weekend',
-                saturdayStrategy2: 'Relaxation time',
-                saturdayStrategy3: 'Reflection and planning'
-            }
-        };
-
-        function setLanguage(lang) {
-            currentLanguage = lang;
+        function switchLanguage(lang) {
+            currentLang = lang;
             
             // Update language buttons
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            // Update all text content
-            const texts = translations[lang];
-            for (const [key, value] of Object.entries(texts)) {
-                const element = document.getElementById(key);
-                if (element) {
-                    element.textContent = value;
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('active');
                 }
-            }
-        }
-
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('overlay');
+            });
             
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
+            // Update text content
+            document.querySelectorAll('[data-ja]').forEach(element => {
+                if (lang === 'ja') {
+                    element.textContent = element.dataset.ja;
+                } else {
+                    element.textContent = element.dataset.en;
+                }
+            });
         }
-
-        function showPage(pageName) {
+        
+        // Menu functionality
+        function showPage(pageId) {
             // Hide all pages
             document.querySelectorAll('.page').forEach(page => {
                 page.classList.remove('active');
             });
             
             // Show selected page
-            document.getElementById(pageName).classList.add('active');
+            document.getElementById(pageId).classList.add('active');
             
-            // Update active nav link
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
+            // Update menu item active state
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.dataset.page === pageId) {
+                    item.classList.add('active');
+                }
             });
             
-            // Find and activate the corresponding nav link
-            const navLinks = {
-                'home': 'navHome',
-                'about': 'navAbout',
-                'monday': 'navMonday',
-                'tuesday': 'navTuesday',
-                'wednesday': 'navWednesday',
-                'thursday': 'navThursday',
-                'friday': 'navFriday',
-                'saturday': 'navSaturday'
-            };
-            
-            if (navLinks[pageName]) {
-                document.querySelector(`[onclick="showPage('${pageName}')"]`).classList.add('active');
-            }
-            
-            // Close sidebar
-            toggleSidebar();
+            // Close menu
+            closeMenu();
         }
-
-        // Initialize
+        
+        function openMenu() {
+            document.getElementById('menuOverlay').style.display = 'block';
+            document.getElementById('menuSidebar').classList.add('active');
+        }
+        
+        function closeMenu() {
+            document.getElementById('menuOverlay').style.display = 'none';
+            document.getElementById('menuSidebar').classList.remove('active');
+        }
+        
+        // Event listeners
         document.addEventListener('DOMContentLoaded', function() {
-            setLanguage('ja');
+            // Language switching
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    switchLanguage(this.dataset.lang);
+                });
+            });
+            
+            // Menu functionality
+            document.getElementById('hamburger').addEventListener('click', openMenu);
+            document.getElementById('closeMenu').addEventListener('click', closeMenu);
+            document.getElementById('menuOverlay').addEventListener('click', closeMenu);
+            
+            // Menu item clicks
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    showPage(this.dataset.page);
+                });
+            });
         });
     </script>
 </body>
