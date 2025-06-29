@@ -8,696 +8,934 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <style>
         body {
-            background: linear-gradient(135deg, #ffeef8 0%, #f3e5f5 25%, #e8f5e8 50%, #fff3e0 75%, #ffeef8 100%);
-            font-family: 'Hiragino Sans', 'Meiryo', sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #f3e5f5 50%, #e8d5f2 100%);
             min-height: 100vh;
+            font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif;
         }
         
-        .glass-card {
-            background: rgba(255, 255, 255, 0.85);
+        .card {
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(199, 125, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(199, 125, 255, 0.3);
         }
         
         .gradient-text {
-            background: linear-gradient(45deg, #9c27b0, #e91e63, #ff9800);
+            background: linear-gradient(45deg, #e91e63, #9c27b0);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         
-        .nav-item {
+        .menu-item {
+            background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid rgba(233, 30, 99, 0.1);
             transition: all 0.3s ease;
-            background: linear-gradient(135deg, #f8bbd9 0%, #e1bee7 100%);
+            cursor: pointer;
         }
         
-        .nav-item:hover {
-            transform: translateY(-2px);
+        .menu-item:hover {
+            background: linear-gradient(135deg, #f8bbd9 0%, #e1bee7 100%);
+            transform: translateX(5px);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #e91e63, #9c27b0);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            color: white;
+            font-weight: bold;
+            transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
         }
         
-        .section-card {
-            background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%);
-            border: 2px solid #f8bbd9;
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
         }
         
         .lang-btn {
-            background: linear-gradient(135deg, #e1bee7 0%, #f8bbd9 100%);
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid #e91e63;
+            border-radius: 20px;
+            padding: 5px 15px;
+            margin: 0 5px;
+            cursor: pointer;
             transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .lang-btn.active {
+            background: linear-gradient(45deg, #e91e63, #9c27b0);
+            color: white;
         }
         
         .lang-btn:hover {
             transform: scale(1.05);
         }
         
-        .lang-btn.active {
-            background: linear-gradient(135deg, #9c27b0 0%, #e91e63 100%);
-            color: white;
-            box-shadow: 0 4px 15px rgba(156, 39, 176, 0.4);
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
         }
         
-        .menu-overlay {
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #e91e63;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+        
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(255, 238, 248, 0.95) 0%, rgba(243, 229, 245, 0.95) 100%);
+            backdrop-filter: blur(10px);
+            transition: left 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 20px;
+            box-shadow: 4px 0 20px rgba(199, 125, 255, 0.3);
+        }
+        
+        .sidebar.active {
+            left: 0;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
+            z-index: 999;
+            display: none;
         }
         
-        .strategy-image {
-            border: 3px solid #f8bbd9;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(233, 30, 99, 0.15);
-            max-width: 100%;
-            height: auto;
-            margin: 1rem auto;
+        .overlay.active {
             display: block;
         }
         
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .strategy-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(199, 125, 255, 0.3);
+            margin: 20px 0;
+            border: 3px solid rgba(233, 30, 99, 0.2);
+        }
+        
         @media (max-width: 768px) {
-            .section-card {
-                margin: 0.5rem;
-                padding: 1rem;
+            .hamburger {
+                display: flex;
             }
             
-            .strategy-image {
-                max-width: 95%;
-                margin: 1rem auto;
+            .container {
+                padding: 10px;
+            }
+            
+            .card {
+                margin: 10px 0;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Language Toggle -->
-    <div class="fixed top-4 right-4 z-50 flex space-x-2">
-        <button onclick="switchLanguage('ja')" class="lang-btn px-3 py-1 rounded-full text-sm font-bold active" id="ja-btn">
-            🇯🇵 日本語
-        </button>
-        <button onclick="switchLanguage('en')" class="lang-btn px-3 py-1 rounded-full text-sm font-bold" id="en-btn">
-            🇺🇸 English
-        </button>
-    </div>
-
-    <!-- Menu Overlay -->
-    <div id="menu-overlay" class="menu-overlay fixed inset-0 z-40 hidden">
-        <div class="glass-card w-80 h-full p-6 overflow-y-auto">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="gradient-text text-xl font-bold" data-ja="メニュー" data-en="Menu">メニュー</h2>
-                <button onclick="toggleMenu()" class="text-2xl text-purple-600">×</button>
-            </div>
-            <nav class="space-y-3">
-                <a href="#" onclick="showPage('home')" class="nav-item block p-3 rounded-lg text-center font-bold">
-                    <i class="fas fa-home mr-2"></i><span data-ja="🏠 ホーム" data-en="🏠 Home">🏠 ホーム</span>
-                </a>
-                <a href="#" onclick="showPage('guild-expansion')" class="nav-item block p-3 rounded-lg text-center font-bold">
-                    <i class="fas fa-question-circle mr-2"></i><span data-ja="🌸 ギルド軍拡ってなに？" data-en="🌸 What is Guild Military Expansion?">🌸 ギルド軍拡ってなに？</span>
-                </a>
-                <a href="#" onclick="showPage('frozen-battlefield')" class="nav-item block p-3 rounded-lg text-center font-bold">
-                    <i class="fas fa-snowflake mr-2"></i><span data-ja="❄️ 氷原の戦場" data-en="❄️ Frozen Battlefield">❄️ 氷原の戦場</span>
-                </a>
-                <a href="#" onclick="showPage('monday')" class="nav-item block p-3 rounded-lg text-center font-bold">
-                    <i class="fas fa-calendar-day mr-2"></i><span data-ja="📅 月曜日の攻略" data-en="📅 Monday Strategy">📅 月曜日の攻略</span>
-                </a>
-                <a href="#" onclick="showPage('tuesday')" class="nav-item block p-3 rounded-lg text-center font-bold">
-                    <i class="fas fa-gem mr-2"></i><span data-ja="🔷 火曜日の攻略" data-en="🔷 Tuesday Strategy">🔷 火曜日の攻略</span>
-                </a>
-                <a href="#" onclick="showPage('wednesday')" class="nav-item block p-3 rounded-lg text-center font-bold">
-                    <i class="fas fa-diamond mr-2"></i><span data-ja="💎 水曜日の攻略" data-en="💎 Wednesday Strategy">💎 水曜日の攻略</span>
-                </a>
-                <a href="#" onclick="showPage('thursday')" class="nav-item block p-3 rounded-lg text-center font-bold">
-                    <i class="fas fa-book mr-2"></i><span data-ja="📚 木曜日の攻略" data-en="📚 Thursday Strategy">📚 木曜日の攻略</span>
-                </a>
-                <a href="#" onclick="showPage('friday')" class="nav-item block p-3 rounded-lg text-center font-bold">
-                    <i class="fas fa-gift mr-2"></i><span data-ja="🎁 金曜日の攻略" data-en="🎁 Friday Strategy">🎁 金曜日の攻略</span>
-                </a>
-                <a href="#" onclick="showPage('saturday')" class="nav-item block p-3 rounded-lg text-center font-bold">
-                    <i class="fas fa-box mr-2"></i><span data-ja="📦 土曜日の攻略" data-en="📦 Saturday Strategy">📦 土曜日の攻略</span>
-                </a>
-            </nav>
+    <!-- オーバーレイ -->
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+    
+    <!-- サイドバー -->
+    <div class="sidebar" id="sidebar">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-bold gradient-text">📱 メニュー</h2>
+            <button onclick="toggleSidebar()" class="text-2xl text-pink-500">✕</button>
         </div>
-    </div>
-
-    <!-- Header -->
-    <header class="glass-card p-4 m-4 rounded-2xl text-center relative">
-        <button onclick="toggleMenu()" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-2xl text-purple-600">
-            ☰
-        </button>
-        <h1 class="gradient-text text-2xl font-bold">⭐ YMK攻略 ⭐</h1>
-        <p class="text-purple-600 mt-2" data-ja="日替わり攻略情報をチェック！" data-en="Check daily strategy information!">日替わり攻略情報をチェック！</p>
-        <div class="mt-2">😍</div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="container mx-auto px-4 pb-8">
-        <!-- Home Page -->
-        <div id="home-page" class="page">
-            <div class="text-center mb-8">
-                <h2 class="gradient-text text-3xl font-bold mb-4" data-ja="YMK攻略ガイド" data-en="YMK Strategy Guide">YMK攻略ガイド</h2>
-                <p class="text-purple-700 text-lg" data-ja="日替わりで行われる攻略情報をチェック！" data-en="Check daily strategy information!">日替わりで行われる攻略情報をチェック！</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="section-card glass-card p-6 rounded-2xl text-center hover:transform hover:scale-105 transition-all duration-300">
-                    <div class="text-4xl mb-4">🌸</div>
-                    <h3 class="gradient-text text-xl font-bold mb-2" data-ja="ギルド軍拡ってなに？" data-en="What is Guild Military Expansion?">ギルド軍拡ってなに？</h3>
-                    <p class="text-purple-600" data-ja="基本ガイド" data-en="Basic Guide">基本ガイド</p>
-                </div>
-                
-                <div class="section-card glass-card p-6 rounded-2xl text-center hover:transform hover:scale-105 transition-all duration-300">
-                    <div class="text-4xl mb-4">❄️</div>
-                    <h3 class="gradient-text text-xl font-bold mb-2" data-ja="氷原の戦場" data-en="Frozen Battlefield">氷原の戦場</h3>
-                    <p class="text-purple-600" data-ja="特別マップ攻略" data-en="Special Map Strategy">特別マップ攻略</p>
-                </div>
-                
-                <div class="section-card glass-card p-6 rounded-2xl text-center hover:transform hover:scale-105 transition-all duration-300">
-                    <div class="text-4xl mb-4">📅</div>
-                    <h3 class="gradient-text text-xl font-bold mb-2" data-ja="月曜日の攻略" data-en="Monday Strategy">月曜日の攻略</h3>
-                    <p class="text-purple-600" data-ja="週の始まりの戦略" data-en="Start of week strategy">週の始まりの戦略</p>
-                </div>
-                
-                <div class="section-card glass-card p-6 rounded-2xl text-center hover:transform hover:scale-105 transition-all duration-300">
-                    <div class="text-4xl mb-4">🔷</div>
-                    <h3 class="gradient-text text-xl font-bold mb-2" data-ja="火曜日の攻略" data-en="Tuesday Strategy">火曜日の攻略</h3>
-                    <p class="text-purple-600" data-ja="勝手を上げる日" data-en="Building momentum day">勝手を上げる日</p>
-                </div>
-                
-                <div class="section-card glass-card p-6 rounded-2xl text-center hover:transform hover:scale-105 transition-all duration-300">
-                    <div class="text-4xl mb-4">💎</div>
-                    <h3 class="gradient-text text-xl font-bold mb-2" data-ja="水曜日の攻略" data-en="Wednesday Strategy">水曜日の攻略</h3>
-                    <p class="text-purple-600" data-ja="週の真ん中を乗り切る" data-en="Mid-week strategy">週の真ん中を乗り切る</p>
-                </div>
-                
-                <div class="section-card glass-card p-6 rounded-2xl text-center hover:transform hover:scale-105 transition-all duration-300">
-                    <div class="text-4xl mb-4">📚</div>
-                    <h3 class="gradient-text text-xl font-bold mb-2" data-ja="木曜日の攻略" data-en="Thursday Strategy">木曜日の攻略</h3>
-                    <p class="text-purple-600" data-ja="週末への準備" data-en="Weekend preparation">週末への準備</p>
-                </div>
-                
-                <div class="section-card glass-card p-6 rounded-2xl text-center hover:transform hover:scale-105 transition-all duration-300">
-                    <div class="text-4xl mb-4">🎁</div>
-                    <h3 class="gradient-text text-xl font-bold mb-2" data-ja="金曜日の攻略" data-en="Friday Strategy">金曜日の攻略</h3>
-                    <p class="text-purple-600" data-ja="週の締めくくり" data-en="Week finale">週の締めくくり</p>
-                </div>
-                
-                <div class="section-card glass-card p-6 rounded-2xl text-center hover:transform hover:scale-105 transition-all duration-300">
-                    <div class="text-4xl mb-4">📦</div>
-                    <h3 class="gradient-text text-xl font-bold mb-2" data-ja="土曜日の攻略" data-en="Saturday Strategy">土曜日の攻略</h3>
-                    <p class="text-purple-600" data-ja="週末を楽しもう" data-en="Enjoy the weekend">週末を楽しもう</p>
-                </div>
-            </div>
-            
-            <div class="text-center mt-8">
-                <p class="text-purple-600 text-lg" data-ja="💖 毎日コツコツ攻略していこう！ 💖" data-en="💖 Let's work on strategies every day! 💖">💖 毎日コツコツ攻略していこう！ 💖</p>
+        
+        <div class="menu-item" onclick="showPage('home')">
+            <div class="flex items-center">
+                <span class="text-2xl mr-3">🏠</span>
+                <span class="font-semibold" data-ja="ホーム" data-en="Home">ホーム</span>
             </div>
         </div>
-
-        <!-- Guild Expansion Page -->
-        <div id="guild-expansion-page" class="page hidden">
-            <div class="section-card glass-card p-6 rounded-2xl mb-6">
-                <div class="text-center mb-6">
-                    <h2 class="gradient-text text-3xl font-bold mb-4" data-ja="🌸✨ ギルド軍拡ってなぁに？ ✨🌸" data-en="🌸✨ What is Guild Military Expansion? ✨🌸">🌸✨ ギルド軍拡ってなぁに？ ✨🌸</h2>
+        
+        <div class="menu-item" onclick="showPage('guild-expansion')">
+            <div class="flex items-center">
+                <span class="text-2xl mr-3">🌸</span>
+                <span class="font-semibold" data-ja="ギルド軍拡ってなに？" data-en="What is Guild Military Expansion?">ギルド軍拡ってなに？</span>
+            </div>
+        </div>
+        
+        <div class="menu-item" onclick="showPage('frozen-battlefield')">
+            <div class="flex items-center">
+                <span class="text-2xl mr-3">❄️</span>
+                <span class="font-semibold" data-ja="氷原の戦場" data-en="Frozen Battlefield">氷原の戦場</span>
+            </div>
+        </div>
+        
+        <div class="menu-item" onclick="showPage('monday')">
+            <div class="flex items-center">
+                <span class="text-2xl mr-3">📅</span>
+                <span class="font-semibold" data-ja="月曜日の攻略" data-en="Monday Strategy">月曜日の攻略</span>
+            </div>
+            <div class="text-sm text-purple-600 mt-1" data-ja="週の始まりの戦略" data-en="Start of the week strategy">週の始まりの戦略</div>
+        </div>
+        
+        <div class="menu-item" onclick="showPage('tuesday')">
+            <div class="flex items-center">
+                <span class="text-2xl mr-3">🔷</span>
+                <span class="font-semibold" data-ja="火曜日の攻略" data-en="Tuesday Strategy">火曜日の攻略</span>
+            </div>
+            <div class="text-sm text-purple-600 mt-1" data-ja="勢子を上げる日" data-en="Build momentum day">勢子を上げる日</div>
+        </div>
+        
+        <div class="menu-item" onclick="showPage('wednesday')">
+            <div class="flex items-center">
+                <span class="text-2xl mr-3">💎</span>
+                <span class="font-semibold" data-ja="水曜日の攻略" data-en="Wednesday Strategy">水曜日の攻略</span>
+            </div>
+            <div class="text-sm text-purple-600 mt-1" data-ja="週の真ん中を乗り切る" data-en="Get through midweek">週の真ん中を乗り切る</div>
+        </div>
+        
+        <div class="menu-item" onclick="showPage('thursday')">
+            <div class="flex items-center">
+                <span class="text-2xl mr-3">📚</span>
+                <span class="font-semibold" data-ja="木曜日の攻略" data-en="Thursday Strategy">木曜日の攻略</span>
+            </div>
+            <div class="text-sm text-purple-600 mt-1" data-ja="週末への準備" data-en="Prepare for weekend">週末への準備</div>
+        </div>
+        
+        <div class="menu-item" onclick="showPage('friday')">
+            <div class="flex items-center">
+                <span class="text-2xl mr-3">🎁</span>
+                <span class="font-semibold" data-ja="金曜日の攻略" data-en="Friday Strategy">金曜日の攻略</span>
+            </div>
+            <div class="text-sm text-purple-600 mt-1" data-ja="週の締めくくり" data-en="End of week wrap-up">週の締めくくり</div>
+        </div>
+        
+        <div class="menu-item" onclick="showPage('saturday')">
+            <div class="flex items-center">
+                <span class="text-2xl mr-3">📦</span>
+                <span class="font-semibold" data-ja="土曜日の攻略" data-en="Saturday Strategy">土曜日の攻略</span>
+            </div>
+            <div class="text-sm text-purple-600 mt-1" data-ja="週末を楽しもう" data-en="Enjoy the weekend">週末を楽しもう</div>
+        </div>
+    </div>
+    
+    <!-- メインコンテンツ -->
+    <div class="min-h-screen">
+        <!-- ヘッダー -->
+        <header class="flex justify-between items-center p-4 bg-white bg-opacity-80 backdrop-filter backdrop-blur-lg">
+            <div class="hamburger" onclick="toggleSidebar()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <h1 class="text-2xl font-bold gradient-text">⭐ YMK攻略 ⭐</h1>
+            
+            <div class="flex items-center">
+                <button class="lang-btn active" data-lang="ja" onclick="switchLanguage('ja')">日本語</button>
+                <button class="lang-btn" data-lang="en" onclick="switchLanguage('en')">English</button>
+            </div>
+        </header>
+        
+        <!-- ホームページ -->
+        <div id="home" class="page active">
+            <div class="container mx-auto px-4 py-8">
+                <div class="text-center mb-8">
+                    <div class="text-6xl mb-4">😊</div>
+                    <h2 class="text-3xl font-bold gradient-text mb-4" data-ja="YMK攻略ガイド" data-en="YMK Strategy Guide">YMK攻略ガイド</h2>
+                    <p class="text-lg text-purple-600" data-ja="日替わり攻略情報をチェック！" data-en="Check daily strategy information!">日替わり攻略情報をチェック！</p>
                 </div>
                 
-                <div class="prose max-w-none text-gray-800">
-                    <div data-ja="
-                        <p class='mb-4'>💫 <strong>ギルド軍拡</strong> は二週間ごとに繰り返している他サーバーとの対戦イベントです(*'∀')♡<br>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                    <div class="card p-6 text-center cursor-pointer" onclick="showPage('guild-expansion')">
+                        <div class="text-4xl mb-3">🏛️</div>
+                        <h3 class="text-xl font-bold text-purple-700 mb-2" data-ja="ギルド軍拡ってなに？" data-en="What is Guild Military Expansion?">ギルド軍拡ってなに？</h3>
+                        <p class="text-sm text-gray-600" data-ja="基本ガイド" data-en="Basic Guide">基本ガイド</p>
+                    </div>
+                    
+                    <div class="card p-6 text-center cursor-pointer" onclick="showPage('frozen-battlefield')">
+                        <div class="text-4xl mb-3">❄️</div>
+                        <h3 class="text-xl font-bold text-purple-700 mb-2" data-ja="氷原の戦場" data-en="Frozen Battlefield">氷原の戦場</h3>
+                        <p class="text-sm text-gray-600" data-ja="特別攻略" data-en="Special Strategy">特別攻略</p>
+                    </div>
+                    
+                    <div class="card p-6 text-center cursor-pointer" onclick="showPage('monday')">
+                        <div class="text-4xl mb-3">📅</div>
+                        <h3 class="text-xl font-bold text-purple-700 mb-2" data-ja="月曜日の攻略" data-en="Monday Strategy">月曜日の攻略</h3>
+                        <p class="text-sm text-gray-600" data-ja="週の始まりの戦略" data-en="Start of week strategy">週の始まりの戦略</p>
+                    </div>
+                    
+                    <div class="card p-6 text-center cursor-pointer" onclick="showPage('tuesday')">
+                        <div class="text-4xl mb-3">🔷</div>
+                        <h3 class="text-xl font-bold text-purple-700 mb-2" data-ja="火曜日の攻略" data-en="Tuesday Strategy">火曜日の攻略</h3>
+                        <p class="text-sm text-gray-600" data-ja="勢子を上げる日" data-en="Build momentum day">勢子を上げる日</p>
+                    </div>
+                    
+                    <div class="card p-6 text-center cursor-pointer" onclick="showPage('wednesday')">
+                        <div class="text-4xl mb-3">💎</div>
+                        <h3 class="text-xl font-bold text-purple-700 mb-2" data-ja="水曜日の攻略" data-en="Wednesday Strategy">水曜日の攻略</h3>
+                        <p class="text-sm text-gray-600" data-ja="週の真ん中を乗り切る" data-en="Get through midweek">週の真ん中を乗り切る</p>
+                    </div>
+                    
+                    <div class="card p-6 text-center cursor-pointer" onclick="showPage('thursday')">
+                        <div class="text-4xl mb-3">📚</div>
+                        <h3 class="text-xl font-bold text-purple-700 mb-2" data-ja="木曜日の攻略" data-en="Thursday Strategy">木曜日の攻略</h3>
+                        <p class="text-sm text-gray-600" data-ja="週末への準備" data-en="Prepare for weekend">週末への準備</p>
+                    </div>
+                    
+                    <div class="card p-6 text-center cursor-pointer" onclick="showPage('friday')">
+                        <div class="text-4xl mb-3">🎁</div>
+                        <h3 class="text-xl font-bold text-purple-700 mb-2" data-ja="金曜日の攻略" data-en="Friday Strategy">金曜日の攻略</h3>
+                        <p class="text-sm text-gray-600" data-ja="週の締めくくり" data-en="End of week wrap-up">週の締めくくり</p>
+                    </div>
+                    
+                    <div class="card p-6 text-center cursor-pointer" onclick="showPage('saturday')">
+                        <div class="text-4xl mb-3">📦</div>
+                        <h3 class="text-xl font-bold text-purple-700 mb-2" data-ja="土曜日の攻略" data-en="Saturday Strategy">土曜日の攻略</h3>
+                        <p class="text-sm text-gray-600" data-ja="週末を楽しもう" data-en="Enjoy the weekend">週末を楽しもう</p>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-12">
+                    <p class="text-lg text-pink-500 font-bold" data-ja="💖 毎日コツコツ攻略していこう！💖" data-en="💖 Let's work on strategies every day! 💖">💖 毎日コツコツ攻略していこう！💖</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ギルド軍拡ページ -->
+        <div id="guild-expansion" class="page">
+            <div class="container mx-auto px-4 py-8">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold gradient-text mb-4" data-ja="🌸✨ ギルド軍拡ってなぁに？ ✨🌸" data-en="🌸✨ What is Guild Military Expansion? ✨🌸">🌸✨ ギルド軍拡ってなぁに？ ✨🌸</h2>
+                    </div>
+                    
+                    <div class="card p-6 mb-6" data-ja-content="
+                        <p class='text-lg mb-4'>💫 <strong>ギルド軍拡</strong> は二週間ごとに繰り返している他サーバーとの対戦イベントです(*'∀')♡<br>
                         <strong>GvG</strong>（Guild vs Guild）、<strong>Arms race</strong> ともいわれます🏰⚔️</p>
                         
-                        <div class='mb-6'>
-                            <h3 class='gradient-text text-xl font-bold mb-3'>📅 スケジュール</h3>
-                            <ul class='list-disc pl-6 space-y-2'>
+                        <div class='bg-pink-50 p-4 rounded-lg mb-4'>
+                            <h4 class='font-bold text-purple-700 mb-2'>📅 スケジュール</h4>
+                            <ul class='list-disc list-inside text-gray-700'>
                                 <li>🌙 <strong>月曜日～金曜日</strong>: 準備段階でがんばる期間！</li>
                                 <li>⚔️ <strong>土曜日</strong>: 戦争段階でドキドキバトル！</li>
                             </ul>
                         </div>
                         
-                        <p class='mb-6'>準備段階で勝利したギルドが土曜日に相手サーバーに攻撃できるよ〜！長い戦いだけど、みんなで頑張ろうね💪✨</p>
-                        
-                        <h3 class='gradient-text text-2xl font-bold mb-4'>🌈💕 ギルド軍拡の重要性 💕🌈</h3>
-                        
-                        <div class='mb-6'>
-                            <h4 class='text-lg font-bold mb-2'>① 🛡️ 守りの力</h4>
-                            <p>負けちゃうと対戦ギルドが越境してきて攻撃されちゃう😭<br>
-                            でも<strong>勝てば</strong>対戦相手は越境してこないから、攻撃されることがないの〜！安心安全💖</p>
-                        </div>
-                        
-                        <div class='mb-6'>
-                            <h4 class='text-lg font-bold mb-2'>② 🏆 ギルドの価値UP</h4>
-                            <p>サーバー内のギルド間では「<strong>対戦相手の越境を防ぐ</strong>」ことがギルドの価値の指標になりつつあるよ〜📈<br>
-                            = 価値あるギルドとして<strong>遺跡の獲得</strong>などの交渉も有利になる可能性あり🎯✨（嬉しい〜！）</p>
-                        </div>
-                        
-                        <div class='mb-6'>
-                            <h4 class='text-lg font-bold mb-2'>③ 🎁 豪華報酬GET</h4>
-                            <p>日々のミッション(<strong>宝箱を開ける</strong>)をこなすと手に入りにくい<strong>URの欠片</strong>、<strong>専用装備万能欠片</strong>が手に入る🎁💎（ハッピー〜♡）</p>
-                        </div>
-                        
-                        <h3 class='gradient-text text-xl font-bold mb-4'>🌟 まとめ 🌟</h3>
-                        <p class='mb-4'>以上を踏まえて、<strong>ギルド軍拡でポイントを稼ぐ</strong>ことは<strong>個人の勝利</strong>、引いては<strong>ギルドのため</strong>になります👊💕</p>
-                        
-                        <p class='mb-4'>では、ギルド軍拡のミッションを<strong>出来るだけ楽にこなしつつ</strong>、ポイントを稼ぐにはどうしたらいいのか🤔💭</p>
-                        
-                        <p class='mb-4'>みんなの意見を聞きながら、まとめました！！🎉<br>
-                        <strong>これであなたも軍拡マスター</strong>✨✨✨</p>
-                        
-                        <p class='text-center text-sm text-purple-600 mt-6'><em>💖 powered by Mucho 💖</em></p>
-                    " data-en="
-                        <p class='mb-4'>💫 <strong>Guild Military Expansion</strong> is a bi-weekly cross-server combat event (*'∀')♡<br>
+                        <p class='text-base'>準備段階で勝利したギルドが土曜日に相手サーバーに攻撃できるよ〜！長い戦いだけど、みんなで頑張ろうね💪✨</p>
+                    " data-en-content="
+                        <p class='text-lg mb-4'>💫 <strong>Guild Military Expansion</strong> is a competitive event against other servers that repeats every two weeks (*'∀')♡<br>
                         Also known as <strong>GvG</strong> (Guild vs Guild) or <strong>Arms race</strong> 🏰⚔️</p>
                         
-                        <div class='mb-6'>
-                            <h3 class='gradient-text text-xl font-bold mb-3'>📅 Schedule</h3>
-                            <ul class='list-disc pl-6 space-y-2'>
-                                <li>🌙 <strong>Monday-Friday</strong>: Preparation phase - work hard period!</li>
+                        <div class='bg-pink-50 p-4 rounded-lg mb-4'>
+                            <h4 class='font-bold text-purple-700 mb-2'>📅 Schedule</h4>
+                            <ul class='list-disc list-inside text-gray-700'>
+                                <li>🌙 <strong>Monday to Friday</strong>: Preparation phase - work hard period!</li>
                                 <li>⚔️ <strong>Saturday</strong>: War phase - exciting battle time!</li>
                             </ul>
                         </div>
                         
-                        <p class='mb-6'>Guilds that win the preparation phase can attack opponent servers on Saturday! It's a long battle, but let's work together💪✨</p>
-                        
-                        <h3 class='gradient-text text-2xl font-bold mb-4'>🌈💕 Importance of Guild Military Expansion 💕🌈</h3>
-                        
-                        <div class='mb-6'>
-                            <h4 class='text-lg font-bold mb-2'>① 🛡️ Defensive Power</h4>
-                            <p>If you lose, enemy guilds will cross borders and attack you😭<br>
-                            But if you <strong>win</strong>, opponents won't cross borders, so you won't be attacked! Safe and secure💖</p>
-                        </div>
-                        
-                        <div class='mb-6'>
-                            <h4 class='text-lg font-bold mb-2'>② 🏆 Guild Value UP</h4>
-                            <p>Among guilds within servers, '<strong>preventing opponent border crossing</strong>' is becoming a guild value indicator📈<br>
-                            = As a valuable guild, you may have advantages in negotiations like <strong>relic acquisition</strong>🎯✨ (Happy!)</p>
-                        </div>
-                        
-                        <div class='mb-6'>
-                            <h4 class='text-lg font-bold mb-2'>③ 🎁 Luxurious Rewards</h4>
-                            <p>Completing daily missions (<strong>opening treasure chests</strong>) gives you hard-to-get <strong>UR fragments</strong> and <strong>universal equipment fragments</strong>🎁💎 (Happy~♡)</p>
-                        </div>
-                        
-                        <h3 class='gradient-text text-xl font-bold mb-4'>🌟 Summary 🌟</h3>
-                        <p class='mb-4'>Based on the above, <strong>earning points in Guild Military Expansion</strong> leads to <strong>personal victory</strong> and ultimately benefits <strong>your guild</strong>👊💕</p>
-                        
-                        <p class='mb-4'>So, how can we complete Guild Military Expansion missions <strong>as easily as possible</strong> while earning points?🤔💭</p>
-                        
-                        <p class='mb-4'>We've compiled this while listening to everyone's opinions!!🎉<br>
-                        <strong>Now you too can be a military expansion master</strong>✨✨✨</p>
-                        
-                        <p class='text-center text-sm text-purple-600 mt-6'><em>💖 powered by Mucho 💖</em></p>
+                        <p class='text-base'>Guilds that win the preparation phase can attack opposing servers on Saturday! It's a long battle, but let's work together! 💪✨</p>
                     ">
-                        <p class='mb-4'>💫 <strong>ギルド軍拡</strong> は二週間ごとに繰り返している他サーバーとの対戦イベントです(*'∀')♡<br>
+                        <p class="text-lg mb-4">💫 <strong>ギルド軍拡</strong> は二週間ごとに繰り返している他サーバーとの対戦イベントです(*'∀')♡<br>
                         <strong>GvG</strong>（Guild vs Guild）、<strong>Arms race</strong> ともいわれます🏰⚔️</p>
                         
-                        <div class='mb-6'>
-                            <h3 class='gradient-text text-xl font-bold mb-3'>📅 スケジュール</h3>
-                            <ul class='list-disc pl-6 space-y-2'>
+                        <div class="bg-pink-50 p-4 rounded-lg mb-4">
+                            <h4 class="font-bold text-purple-700 mb-2">📅 スケジュール</h4>
+                            <ul class="list-disc list-inside text-gray-700">
                                 <li>🌙 <strong>月曜日～金曜日</strong>: 準備段階でがんばる期間！</li>
                                 <li>⚔️ <strong>土曜日</strong>: 戦争段階でドキドキバトル！</li>
                             </ul>
                         </div>
                         
-                        <p class='mb-6'>準備段階で勝利したギルドが土曜日に相手サーバーに攻撃できるよ〜！長い戦いだけど、みんなで頑張ろうね💪✨</p>
-                        
-                        <h3 class='gradient-text text-2xl font-bold mb-4'>🌈💕 ギルド軍拡の重要性 💕🌈</h3>
-                        
-                        <div class='mb-6'>
-                            <h4 class='text-lg font-bold mb-2'>① 🛡️ 守りの力</h4>
-                            <p>負けちゃうと対戦ギルドが越境してきて攻撃されちゃう😭<br>
-                            でも<strong>勝てば</strong>対戦相手は越境してこないから、攻撃されることがないの〜！安心安全💖</p>
-                        </div>
-                        
-                        <div class='mb-6'>
-                            <h4 class='text-lg font-bold mb-2'>② 🏆 ギルドの価値UP</h4>
-                            <p>サーバー内のギルド間では「<strong>対戦相手の越境を防ぐ</strong>」ことがギルドの価値の指標になりつつあるよ〜📈<br>
-                            = 価値あるギルドとして<strong>遺跡の獲得</strong>などの交渉も有利になる可能性あり🎯✨（嬉しい〜！）</p>
-                        </div>
-                        
-                        <div class='mb-6'>
-                            <h4 class='text-lg font-bold mb-2'>③ 🎁 豪華報酬GET</h4>
-                            <p>日々のミッション(<strong>宝箱を開ける</strong>)をこなすと手に入りにくい<strong>URの欠片</strong>、<strong>専用装備万能欠片</strong>が手に入る🎁💎（ハッピー〜♡）</p>
-                        </div>
-                        
-                        <h3 class='gradient-text text-xl font-bold mb-4'>🌟 まとめ 🌟</h3>
-                        <p class='mb-4'>以上を踏まえて、<strong>ギルド軍拡でポイントを稼ぐ</strong>ことは<strong>個人の勝利</strong>、引いては<strong>ギルドのため</strong>になります👊💕</p>
-                        
-                        <p class='mb-4'>では、ギルド軍拡のミッションを<strong>出来るだけ楽にこなしつつ</strong>、ポイントを稼ぐにはどうしたらいいのか🤔💭</p>
-                        
-                        <p class='mb-4'>みんなの意見を聞きながら、まとめました！！🎉<br>
-                        <strong>これであなたも軍拡マスター</strong>✨✨✨</p>
-                        
-                        <p class='text-center text-sm text-purple-600 mt-6'><em>💖 powered by Mucho 💖</em></p>
+                        <p class="text-base">準備段階で勝利したギルドが土曜日に相手サーバーに攻撃できるよ〜！長い戦いだけど、みんなで頑張ろうね💪✨</p>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Frozen Battlefield Page -->
-        <div id="frozen-battlefield-page" class="page hidden">
-            <div class="section-card glass-card p-6 rounded-2xl mb-6">
-                <div class="text-center mb-6">
-                    <h2 class="gradient-text text-3xl font-bold mb-4" data-ja="🧊✨ 氷原の戦場 ✨🧊" data-en="🧊✨ Frozen Battlefield ✨🧊">🧊✨ 氷原の戦場 ✨🧊</h2>
-                </div>
-                
-                <div class="prose max-w-none text-gray-800">
-                    <div data-ja="
-                        <div class='mb-6'>
-                            <h3 class='gradient-text text-2xl font-bold mb-4'>🏔️ 概要</h3>
-                            <p class='mb-4'>基本的なマップは古戦場と変わりません。ただし、ポイントの稼ぎ方が大きく異なります💥</p>
-                        </div>
+                    
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-2xl font-bold text-purple-700 mb-4" data-ja="🌈💕 ギルド軍拡の重要性 💕🌈" data-en="🌈💕 Importance of Guild Military Expansion 💕🌈">🌈💕 ギルド軍拡の重要性 💕🌈</h3>
                         
-                        <div class='mb-6'>
-                            <h3 class='gradient-text text-2xl font-bold mb-4'>⚡ 基本的なポイントの取り方</h3>
-                            <p class='mb-4'>とにかく、6分毎に出現する「<strong>魔法水晶鉱山</strong>」=「<strong>Mana mine</strong>」の占拠でポイントを稼ぐことが勝利の鍵です👊</p>
-                            <p class='mb-4'>この「<strong>魔法水晶鉱山</strong>」場所はマップの真ん中の両脇です。始まってすぐ出現します。動けるようになったらすぐに取りに行こう😘</p>
-                            <p class='mb-4'>そのあとは残り38分ごろから6分刻みで鉱山は出現するよ👍</p>
-                            <p class='mb-4'>鉱山を見つけたプレーヤーはギルドチャットにすぐに共有してね👍早ーくみつけてみんなで取りにいったギルドがとても有利🥳ここ、定期テストに出るから覚えてね！🥳</p>
-                        </div>
-                    " data-en="
-                        <div class='mb-6'>
-                            <h3 class='gradient-text text-2xl font-bold mb-4'>🏔️ Overview</h3>
-                            <p class='mb-4'>The basic map is the same as the ancient battlefield. However, the way to earn points is significantly different💥</p>
-                        </div>
-                        
-                        <div class='mb-6'>
-                            <h3 class='gradient-text text-2xl font-bold mb-4'>⚡ Basic Point Earning Method</h3>
-                            <p class='mb-4'>The key to victory is earning points by occupying the \"<strong>Mana Mine</strong>\" that appears every 6 minutes👊</p>
-                            <p class='mb-4'>These \"<strong>Mana Mines</strong>\" are located on both sides of the map center. They appear right at the start. Go get them as soon as you can move😘</p>
-                            <p class='mb-4'>After that, mines appear every 6 minutes starting from around 38 minutes remaining👍</p>
-                            <p class='mb-4'>Players who find mines should immediately share in guild chat👍 Guilds that find and capture them quickly have a huge advantage🥳 Remember this, it'll be on the regular test!🥳</p>
-                        </div>
-                    ">
-                        <div class='mb-6'>
-                            <h3 class='gradient-text text-2xl font-bold mb-4'>🏔️ 概要</h3>
-                            <p class='mb-4'>基本的なマップは古戦場と変わりません。ただし、ポイントの稼ぎ方が大きく異なります💥</p>
-                        </div>
-                        
-                        <div class='mb-6'>
-                            <h3 class='gradient-text text-2xl font-bold mb-4'>⚡ 基本的なポイントの取り方</h3>
-                            <p class='mb-4'>とにかく、6分毎に出現する「<strong>魔法水晶鉱山</strong>」=「<strong>Mana mine</strong>」の占拠でポイントを稼ぐことが勝利の鍵です👊</p>
-                            <p class='mb-4'>この「<strong>魔法水晶鉱山</strong>」場所はマップの真ん中の両脇です。始まってすぐ出現します。動けるようになったらすぐに取りに行こう😘</p>
-                            <p class='mb-4'>そのあとは残り38分ごろから6分刻みで鉱山は出現するよ👍</p>
-                            <p class='mb-4'>鉱山を見つけたプレーヤーはギルドチャットにすぐに共有してね👍早ーくみつけてみんなで取りにいったギルドがとても有利🥳ここ、定期テストに出るから覚えてね！🥳</p>
+                        <div class="space-y-4" data-ja-content="
+                            <div class='bg-gradient-to-r from-pink-50 to-purple-50 p-4 rounded-lg'>
+                                <h4 class='font-bold text-pink-600 mb-2'>① 🛡️ 守りの力</h4>
+                                <p>負けちゃうと対戦ギルドが越境してきて攻撃されちゃう😭<br>
+                                でも<strong>勝てば</strong>対戦相手は越境してこないから、攻撃されることがないの〜！安心安全💖</p>
+                            </div>
+                            
+                            <div class='bg-gradient-to-r from-purple-50 to-pink-50 p-4 rounded-lg'>
+                                <h4 class='font-bold text-purple-600 mb-2'>② 🏆 ギルドの価値UP</h4>
+                                <p>サーバー内のギルド間では「<strong>対戦相手の越境を防ぐ</strong>」ことがギルドの価値の指標になりつつあるよ〜📈<br>
+                                = 価値あるギルドとして<strong>遺跡の獲得</strong>などの交渉も有利になる可能性あり🎯✨（嬉しい〜！）</p>
+                            </div>
+                            
+                            <div class='bg-gradient-to-r from-pink-50 to-purple-50 p-4 rounded-lg'>
+                                <h4 class='font-bold text-pink-600 mb-2'>③ 🎁 豪華報酬GET</h4>
+                                <p>日々のミッション(<strong>宝箱を開ける</strong>)をこなすと手に入りにくい<strong>URの欠片</strong>、<strong>専用装備万能欠片</strong>が手に入る🎁💎（ハッピー〜♡）</p>
+                            </div>
+                        " data-en-content="
+                            <div class='bg-gradient-to-r from-pink-50 to-purple-50 p-4 rounded-lg'>
+                                <h4 class='font-bold text-pink-600 mb-2'>① 🛡️ Defensive Power</h4>
+                                <p>If you lose, opposing guilds will cross borders and attack you😭<br>
+                                But if you <strong>win</strong>, opponents won't cross borders, so you won't be attacked! Safe and secure💖</p>
+                            </div>
+                            
+                            <div class='bg-gradient-to-r from-purple-50 to-pink-50 p-4 rounded-lg'>
+                                <h4 class='font-bold text-purple-600 mb-2'>② 🏆 Guild Value Increase</h4>
+                                <p>Among guilds on the server, \"<strong>preventing opponent border crossings</strong>\" is becoming a measure of guild value📈<br>
+                                = As a valuable guild, negotiations for <strong>relic acquisition</strong> may become more favorable🎯✨ (Happy!)</p>
+                            </div>
+                            
+                            <div class='bg-gradient-to-r from-pink-50 to-purple-50 p-4 rounded-lg'>
+                                <h4 class='font-bold text-pink-600 mb-2'>③ 🎁 Luxurious Rewards</h4>
+                                <p>By completing daily missions (<strong>opening treasure chests</strong>), you can get hard-to-obtain <strong>UR fragments</strong> and <strong>universal equipment fragments</strong>🎁💎 (Happy♡)</p>
+                            </div>
+                        ">
+                            <div class="bg-gradient-to-r from-pink-50 to-purple-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-pink-600 mb-2">① 🛡️ 守りの力</h4>
+                                <p>負けちゃうと対戦ギルドが越境してきて攻撃されちゃう😭<br>
+                                でも<strong>勝てば</strong>対戦相手は越境してこないから、攻撃されることがないの〜！安心安全💖</p>
+                            </div>
+                            
+                            <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-purple-600 mb-2">② 🏆 ギルドの価値UP</h4>
+                                <p>サーバー内のギルド間では「<strong>対戦相手の越境を防ぐ</strong>」ことがギルドの価値の指標になりつつあるよ〜📈<br>
+                                = 価値あるギルドとして<strong>遺跡の獲得</strong>などの交渉も有利になる可能性あり🎯✨（嬉しい〜！）</p>
+                            </div>
+                            
+                            <div class="bg-gradient-to-r from-pink-50 to-purple-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-pink-600 mb-2">③ 🎁 豪華報酬GET</h4>
+                                <p>日々のミッション(<strong>宝箱を開ける</strong>)をこなすと手に入りにくい<strong>URの欠片</strong>、<strong>専用装備万能欠片</strong>が手に入る🎁💎（ハッピー〜♡）</p>
+                            </div>
                         </div>
                     </div>
                     
-                    <img src="https://gensparkstorageprodwest.blob.core.windows.net/web-drive/8d81b158-143a-4501-b68b-b44fd5d3d740/4c0eaf05-3909-4932-bcaa-b600e51d43ea?se=2025-06-29T23%3A05%3A20Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%22hyogen-01.png%22&sig=rpDvFpAQ7CZoW%2BqR3YStoLJoOOp/NZ%2BOgXqexhhkz/Q%3D" alt="Mana Mine Location" class="strategy-image">
-                    
-                    <div data-ja="
-                        <div class='mb-6'>
-                            <h3 class='gradient-text text-2xl font-bold mb-4'>💪 強い人の戦い方</h3>
-                            <p class='mb-4'>残り時間が半分になると、マップの中心に「<strong>浮遊島</strong>」=「<strong>Sky island</strong>」が出現します🤯</p>
-                            <p class='mb-4'>基本的にここは30m~40mのプレイヤーが集まるので強い人はこの浮遊島の占拠を目指してください👍</p>
-                        </div>
-                    " data-en="
-                        <div class='mb-6'>
-                            <h3 class='gradient-text text-2xl font-bold mb-4'>💪 Strategy for Strong Players</h3>
-                            <p class='mb-4'>When half the time remains, a \"<strong>Sky Island</strong>\" appears in the center of the map🤯</p>
-                            <p class='mb-4'>Basically, 30m~40m players gather here, so strong players should aim to occupy this Sky Island👍</p>
-                        </div>
-                    ">
-                        <div class='mb-6'>
-                            <h3 class='gradient-text text-2xl font-bold mb-4'>💪 強い人の戦い方</h3>
-                            <p class='mb-4'>残り時間が半分になると、マップの中心に「<strong>浮遊島</strong>」=「<strong>Sky island</strong>」が出現します🤯</p>
-                            <p class='mb-4'>基本的にここは30m~40mのプレイヤーが集まるので強い人はこの浮遊島の占拠を目指してください👍</p>
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-2xl font-bold text-purple-700 mb-4" data-ja="🌟 まとめ 🌟" data-en="🌟 Summary 🌟">🌟 まとめ 🌟</h3>
+                        <div data-ja-content="
+                            <p class='text-lg mb-4'>以上を踏まえて、<strong>ギルド軍拡でポイントを稼ぐ</strong>ことは<strong>個人の勝利</strong>、引いては<strong>ギルドのため</strong>になります👊💕</p>
+                            
+                            <p class='text-base mb-4'>では、ギルド軍拡のミッションを<strong>出来るだけ楽にこなしつつ</strong>、ポイントを稼ぐにはどうしたらいいのか🤔💭</p>
+                            
+                            <p class='text-base mb-4'>みんなの意見を聞きながら、まとめました！！🎉</p>
+                            
+                            <p class='text-xl font-bold text-center text-pink-600'><strong>これであなたも軍拡マスター</strong>✨✨✨</p>
+                            
+                            <div class='text-center mt-6'>
+                                <p class='text-sm text-gray-500'><em>💖 powered by Mucho 💖</em></p>
+                            </div>
+                        " data-en-content="
+                            <p class='text-lg mb-4'>Based on the above, <strong>earning points in Guild Military Expansion</strong> leads to <strong>personal victory</strong> and ultimately benefits <strong>your guild</strong>👊💕</p>
+                            
+                            <p class='text-base mb-4'>So, how can we complete Guild Military Expansion missions <strong>as easily as possible</strong> while earning points?🤔💭</p>
+                            
+                            <p class='text-base mb-4'>We've compiled this while listening to everyone's opinions!!🎉</p>
+                            
+                            <p class='text-xl font-bold text-center text-pink-600'><strong>Now you too can be a Military Expansion Master</strong>✨✨✨</p>
+                            
+                            <div class='text-center mt-6'>
+                                <p class='text-sm text-gray-500'><em>💖 powered by Mucho 💖</em></p>
+                            </div>
+                        ">
+                            <p class="text-lg mb-4">以上を踏まえて、<strong>ギルド軍拡でポイントを稼ぐ</strong>ことは<strong>個人の勝利</strong>、引いては<strong>ギルドのため</strong>になります👊💕</p>
+                            
+                            <p class="text-base mb-4">では、ギルド軍拡のミッションを<strong>出来るだけ楽にこなしつつ</strong>、ポイントを稼ぐにはどうしたらいいのか🤔💭</p>
+                            
+                            <p class="text-base mb-4">みんなの意見を聞きながら、まとめました！！🎉</p>
+                            
+                            <p class="text-xl font-bold text-center text-pink-600"><strong>これであなたも軍拡マスター</strong>✨✨✨</p>
+                            
+                            <div class="text-center mt-6">
+                                <p class="text-sm text-gray-500"><em>💖 powered by Mucho 💖</em></p>
+                            </div>
                         </div>
                     </div>
-                    
-                    <img src="https://gensparkstorageprodwest.blob.core.windows.net/web-drive/8d81b158-143a-4501-b68b-b44fd5d3d740/c4e4d336-9846-44b9-be32-4168b925dcb9?se=2025-06-29T23%3A05%3A26Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%22hyogen-02.png%22&sig=NVRyt3kwG4j2bTlraD9gqOgwMXdA2K%2Bb1Vi49GBArFU%3D" alt="Sky Island Strategy" class="strategy-image">
-                    
-                    <div data-ja="
-                        <div class='mb-6'>
-                            <h3 class='gradient-text text-2xl font-bold mb-4'>🎯 中盤～後半までの戦い方</h3>
-                            <p class='mb-4'>浮遊島が出現したあとは、浮遊島の四角に四つの施設が出現。ここに移動すると他の三つのサーバーと乱戦する可能性があるけど、鉱山にとても近くなるという大きなメリットがあるよ…😎もちろん、相手の拠点を攻撃して成功した場合も、点数に加算されるよ😘 つまり、ここでの戦い方はあなたのテクニックしだいだね！</p>
-                        </div>
-                        
-                        <div class='mb-6'>
-                            <h3 class='gradient-text text-2xl font-bold mb-4'>📋 まとめ</h3>
-                            <p class='mb-4'>以上が氷原の戦場の大まかな戦い方！</p>
-                            <p class='mb-4'>とにかく宝箱を見つけたら採取＆みんなに共有😎これが一番大事！ほかのギルドと戦いたい人は、浮遊島とその周辺の四つの施設で遊ぼう🥳</p>
-                        </div>
-                        
-                        <div class='mb-6'>
-                            <h3 class='gradient-text text-2xl font-bold mb-4'>💭 ちなみに…</h3>
-                            <p class='mb-4'>この攻略はまだまだ途中です(。☌ᴗ☌｡)</p>
-                            <p class='mb-4'>もしもっといい方法があったらどしどし教えてね٩(ˊᗜˋ*)و</p>
-                        </div>
-                    " data-en="
-                        <div class='mb-6'>
-                            <h3 class='gradient-text text-2xl font-bold mb-4'>🎯 Mid-game to End-game Strategy</h3>
-                            <p class='mb-4'>After the Sky Island appears, four facilities appear around the Sky Island's corners. Moving here might cause chaotic battles with three other servers, but you get the huge advantage of being very close to the mines...😎 Of course, successfully attacking enemy bases also adds to your score😘 So, your fighting strategy here depends on your technique!</p>
-                        </div>
-                        
-                        <div class='mb-6'>
-                            <h3 class='gradient-text text-2xl font-bold mb-4'>📋 Summary</h3>
-                            <p class='mb-4'>That's the general fighting strategy for the Frozen Battlefield!</p>
-                            <p class='mb-4'>Most importantly, when you find treasure chests, collect them and share with everyone😎 This is the most important thing! Those who want to fight other guilds, play around the Sky Island and its four surrounding facilities🥳</p>
-                        </div>
-                        
-                        <div class='mb-6'>
-                            <h3 class='gradient-text text-2xl font-bold mb-4'>💭 By the way...</h3>
-                            <p class='mb-4'>This strategy guide is still a work in progress (。☌ᴗ☌｡)</p>
-                            <p class='mb-4'>If you have better methods, please share them with us ٩(ˊᗜˋ*)و</p>
-                        </div>
-                    ">
-                        <div class='mb-6'>
-                            <h3 class='gradient-text text-2xl font-bold mb-4'>🎯 中盤～後半までの戦い方</h3>
-                            <p class='mb-4'>浮遊島が出現したあとは、浮遊島の四角に四つの施設が出現。ここに移動すると他の三つのサーバーと乱戦する可能性があるけど、鉱山にとても近くなるという大きなメリットがあるよ…😎もちろん、相手の拠点を攻撃して成功した場合も、点数に加算されるよ😘 つまり、ここでの戦い方はあなたのテクニックしだいだね！</p>
-                        </div>
-                        
-                        <div class='mb-6'>
-                            <h3 class='gradient-text text-2xl font-bold mb-4'>📋 まとめ</h3>
-                            <p class='mb-4'>以上が氷原の戦場の大まかな戦い方！</p>
-                            <p class='mb-4'>とにかく宝箱を見つけたら採取＆みんなに共有😎これが一番大事！ほかのギルドと戦いたい人は、浮遊島とその周辺の四つの施設で遊ぼう🥳</p>
-                        </div>
-                        
-                        <div class='mb-6'>
-                            <h3 class='gradient-text text-2xl font-bold mb-4'>💭 ちなみに…</h3>
-                            <p class='mb-4'>この攻略はまだまだ途中です(。☌ᴗ☌｡)</p>
-                            <p class='mb-4'>もしもっといい方法があったらどしどし教えてね٩(ˊᗜˋ*)و</p>
-                        </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 氷原の戦場ページ -->
+        <div id="frozen-battlefield" class="page">
+            <div class="container mx-auto px-4 py-8">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold gradient-text mb-4" data-ja="❄️✨ 氷原の戦場 ✨❄️" data-en="❄️✨ Frozen Battlefield ✨❄️">❄️✨ 氷原の戦場 ✨❄️</h2>
                     </div>
                     
-                    <img src="https://gensparkstorageprodwest.blob.core.windows.net/web-drive/8d81b158-143a-4501-b68b-b44fd5d3d740/2300cfac-5a32-4d3b-946a-890cb1d5c7e5?se=2025-06-29T23%3A05%3A30Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%22hyogen-03.png%22&sig=269R9aBBmQEZUWnKzalDKPx3Psu2N9aBQNQtXy4/zns%3D" alt="Advanced Strategy" class="strategy-image">
+                    <!-- 概要 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-2xl font-bold text-purple-700 mb-4" data-ja="📋 概要" data-en="📋 Overview">📋 概要</h3>
+                        <p class="text-lg" data-ja="基本的なマップは古戦場と変わりません。ただし、ポイントの稼ぎ方が大きく異なります💥" data-en="The basic map is the same as the ancient battlefield. However, the way to earn points is significantly different💥">基本的なマップは古戦場と変わりません。ただし、ポイントの稼ぎ方が大きく異なります💥</p>
+                    </div>
+                    
+                    <!-- 基本的なポイントの取り方 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-2xl font-bold text-purple-700 mb-4" data-ja="🎯 基本的なポイントの取り方" data-en="🎯 Basic Point Earning Methods">🎯 基本的なポイントの取り方</h3>
+                        <div data-ja-content="
+                            <p class='text-lg mb-4'>とにかく、6分毎に出現する<strong>"魔法水晶鉱山"="Mana mine"</strong>の占拠でポイントを稼ぐことが勝利の鍵です👊</p>
+                            
+                            <p class='text-base mb-4'>この<strong>"魔法水晶鉱山"</strong>場所はマップの真ん中の両脇です。始まってすぐ出現します。動けるようになったらすぐに取りに行こう😘</p>
+                            
+                            <p class='text-base mb-4'>そのあとは残り38分ごろから6分刻みで鉱山は出現するよ👍</p>
+                            
+                            <p class='text-base mb-4'>鉱山を見つけたプレーヤーはギルドチャットにすぐに共有してね👍早ーくみつけてみんなで取りにいったギルドがとても有利🥳ここ、定期テストに出るから覚えてね！🥳</p>
+                        " data-en-content="
+                            <p class='text-lg mb-4'>Above all, occupying the <strong>"Mana mine"</strong> that appears every 6 minutes is the key to victory👊</p>
+                            
+                            <p class='text-base mb-4'>The location of this <strong>"Mana mine"</strong> is on both sides of the center of the map. It appears immediately at the start. Go get it as soon as you can move😘</p>
+                            
+                            <p class='text-base mb-4'>After that, mines appear every 6 minutes starting from around 38 minutes remaining👍</p>
+                            
+                            <p class='text-base mb-4'>Players who find mines should immediately share in guild chat👍 Guilds that find quickly and go together to capture them have a huge advantage🥳 Remember this, it will be on the regular test!🥳</p>
+                        ">
+                            <p class="text-lg mb-4">とにかく、6分毎に出現する<strong>"魔法水晶鉱山"="Mana mine"</strong>の占拠でポイントを稼ぐことが勝利の鍵です👊</p>
+                            
+                            <p class="text-base mb-4">この<strong>"魔法水晶鉱山"</strong>場所はマップの真ん中の両脇です。始まってすぐ出現します。動けるようになったらすぐに取りに行こう😘</p>
+                            
+                            <p class="text-base mb-4">そのあとは残り38分ごろから6分刻みで鉱山は出現するよ👍</p>
+                            
+                            <p class="text-base mb-4">鉱山を見つけたプレーヤーはギルドチャットにすぐに共有してね👍早ーくみつけてみんなで取りにいったギルドがとても有利🥳ここ、定期テストに出るから覚えてね！🥳</p>
+                        </div>
+                        
+                        <img src="https://gensparkstorageprodwest.blob.core.windows.net/web-drive/8d81b158-143a-4501-b68b-b44fd5d3d740/4c0eaf05-3909-4932-bcaa-b600e51d43ea?se=2025-06-29T23%3A05%3A20Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%22hyogen-01.png%22&sig=rpDvFpAQ7CZoW%2BqR3YStoLJoOOp/NZ%2BOgXqexhhkz/Q%3D" alt="魔法水晶鉱山の場所" class="strategy-image">
+                    </div>
+                    
+                    <!-- 強い人の戦い方 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-2xl font-bold text-purple-700 mb-4" data-ja="💪 強い人の戦い方" data-en="💪 Strong Player Strategies">💪 強い人の戦い方</h3>
+                        <div data-ja-content="
+                            <p class='text-lg mb-4'>残り時間が半分になると、マップの中心に<strong>"浮遊島"="Sky island"</strong>が出現します🤯</p>
+                            
+                            <p class='text-base mb-4'>基本的にここは30m~40mのプレイヤーが集まるので強い人はこの浮遊島の占拠を目指してください👍</p>
+                        " data-en-content="
+                            <p class='text-lg mb-4'>When half the time remains, a <strong>"Sky island"</strong> appears in the center of the map🤯</p>
+                            
+                            <p class='text-base mb-4'>Basically, players with 30m-40m power gather here, so strong players should aim to occupy this sky island👍</p>
+                        ">
+                            <p class="text-lg mb-4">残り時間が半分になると、マップの中心に<strong>"浮遊島"="Sky island"</strong>が出現します🤯</p>
+                            
+                            <p class="text-base mb-4">基本的にここは30m~40mのプレイヤーが集まるので強い人はこの浮遊島の占拠を目指してください👍</p>
+                        </div>
+                        
+                        <img src="https://gensparkstorageprodwest.blob.core.windows.net/web-drive/8d81b158-143a-4501-b68b-b44fd5d3d740/c4e4d336-9846-44b9-be32-4168b925dcb9?se=2025-06-29T23%3A05%3A26Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%22hyogen-02.png%22&sig=NVRyt3kwG4j2bTlraD9gqOgwMXdA2K%2Bb1Vi49GBArFU%3D" alt="浮遊島の戦略" class="strategy-image">
+                    </div>
+                    
+                    <!-- 中盤～後半までの戦い方 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-2xl font-bold text-purple-700 mb-4" data-ja="⚔️ 中盤～後半までの戦い方" data-en="⚔️ Mid to Late Game Strategies">⚔️ 中盤～後半までの戦い方</h3>
+                        <p class="text-lg mb-4" data-ja="浮遊島が出現したあとは、浮遊島の四角に四つの施設が出現。ここに移動すると他の三つのサーバーと乱戦する可能性があるけど、鉱山にとても近くなるという大きなメリットがあるよ…😎もちろん、相手の拠点を攻撃して成功した場合も、点数に加算されるよ😘 つまり、ここでの戦い方はあなたのテクニックしだいだね！" data-en="After the sky island appears, four facilities appear around the island. Moving here may lead to chaotic battles with three other servers, but it has the huge advantage of being very close to the mines...😎 Of course, successfully attacking enemy bases also adds to your score😘 In other words, how you fight here depends on your technique!">浮遊島が出現したあとは、浮遊島の四角に四つの施設が出現。ここに移動すると他の三つのサーバーと乱戦する可能性があるけど、鉱山にとても近くなるという大きなメリットがあるよ…😎もちろん、相手の拠点を攻撃して成功した場合も、点数に加算されるよ😘 つまり、ここでの戦い方はあなたのテクニックしだいだね！</p>
+                    </div>
+                    
+                    <!-- まとめ -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-2xl font-bold text-purple-700 mb-4" data-ja="🎯 まとめ" data-en="🎯 Summary">🎯 まとめ</h3>
+                        <div data-ja-content="
+                            <p class='text-lg mb-4'>以上が氷原の戦場の大まかな戦い方</p>
+                            <p class='text-base mb-4'>とにかく宝箱を見つけたら採取＆みんなに共有😎これが一番大事！ほかのギルドと戦いたい人は、浮遊島とその周辺の四つの施設で遊ぼう🥳</p>
+                        " data-en-content="
+                            <p class='text-lg mb-4'>These are the general strategies for the Frozen Battlefield</p>
+                            <p class='text-base mb-4'>Most importantly, when you find treasure chests, collect them & share with everyone😎 This is the most important thing! For those who want to fight other guilds, have fun at the sky island and the four surrounding facilities🥳</p>
+                        ">
+                            <p class="text-lg mb-4">以上が氷原の戦場の大まかな戦い方</p>
+                            <p class="text-base mb-4">とにかく宝箱を見つけたら採取＆みんなに共有😎これが一番大事！ほかのギルドと戦いたい人は、浮遊島とその周辺の四つの施設で遊ぼう🥳</p>
+                        </div>
+                    </div>
+                    
+                    <!-- ちなみに... -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-2xl font-bold text-purple-700 mb-4" data-ja="💭 ちなみに..." data-en="💭 By the way...">💭 ちなみに...</h3>
+                        <div data-ja-content="
+                            <p class='text-lg mb-4'>この攻略はまだまだ途中です(。☌ᴗ☌｡)</p>
+                            <p class='text-base mb-4'>もしもっといい方法があったらどしどし教えてね٩(ˊᗜˋ*)و</p>
+                        " data-en-content="
+                            <p class='text-lg mb-4'>This strategy guide is still in progress (。☌ᴗ☌｡)</p>
+                            <p class='text-base mb-4'>If you have better methods, please let us know٩(ˊᗜˋ*)و</p>
+                        ">
+                            <p class="text-lg mb-4">この攻略はまだまだ途中です(。☌ᴗ☌｡)</p>
+                            <p class="text-base mb-4">もしもっといい方法があったらどしどし教えてね٩(ˊᗜˋ*)و</p>
+                        </div>
+                        
+                        <img src="https://gensparkstorageprodwest.blob.core.windows.net/web-drive/8d81b158-143a-4501-b68b-b44fd5d3d740/2300cfac-5a32-4d3b-946a-890cb1d5c7e5?se=2025-06-29T23%3A05%3A30Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%22hyogen-03.png%22&sig=269R9aBBmQEZUWnKzalDKPx3Psu2N9aBQNQtXy4/zns%3D" alt="攻略情報追加募集" class="strategy-image">
+                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- Monday Page -->
-        <div id="monday-page" class="page hidden">
-            <div class="section-card glass-card p-6 rounded-2xl">
-                <h2 class="gradient-text text-3xl font-bold text-center mb-6" data-ja="📅 月曜日の攻略" data-en="📅 Monday Strategy">📅 月曜日の攻略</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-white bg-opacity-60 p-4 rounded-xl">
-                        <h3 class="gradient-text text-xl font-bold mb-3" data-ja="✨ 今日のポイント" data-en="✨ Today's Points">✨ 今日のポイント</h3>
-                        <ul class="space-y-2 text-gray-700">
-                            <li data-ja="• 週の始まりを意識した戦略立て" data-en="• Strategy planning for the week's start">• 週の始まりを意識した戦略立て</li>
-                            <li data-ja="• リソースの確認と配分" data-en="• Resource checking and allocation">• リソースの確認と配分</li>
-                            <li data-ja="• チームメンバーとの連携確認" data-en="• Team coordination check">• チームメンバーとの連携確認</li>
+        
+        <!-- 月曜日ページ -->
+        <div id="monday" class="page">
+            <div class="container mx-auto px-4 py-8">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-8">
+                        <div class="text-6xl mb-4">📅</div>
+                        <h2 class="text-3xl font-bold gradient-text mb-4" data-ja="月曜日の攻略" data-en="Monday Strategy">月曜日の攻略</h2>
+                        <p class="text-lg text-purple-600" data-ja="週の始まりの戦略" data-en="Start of the week strategy">週の始まりの戦略</p>
+                    </div>
+                    
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-bold text-purple-700 mb-4" data-ja="💡 今日のポイント" data-en="💡 Today's Points">💡 今日のポイント</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li data-ja="週の始まりなので、計画を立てましょう" data-en="Since it's the start of the week, let's make plans">週の始まりなので、計画を立てましょう</li>
+                            <li data-ja="デイリーミッションを忘れずに" data-en="Don't forget daily missions">デイリーミッションを忘れずに</li>
+                            <li data-ja="ギルドメンバーとの連携を確認" data-en="Check coordination with guild members">ギルドメンバーとの連携を確認</li>
                         </ul>
                     </div>
-                    <div class="bg-white bg-opacity-60 p-4 rounded-xl">
-                        <h3 class="gradient-text text-xl font-bold mb-3" data-ja="🎯 重要なミッション" data-en="🎯 Important Missions">🎯 重要なミッション</h3>
-                        <ul class="space-y-2 text-gray-700">
-                            <li data-ja="• デイリークエストの完了" data-en="• Complete daily quests">• デイリークエストの完了</li>
-                            <li data-ja="• 週間目標の設定" data-en="• Set weekly goals">• 週間目標の設定</li>
-                            <li data-ja="• 装備の強化・整備" data-en="• Equipment enhancement and maintenance">• 装備の強化・整備</li>
-                        </ul>
+                    
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-bold text-purple-700 mb-4" data-ja="📝 攻略メモ" data-en="📝 Strategy Notes">📝 攻略メモ</h3>
+                        <textarea class="w-full h-32 p-4 border border-pink-200 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-pink-300" placeholder="月曜日の攻略メモを記入してください..." data-ja-placeholder="月曜日の攻略メモを記入してください..." data-en-placeholder="Enter your Monday strategy notes..."></textarea>
                     </div>
-                </div>
-                <div class="mt-6 text-center">
-                    <p class="text-purple-600" data-ja="💪 月曜日から全力で頑張ろう！" data-en="💪 Let's give our best from Monday!">💪 月曜日から全力で頑張ろう！</p>
+                    
+                    <div class="card p-6">
+                        <h3 class="text-xl font-bold text-purple-700 mb-4" data-ja="🎯 目標設定" data-en="🎯 Goal Setting">🎯 目標設定</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-3 w-5 h-5 text-pink-600">
+                                <span data-ja="デイリーミッション完了" data-en="Complete daily missions">デイリーミッション完了</span>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-3 w-5 h-5 text-pink-600">
+                                <span data-ja="ギルド軍拡参加" data-en="Participate in guild military expansion">ギルド軍拡参加</span>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-3 w-5 h-5 text-pink-600">
+                                <span data-ja="週間目標設定" data-en="Set weekly goals">週間目標設定</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- Tuesday Page -->
-        <div id="tuesday-page" class="page hidden">
-            <div class="section-card glass-card p-6 rounded-2xl">
-                <h2 class="gradient-text text-3xl font-bold text-center mb-6" data-ja="🔷 火曜日の攻略" data-en="🔷 Tuesday Strategy">🔷 火曜日の攻略</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-white bg-opacity-60 p-4 rounded-xl">
-                        <h3 class="gradient-text text-xl font-bold mb-3" data-ja="🚀 勢いを上げる日" data-en="🚀 Building Momentum Day">🚀 勢いを上げる日</h3>
-                        <ul class="space-y-2 text-gray-700">
-                            <li data-ja="• 積極的な攻撃戦略" data-en="• Aggressive attack strategy">• 積極的な攻撃戦略</li>
-                            <li data-ja="• 経験値効率の最大化" data-en="• Maximize EXP efficiency">• 経験値効率の最大化</li>
-                            <li data-ja="• スキルの練習と向上" data-en="• Skill practice and improvement">• スキルの練習と向上</li>
+        
+        <!-- 火曜日ページ -->
+        <div id="tuesday" class="page">
+            <div class="container mx-auto px-4 py-8">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-8">
+                        <div class="text-6xl mb-4">🔷</div>
+                        <h2 class="text-3xl font-bold gradient-text mb-4" data-ja="火曜日の攻略" data-en="Tuesday Strategy">火曜日の攻略</h2>
+                        <p class="text-lg text-purple-600" data-ja="勢子を上げる日" data-en="Build momentum day">勢子を上げる日</p>
+                    </div>
+                    
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-bold text-purple-700 mb-4" data-ja="💡 今日のポイント" data-en="💡 Today's Points">💡 今日のポイント</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li data-ja="月曜日の反省を活かして調整" data-en="Make adjustments based on Monday's reflection">月曜日の反省を活かして調整</li>
+                            <li data-ja="積極的にイベントに参加" data-en="Actively participate in events">積極的にイベントに参加</li>
+                            <li data-ja="リソース管理を見直し" data-en="Review resource management">リソース管理を見直し</li>
                         </ul>
                     </div>
-                    <div class="bg-white bg-opacity-60 p-4 rounded-xl">
-                        <h3 class="gradient-text text-xl font-bold mb-3" data-ja="💎 特別イベント対応" data-en="💎 Special Event Response">💎 特別イベント対応</h3>
-                        <ul class="space-y-2 text-gray-700">
-                            <li data-ja="• 限定クエストの確認" data-en="• Check limited quests">• 限定クエストの確認</li>
-                            <li data-ja="• イベント報酬の獲得" data-en="• Obtain event rewards">• イベント報酬の獲得</li>
-                            <li data-ja="• 仲間との協力プレイ" data-en="• Cooperative play with teammates">• 仲間との協力プレイ</li>
-                        </ul>
+                    
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-bold text-purple-700 mb-4" data-ja="📝 攻略メモ" data-en="📝 Strategy Notes">📝 攻略メモ</h3>
+                        <textarea class="w-full h-32 p-4 border border-pink-200 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-pink-300" placeholder="火曜日の攻略メモを記入してください..." data-ja-placeholder="火曜日の攻略メモを記入してください..." data-en-placeholder="Enter your Tuesday strategy notes..."></textarea>
                     </div>
-                </div>
-                <div class="mt-6 text-center">
-                    <p class="text-purple-600" data-ja="🔥 火曜日は攻めの姿勢で！" data-en="🔥 Tuesday is for offensive approach!">🔥 火曜日は攻めの姿勢で！</p>
+                    
+                    <div class="card p-6">
+                        <h3 class="text-xl font-bold text-purple-700 mb-4" data-ja="🎯 目標設定" data-en="🎯 Goal Setting">🎯 目標設定</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-3 w-5 h-5 text-pink-600">
+                                <span data-ja="イベント参加" data-en="Event participation">イベント参加</span>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-3 w-5 h-5 text-pink-600">
+                                <span data-ja="装備強化" data-en="Equipment enhancement">装備強化</span>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-3 w-5 h-5 text-pink-600">
+                                <span data-ja="戦力向上" data-en="Power improvement">戦力向上</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- Wednesday Page -->
-        <div id="wednesday-page" class="page hidden">
-            <div class="section-card glass-card p-6 rounded-2xl">
-                <h2 class="gradient-text text-3xl font-bold text-center mb-6" data-ja="💎 水曜日の攻略" data-en="💎 Wednesday Strategy">💎 水曜日の攻略</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-white bg-opacity-60 p-4 rounded-xl">
-                        <h3 class="gradient-text text-xl font-bold mb-3" data-ja="⚖️ バランス重視" data-en="⚖️ Balance Focus">⚖️ バランス重視</h3>
-                        <ul class="space-y-2 text-gray-700">
-                            <li data-ja="• 攻守のバランス調整" data-en="• Balance offense and defense">• 攻守のバランス調整</li>
-                            <li data-ja="• リソース管理の見直し" data-en="• Review resource management">• リソース管理の見直し</li>
-                            <li data-ja="• 戦略の微調整" data-en="• Fine-tune strategy">• 戦略の微調整</li>
+        
+        <!-- 水曜日ページ -->
+        <div id="wednesday" class="page">
+            <div class="container mx-auto px-4 py-8">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-8">
+                        <div class="text-6xl mb-4">💎</div>
+                        <h2 class="text-3xl font-bold gradient-text mb-4" data-ja="水曜日の攻略" data-en="Wednesday Strategy">水曜日の攻略</h2>
+                        <p class="text-lg text-purple-600" data-ja="週の真ん中を乗り切る" data-en="Get through midweek">週の真ん中を乗り切る</p>
+                    </div>
+                    
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-bold text-purple-700 mb-4" data-ja="💡 今日のポイント" data-en="💡 Today's Points">💡 今日のポイント</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li data-ja="週の中盤、継続力が重要" data-en="Mid-week, persistence is important">週の中盤、継続力が重要</li>
+                            <li data-ja="スタミナ管理を重視" data-en="Focus on stamina management">スタミナ管理を重視</li>
+                            <li data-ja="ギルド活動の貢献度を確認" data-en="Check guild activity contributions">ギルド活動の貢献度を確認</li>
                         </ul>
                     </div>
-                    <div class="bg-white bg-opacity-60 p-4 rounded-xl">
-                        <h3 class="gradient-text text-xl font-bold mb-3" data-ja="🧘‍♀️ 週の真ん中" data-en="🧘‍♀️ Mid-week">🧘‍♀️ 週の真ん中</h3>
-                        <ul class="space-y-2 text-gray-700">
-                            <li data-ja="• 疲労度の管理" data-en="• Manage fatigue levels">• 疲労度の管理</li>
-                            <li data-ja="• 効率的な休憩" data-en="• Efficient breaks">• 効率的な休憩</li>
-                            <li data-ja="• 長期戦略の確認" data-en="• Review long-term strategy">• 長期戦略の確認</li>
-                        </ul>
+                    
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-bold text-purple-700 mb-4" data-ja="📝 攻略メモ" data-en="📝 Strategy Notes">📝 攻略メモ</h3>
+                        <textarea class="w-full h-32 p-4 border border-pink-200 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-pink-300" placeholder="水曜日の攻略メモを記入してください..." data-ja-placeholder="水曜日の攻略メモを記入してください..." data-en-placeholder="Enter your Wednesday strategy notes..."></textarea>
                     </div>
-                </div>
-                <div class="mt-6 text-center">
-                    <p class="text-purple-600" data-ja="💫 週の真ん中を上手に乗り切ろう！" data-en="💫 Let's skillfully get through mid-week!">💫 週の真ん中を上手に乗り切ろう！</p>
+                    
+                    <div class="card p-6">
+                        <h3 class="text-xl font-bold text-purple-700 mb-4" data-ja="🎯 目標設定" data-en="🎯 Goal Setting">🎯 目標設定</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-3 w-5 h-5 text-pink-600">
+                                <span data-ja="継続的な成長" data-en="Continuous growth">継続的な成長</span>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-3 w-5 h-5 text-pink-600">
+                                <span data-ja="リソース収集" data-en="Resource collection">リソース収集</span>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-3 w-5 h-5 text-pink-600">
+                                <span data-ja="週後半への準備" data-en="Preparation for second half of week">週後半への準備</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- Thursday Page -->
-        <div id="thursday-page" class="page hidden">
-            <div class="section-card glass-card p-6 rounded-2xl">
-                <h2 class="gradient-text text-3xl font-bold text-center mb-6" data-ja="📚 木曜日の攻略" data-en="📚 Thursday Strategy">📚 木曜日の攻略</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-white bg-opacity-60 p-4 rounded-xl">
-                        <h3 class="gradient-text text-xl font-bold mb-3" data-ja="📈 週末への準備" data-en="📈 Weekend Preparation">📈 週末への準備</h3>
-                        <ul class="space-y-2 text-gray-700">
-                            <li data-ja="• 週末イベントの準備" data-en="• Prepare for weekend events">• 週末イベントの準備</li>
-                            <li data-ja="• 必要素材の収集" data-en="• Collect necessary materials">• 必要素材の収集</li>
-                            <li data-ja="• チーム編成の確認" data-en="• Check team composition">• チーム編成の確認</li>
+        
+        <!-- 木曜日ページ -->
+        <div id="thursday" class="page">
+            <div class="container mx-auto px-4 py-8">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-8">
+                        <div class="text-6xl mb-4">📚</div>
+                        <h2 class="text-3xl font-bold gradient-text mb-4" data-ja="木曜日の攻略" data-en="Thursday Strategy">木曜日の攻略</h2>
+                        <p class="text-lg text-purple-600" data-ja="週末への準備" data-en="Prepare for weekend">週末への準備</p>
+                    </div>
+                    
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-bold text-purple-700 mb-4" data-ja="💡 今日のポイント" data-en="💡 Today's Points">💡 今日のポイント</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li data-ja="週末イベントの準備を開始" data-en="Start preparing for weekend events">週末イベントの準備を開始</li>
+                            <li data-ja="不足リソースの補充" data-en="Replenish lacking resources">不足リソースの補充</li>
+                            <li data-ja="ギルド戦の戦略確認" data-en="Confirm guild war strategies">ギルド戦の戦略確認</li>
                         </ul>
                     </div>
-                    <div class="bg-white bg-opacity-60 p-4 rounded-xl">
-                        <h3 class="gradient-text text-xl font-bold mb-3" data-ja="🔍 詳細分析" data-en="🔍 Detailed Analysis">🔍 詳細分析</h3>
-                        <ul class="space-y-2 text-gray-700">
-                            <li data-ja="• 戦績の分析" data-en="• Analyze battle records">• 戦績の分析</li>
-                            <li data-ja="• 改善点の洗い出し" data-en="• Identify improvement areas">• 改善点の洗い出し</li>
-                            <li data-ja="• 新戦術の検討" data-en="• Consider new tactics">• 新戦術の検討</li>
-                        </ul>
+                    
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-bold text-purple-700 mb-4" data-ja="📝 攻略メモ" data-en="📝 Strategy Notes">📝 攻略メモ</h3>
+                        <textarea class="w-full h-32 p-4 border border-pink-200 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-pink-300" placeholder="木曜日の攻略メモを記入してください..." data-ja-placeholder="木曜日の攻略メモを記入してください..." data-en-placeholder="Enter your Thursday strategy notes..."></textarea>
                     </div>
-                </div>
-                <div class="mt-6 text-center">
-                    <p class="text-purple-600" data-ja="📊 週末に向けて準備万端！" data-en="📊 Fully prepared for the weekend!">📊 週末に向けて準備万端！</p>
+                    
+                    <div class="card p-6">
+                        <h3 class="text-xl font-bold text-purple-700 mb-4" data-ja="🎯 目標設定" data-en="🎯 Goal Setting">🎯 目標設定</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-3 w-5 h-5 text-pink-600">
+                                <span data-ja="週末準備完了" data-en="Complete weekend preparations">週末準備完了</span>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-3 w-5 h-5 text-pink-600">
+                                <span data-ja="戦略の最終確認" data-en="Final strategy confirmation">戦略の最終確認</span>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-3 w-5 h-5 text-pink-600">
+                                <span data-ja="チーム調整" data-en="Team coordination">チーム調整</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- Friday Page -->
-        <div id="friday-page" class="page hidden">
-            <div class="section-card glass-card p-6 rounded-2xl">
-                <h2 class="gradient-text text-3xl font-bold text-center mb-6" data-ja="🎁 金曜日の攻略" data-en="🎁 Friday Strategy">🎁 金曜日の攻略</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-white bg-opacity-60 p-4 rounded-xl">
-                        <h3 class="gradient-text text-xl font-bold mb-3" data-ja="🎉 週の締めくくり" data-en="🎉 Week Finale">🎉 週の締めくくり</h3>
-                        <ul class="space-y-2 text-gray-700">
-                            <li data-ja="• 週間目標の達成確認" data-en="• Check weekly goal achievement">• 週間目標の達成確認</li>
-                            <li data-ja="• 未完了タスクの処理" data-en="• Handle incomplete tasks">• 未完了タスクの処理</li>
-                            <li data-ja="• 週末準備の最終確認" data-en="• Final weekend preparation check">• 週末準備の最終確認</li>
+        
+        <!-- 金曜日ページ -->
+        <div id="friday" class="page">
+            <div class="container mx-auto px-4 py-8">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-8">
+                        <div class="text-6xl mb-4">🎁</div>
+                        <h2 class="text-3xl font-bold gradient-text mb-4" data-ja="金曜日の攻略" data-en="Friday Strategy">金曜日の攻略</h2>
+                        <p class="text-lg text-purple-600" data-ja="週の締めくくり" data-en="End of week wrap-up">週の締めくくり</p>
+                    </div>
+                    
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-bold text-purple-700 mb-4" data-ja="💡 今日のポイント" data-en="💡 Today's Points">💡 今日のポイント</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li data-ja="週の総まとめと反省" data-en="Weekly summary and reflection">週の総まとめと反省</li>
+                            <li data-ja="特別イベントがあれば参加" data-en="Participate in special events if available">特別イベントがあれば参加</li>
+                            <li data-ja="来週の計画を立てる" data-en="Plan for next week">来週の計画を立てる</li>
                         </ul>
                     </div>
-                    <div class="bg-white bg-opacity-60 p-4 rounded-xl">
-                        <h3 class="gradient-text text-xl font-bold mb-3" data-ja="🏆 特別報酬" data-en="🏆 Special Rewards">🏆 特別報酬</h3>
-                        <ul class="space-y-2 text-gray-700">
-                            <li data-ja="• 週間報酬の受け取り" data-en="• Receive weekly rewards">• 週間報酬の受け取り</li>
-                            <li data-ja="• 限定アイテムの獲得" data-en="• Obtain limited items">• 限定アイテムの獲得</li>
-                            <li data-ja="• 次週への準備" data-en="• Prepare for next week">• 次週への準備</li>
-                        </ul>
+                    
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-bold text-purple-700 mb-4" data-ja="📝 攻略メモ" data-en="📝 Strategy Notes">📝 攻略メモ</h3>
+                        <textarea class="w-full h-32 p-4 border border-pink-200 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-pink-300" placeholder="金曜日の攻略メモを記入してください..." data-ja-placeholder="金曜日の攻略メモを記入してください..." data-en-placeholder="Enter your Friday strategy notes..."></textarea>
                     </div>
-                </div>
-                <div class="mt-6 text-center">
-                    <p class="text-purple-600" data-ja="🌟 一週間お疲れさま！" data-en="🌟 Great work this week!">🌟 一週間お疲れさま！</p>
+                    
+                    <div class="card p-6">
+                        <h3 class="text-xl font-bold text-purple-700 mb-4" data-ja="🎯 目標設定" data-en="🎯 Goal Setting">🎯 目標設定</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-3 w-5 h-5 text-pink-600">
+                                <span data-ja="週間目標達成確認" data-en="Confirm weekly goal achievement">週間目標達成確認</span>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-3 w-5 h-5 text-pink-600">
+                                <span data-ja="来週の準備" data-en="Prepare for next week">来週の準備</span>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-3 w-5 h-5 text-pink-600">
+                                <span data-ja="リラックスタイム" data-en="Relaxation time">リラックスタイム</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- Saturday Page -->
-        <div id="saturday-page" class="page hidden">
-            <div class="section-card glass-card p-6 rounded-2xl">
-                <h2 class="gradient-text text-3xl font-bold text-center mb-6" data-ja="📦 土曜日の攻略" data-en="📦 Saturday Strategy">📦 土曜日の攻略</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-white bg-opacity-60 p-4 rounded-xl">
-                        <h3 class="gradient-text text-xl font-bold mb-3" data-ja="🎈 週末を楽しもう" data-en="🎈 Enjoy the Weekend">🎈 週末を楽しもう</h3>
-                        <ul class="space-y-2 text-gray-700">
-                            <li data-ja="• リラックスしたプレイ" data-en="• Relaxed gameplay">• リラックスしたプレイ</li>
-                            <li data-ja="• 新しい戦術の実験" data-en="• Experiment with new tactics">• 新しい戦術の実験</li>
-                            <li data-ja="• フレンドとの協力" data-en="• Cooperate with friends">• フレンドとの協力</li>
+        
+        <!-- 土曜日ページ -->
+        <div id="saturday" class="page">
+            <div class="container mx-auto px-4 py-8">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-8">
+                        <div class="text-6xl mb-4">📦</div>
+                        <h2 class="text-3xl font-bold gradient-text mb-4" data-ja="土曜日の攻略" data-en="Saturday Strategy">土曜日の攻略</h2>
+                        <p class="text-lg text-purple-600" data-ja="週末を楽しもう" data-en="Enjoy the weekend">週末を楽しもう</p>
+                    </div>
+                    
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-bold text-purple-700 mb-4" data-ja="💡 今日のポイント" data-en="💡 Today's Points">💡 今日のポイント</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li data-ja="ギルド戦（土曜日の戦争段階）" data-en="Guild war (Saturday war phase)">ギルド戦（土曜日の戦争段階）</li>
+                            <li data-ja="週末イベントを楽しむ" data-en="Enjoy weekend events">週末イベントを楽しむ</li>
+                            <li data-ja="ゆっくりと戦略を練る時間" data-en="Time to leisurely plan strategies">ゆっくりと戦略を練る時間</li>
                         </ul>
                     </div>
-                    <div class="bg-white bg-opacity-60 p-4 rounded-xl">
-                        <h3 class="gradient-text text-xl font-bold mb-3" data-ja="🔋 次週への充電" data-en="🔋 Recharging for Next Week">🔋 次週への充電</h3>
-                        <ul class="space-y-2 text-gray-700">
-                            <li data-ja="• エネルギーの回復" data-en="• Recover energy">• エネルギーの回復</li>
-                            <li data-ja="• 楽しいコンテンツ" data-en="• Fun content">• 楽しいコンテンツ</li>
-                            <li data-ja="• モチベーション維持" data-en="• Maintain motivation">• モチベーション維持</li>
-                        </ul>
+                    
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-bold text-purple-700 mb-4" data-ja="📝 攻略メモ" data-en="📝 Strategy Notes">📝 攻略メモ</h3>
+                        <textarea class="w-full h-32 p-4 border border-pink-200 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-pink-300" placeholder="土曜日の攻略メモを記入してください..." data-ja-placeholder="土曜日の攻略メモを記入してください..." data-en-placeholder="Enter your Saturday strategy notes..."></textarea>
                     </div>
-                </div>
-                <div class="mt-6 text-center">
-                    <p class="text-purple-600" data-ja="😎 土曜日はのんびり楽しもう！" data-en="😎 Let's enjoy Saturday at a relaxed pace!">😎 土曜日はのんびり楽しもう！</p>
+                    
+                    <div class="card p-6">
+                        <h3 class="text-xl font-bold text-purple-700 mb-4" data-ja="🎯 目標設定" data-en="🎯 Goal Setting">🎯 目標設定</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-3 w-5 h-5 text-pink-600">
+                                <span data-ja="ギルド戦参加" data-en="Participate in guild war">ギルド戦参加</span>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-3 w-5 h-5 text-pink-600">
+                                <span data-ja="週末イベント楽しむ" data-en="Enjoy weekend events">週末イベント楽しむ</span>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-3 w-5 h-5 text-pink-600">
+                                <span data-ja="リフレッシュ" data-en="Refresh">リフレッシュ</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </main>
-
+    </div>
+    
     <script>
         let currentLanguage = 'ja';
-
-        function toggleMenu() {
-            const overlay = document.getElementById('menu-overlay');
-            overlay.classList.toggle('hidden');
-        }
-
-        function showPage(pageId) {
-            // Hide all pages
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.add('hidden'));
+        
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
             
-            // Show selected page
-            const targetPage = document.getElementById(pageId + '-page');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+        
+        function showPage(pageId) {
+            // すべてのページを非表示
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // 指定されたページを表示
+            const targetPage = document.getElementById(pageId);
             if (targetPage) {
-                targetPage.classList.remove('hidden');
+                targetPage.classList.add('active');
             }
             
-            // Close menu
-            toggleMenu();
+            // サイドバーを閉じる
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
         }
-
+        
         function switchLanguage(lang) {
             currentLanguage = lang;
             
-            // Update button states
-            document.getElementById('ja-btn').classList.toggle('active', lang === 'ja');
-            document.getElementById('en-btn').classList.toggle('active', lang === 'en');
+            // 言語ボタンのアクティブ状態を更新
+            const langButtons = document.querySelectorAll('.lang-btn');
+            langButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                }
+            });
             
-            // Update all text elements
-            const elements = document.querySelectorAll('[data-ja]');
+            // テキストを更新
+            const elements = document.querySelectorAll('[data-ja], [data-en]');
             elements.forEach(element => {
                 const text = element.getAttribute('data-' + lang);
                 if (text) {
-                    element.innerHTML = text;
+                    element.textContent = text;
+                }
+            });
+            
+            // プレースホルダーを更新
+            const placeholderElements = document.querySelectorAll('[data-ja-placeholder], [data-en-placeholder]');
+            placeholderElements.forEach(element => {
+                const placeholder = element.getAttribute('data-' + lang + '-placeholder');
+                if (placeholder) {
+                    element.placeholder = placeholder;
+                }
+            });
+            
+            // コンテンツを更新
+            const contentElements = document.querySelectorAll('[data-ja-content], [data-en-content]');
+            contentElements.forEach(element => {
+                const content = element.getAttribute('data-' + lang + '-content');
+                if (content) {
+                    element.innerHTML = content;
                 }
             });
         }
-
-        // Close menu when clicking outside
-        document.getElementById('menu-overlay').addEventListener('click', function(e) {
-            if (e.target === this) {
-                toggleMenu();
-            }
-        });
-
-        // Initialize
+        
+        // 初期化
         document.addEventListener('DOMContentLoaded', function() {
             switchLanguage('ja');
+        });
+        
+        // オーバーレイクリックでサイドバー閉じる
+        document.getElementById('overlay').addEventListener('click', function() {
+            toggleSidebar();
         });
     </script>
 </body>
