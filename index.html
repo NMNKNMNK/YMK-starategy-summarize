@@ -3,77 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⭐ YMK攻略 ⭐</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <title>YMK攻略</title>
     <style>
-        body {
-            background: linear-gradient(135deg, #ffeef8 0%, #f0e6ff 50%, #e6f3ff 100%);
-            min-height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .card {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 1.5rem;
-            margin-bottom: 1rem;
+        body {
+            font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #f3e5f5 50%, #e8eaf6 100%);
+            min-height: 100vh;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #e91e63, #9c27b0);
+            color: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .menu-btn {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            background: none;
             border: none;
-            border-radius: 15px;
-            padding: 12px;
-            box-shadow: 0 4px 15px rgba(255, 154, 158, 0.3);
+            color: white;
+            font-size: 20px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            padding: 5px;
         }
 
-        .menu-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 154, 158, 0.4);
+        .title {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            flex: 1;
         }
 
-        .nav-item {
-            background: linear-gradient(135deg, #ffeef8 0%, #f0e6ff 100%);
-            border-radius: 15px;
-            padding: 15px 20px;
-            margin: 8px 0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 154, 158, 0.2);
-        }
-
-        .nav-item:hover {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-            transform: translateX(5px);
-            box-shadow: 0 4px 15px rgba(255, 154, 158, 0.3);
+        .lang-switcher {
+            display: flex;
+            gap: 8px;
         }
 
         .lang-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
             color: white;
-            border: none;
-            border-radius: 20px;
-            padding: 8px 16px;
-            margin: 0 4px;
+            padding: 4px 8px;
+            border-radius: 12px;
             cursor: pointer;
+            font-size: 11px;
             transition: all 0.3s ease;
-            font-size: 0.85rem;
         }
 
         .lang-btn.active {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-            transform: scale(1.05);
+            background: rgba(255,255,255,0.4);
+            border-color: rgba(255,255,255,0.6);
         }
 
         .lang-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            background: rgba(255,255,255,0.3);
         }
 
         .sidebar {
@@ -82,17 +82,44 @@
             left: -300px;
             width: 280px;
             height: 100vh;
-            background: linear-gradient(135deg, #ffeef8 0%, #f0e6ff 100%);
-            backdrop-filter: blur(10px);
-            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, #f8bbd9, #e1bee7);
             transition: left 0.3s ease;
             z-index: 1000;
-            padding: 20px;
             overflow-y: auto;
         }
 
         .sidebar.open {
             left: 0;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #e91e63, #9c27b0);
+            color: white;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar-menu li {
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .sidebar-menu a {
+            display: block;
+            padding: 15px 20px;
+            color: #4a148c;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .sidebar-menu a:hover {
+            background: rgba(255,255,255,0.3);
         }
 
         .overlay {
@@ -101,16 +128,19 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0,0,0,0.5);
+            display: none;
             z-index: 999;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
         }
 
-        .overlay.active {
-            opacity: 1;
-            visibility: visible;
+        .overlay.show {
+            display: block;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
         .page {
@@ -121,567 +151,379 @@
             display: block;
         }
 
-        .title {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: bold;
+        .welcome-card {
+            background: linear-gradient(135deg, #fce4ec, #f3e5f5);
+            border-radius: 20px;
+            padding: 30px;
             text-align: center;
+            box-shadow: 0 8px 25px rgba(233, 30, 99, 0.15);
+            margin-bottom: 20px;
+            border: 2px solid rgba(233, 30, 99, 0.1);
         }
 
-        .section-title {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+        .card {
+            background: linear-gradient(135deg, #fce4ec, #f3e5f5);
             border-radius: 15px;
-            padding: 12px 20px;
-            margin: 15px 0;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(255, 154, 158, 0.2);
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 20px rgba(233, 30, 99, 0.12);
+            border: 1px solid rgba(233, 30, 99, 0.1);
+        }
+
+        .card h2 {
+            color: #ad1457;
+            margin-bottom: 15px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card h3 {
+            color: #7b1fa2;
+            margin-bottom: 12px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .card p, .card li {
+            color: #4a148c;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .card ul {
+            padding-left: 20px;
         }
 
         .strategy-image {
-            max-width: 100%;
+            width: 100%;
+            max-width: 500px;
             height: auto;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(255, 154, 158, 0.3);
-            border: 2px solid rgba(255, 154, 158, 0.2);
-            margin: 15px 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.2);
+            margin: 15px auto;
             display: block;
-            margin-left: auto;
-            margin-right: auto;
+            border: 2px solid rgba(233, 30, 99, 0.1);
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #f8bbd9, #e1bee7);
+            padding: 15px;
+            border-radius: 12px;
+            margin: 10px 0;
+            border-left: 4px solid #e91e63;
+        }
+
+        .emoji {
+            font-size: 16px;
+            margin-right: 5px;
+        }
+
+        .day-cards {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .day-card {
+            background: linear-gradient(135deg, #fce4ec, #f3e5f5);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(233, 30, 99, 0.12);
+            border: 1px solid rgba(233, 30, 99, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .day-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(233, 30, 99, 0.2);
+        }
+
+        .day-card h3 {
+            color: #ad1457;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .day-card p {
+            color: #7b1fa2;
+            font-size: 12px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #7b1fa2;
+            font-size: 12px;
         }
 
         @media (max-width: 768px) {
-            .card {
-                padding: 1rem;
-                margin: 0.5rem;
-                border-radius: 15px;
+            .header-content {
+                padding: 0 10px;
             }
-            
+
             .title {
-                font-size: 1.5rem;
+                font-size: 16px;
             }
-            
-            .section-title {
-                padding: 10px 15px;
-                font-size: 0.95rem;
+
+            .container {
+                padding: 15px;
             }
-            
-            body {
-                font-size: 0.9rem;
+
+            .card {
+                padding: 15px;
+            }
+
+            .lang-btn {
+                padding: 3px 6px;
+                font-size: 10px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="sticky top-0 z-50 bg-white bg-opacity-90 backdrop-filter backdrop-blur-lg shadow-lg">
-        <div class="flex justify-between items-center p-4">
-            <button class="menu-btn" onclick="toggleSidebar()">
-                <i class="fas fa-bars text-white text-lg"></i>
-            </button>
-            <h1 class="title text-xl">⭐ YMK攻略 ⭐</h1>
-            <div class="language-switcher">
-                <button class="lang-btn active" onclick="switchLanguage('ja')">日本語</button>
-                <button class="lang-btn" onclick="switchLanguage('en')">English</button>
+    <div class="overlay" id="overlay"></div>
+    
+    <header class="header">
+        <div class="header-content">
+            <button class="menu-btn" id="menuBtn">☰</button>
+            <h1 class="title">⭐ YMK攻略 ⭐</h1>
+            <div class="lang-switcher">
+                <button class="lang-btn active" id="japaneseBtn" onclick="switchLanguage('ja')">日本語</button>
+                <button class="lang-btn" id="englishBtn" onclick="switchLanguage('en')">English</button>
             </div>
         </div>
     </header>
 
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <div class="text-center mb-6">
-            <h2 class="title text-lg">📚 メニュー</h2>
-        </div>
-        <nav>
-            <div class="nav-item" onclick="showPage('home')">
-                <i class="fas fa-home mr-3"></i>🏠 ホーム
-            </div>
-            <div class="nav-item" onclick="showPage('guild-expansion')">
-                <i class="fas fa-info-circle mr-3"></i>🌸 ギルド軍拡ってなに？
-            </div>
-            <div class="nav-item" onclick="showPage('frozen-battlefield')">
-                <i class="fas fa-snowflake mr-3"></i>❄️ 氷原の戦場
-            </div>
-            <div class="nav-item" onclick="showPage('monday')">
-                <i class="fas fa-calendar-day mr-3"></i>📅 月曜日の攻略
-            </div>
-            <div class="nav-item" onclick="showPage('tuesday')">
-                <i class="fas fa-calendar-day mr-3"></i>🔷 火曜日の攻略
-            </div>
-            <div class="nav-item" onclick="showPage('wednesday')">
-                <i class="fas fa-calendar-day mr-3"></i>💎 水曜日の攻略
-            </div>
-            <div class="nav-item" onclick="showPage('thursday')">
-                <i class="fas fa-calendar-day mr-3"></i>📚 木曜日の攻略
-            </div>
-            <div class="nav-item" onclick="showPage('friday')">
-                <i class="fas fa-calendar-day mr-3"></i>🎁 金曜日の攻略
-            </div>
-            <div class="nav-item" onclick="showPage('saturday')">
-                <i class="fas fa-calendar-day mr-3"></i>📦 土曜日の攻略
-            </div>
-        </nav>
-    </div>
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header" id="sidebarHeader">YMK攻略メニュー</div>
+        <ul class="sidebar-menu" id="sidebarMenu">
+            <li><a href="#" onclick="showPage('home')">🏠 <span class="menu-text">ホーム</span></a></li>
+            <li><a href="#" onclick="showPage('guild-expansion')">🌸 <span class="menu-text">ギルド軍拡ってなに？</span></a></li>
+            <li><a href="#" onclick="showPage('frozen-battlefield')">❄️ <span class="menu-text">氷原の戦場</span></a></li>
+            <li><a href="#" onclick="showPage('monday')">📅 <span class="menu-text">月曜日の攻略</span></a></li>
+            <li><a href="#" onclick="showPage('tuesday')">🔷 <span class="menu-text">火曜日の攻略</span></a></li>
+            <li><a href="#" onclick="showPage('wednesday')">💎 <span class="menu-text">水曜日の攻略</span></a></li>
+            <li><a href="#" onclick="showPage('thursday')">📚 <span class="menu-text">木曜日の攻略</span></a></li>
+            <li><a href="#" onclick="showPage('friday')">🎁 <span class="menu-text">金曜日の攻略</span></a></li>
+            <li><a href="#" onclick="showPage('saturday')">📦 <span class="menu-text">土曜日の攻略</span></a></li>
+        </ul>
+    </nav>
 
-    <!-- Overlay -->
-    <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
-
-    <!-- Main Content -->
-    <main class="container mx-auto p-4 max-w-4xl">
-        <!-- Home Page -->
-        <div id="home" class="page active">
-            <div class="card text-center">
-                <div class="text-6xl mb-4">😊</div>
-                <h2 class="title text-2xl mb-4">YMK攻略ガイド</h2>
-                <p class="text-purple-600 mb-6">日替わり攻略情報をチェック！</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="card cursor-pointer" onclick="showPage('guild-expansion')">
-                        <div class="text-3xl mb-2">🌸</div>
-                        <h3 class="font-bold text-purple-700">ギルド軍拡ってなに？</h3>
-                        <p class="text-sm text-purple-600">基本ガイド</p>
-                    </div>
-                    <div class="card cursor-pointer" onclick="showPage('frozen-battlefield')">
-                        <div class="text-3xl mb-2">❄️</div>
-                        <h3 class="font-bold text-purple-700">氷原の戦場</h3>
-                        <p class="text-sm text-purple-600">戦場攻略</p>
-                    </div>
-                </div>
-                <div class="mt-6">
-                    <p class="text-center text-purple-600">💖 毎日コツコツ攻略していこう！💖</p>
-                </div>
+    <div class="container">
+        <div class="page active" id="home">
+            <div class="welcome-card">
+                <h2><span class="emoji">💖</span><span id="homeTitle">YMK攻略ガイド</span></h2>
+                <p id="homeSubtitle">日替わり攻略情報をチェック！</p>
             </div>
-        </div>
 
-        <!-- Guild Expansion Page -->
-        <div id="guild-expansion" class="page">
-            <div class="card">
-                <h2 class="title text-2xl mb-4">🌸✨ ギルド軍拡ってなぁに？ ✨🌸</h2>
-                
-                <p class="mb-4">💫 <strong>ギルド軍拡</strong> は二週間ごとに繰り返している他サーバーとの対戦イベントです(*'∀')♡<br>
-                <strong>GvG</strong>（Guild vs Guild）、<strong>Arms race</strong> ともいわれます🏰⚔️</p>
-
-                <div class="section-title">📅 スケジュール</div>
-                <div class="card">
-                    <p>🌙 <strong>月曜日～金曜日</strong>: 準備段階でがんばる期間！<br>
-                    ⚔️ <strong>土曜日</strong>: 戦争段階でドキドキバトル！</p>
-                    <p class="mt-2">準備段階で勝利したギルドが土曜日に相手サーバーに攻撃できるよ〜！長い戦いだけど、みんなで頑張ろうね💪✨</p>
-                </div>
-
-                <div class="section-title">🌈💕 ギルド軍拡の重要性 💕🌈</div>
-                
-                <div class="card">
-                    <h4 class="font-bold text-purple-700 mb-2">① 🛡️ 守りの力</h4>
-                    <p>負けちゃうと対戦ギルドが越境してきて攻撃されちゃう😭<br>
-                    でも<strong>勝てば</strong>対戦相手は越境してこないから、攻撃されることがないの〜！安心安全💖</p>
-                </div>
-
-                <div class="card">
-                    <h4 class="font-bold text-purple-700 mb-2">② 🏆 ギルドの価値UP</h4>
-                    <p>サーバー内のギルド間では「<strong>対戦相手の越境を防ぐ</strong>」ことがギルドの価値の指標になりつつあるよ〜📈<br>
-                    = 価値あるギルドとして<strong>遺跡の獲得</strong>などの交渉も有利になる可能性あり🎯✨（嬉しい〜！）</p>
-                </div>
-
-                <div class="card">
-                    <h4 class="font-bold text-purple-700 mb-2">③ 🎁 豪華報酬GET</h4>
-                    <p>日々のミッション(<strong>宝箱を開ける</strong>)をこなすと手に入りにくい<strong>URの欠片</strong>、<strong>専用装備万能欠片</strong>が手に入る🎁💎（ハッピー〜♡）</p>
-                </div>
-
-                <div class="section-title">🌟 まとめ 🌟</div>
-                <div class="card">
-                    <p>以上を踏まえて、<strong>ギルド軍拡でポイントを稼ぐ</strong>ことは<strong>個人の勝利</strong>、引いては<strong>ギルドのため</strong>になります👊💕</p>
-                    <p class="mt-2">では、ギルド軍拡のミッションを<strong>出来るだけ楽にこなしつつ</strong>、ポイントを稼ぐにはどうしたらいいのか🤔💭</p>
-                    <p class="mt-2">みんなの意見を聞きながら、まとめました！！🎉<br>
-                    <strong>これであなたも軍拡マスター</strong>✨✨✨</p>
-                </div>
-
-                <div class="text-center mt-4">
-                    <p class="text-sm text-purple-600"><em>💖 powered by Mucho 💖</em></p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Frozen Battlefield Page -->
-        <div id="frozen-battlefield" class="page">
-            <div class="card">
-                <h2 class="title text-2xl mb-4">🧊✨ 氷原の戦場 ✨🧊</h2>
-                
-                <div class="section-title">🌸 概要</div>
-                <div class="card">
-                    <p>基本的なマップは古戦場と変わりません。ただし、ポイントの稼ぎ方が大きく異なります💥</p>
-                </div>
-
-                <div class="section-title">💎 基本的なポイントの取り方</div>
-                <div class="card">
-                    <p>とにかく、6分毎に出現する「魔法水晶鉱山」=「Mana mine」の占拠でポイントを稼ぐことが勝利の鍵です👊</p>
-                    <p class="mt-2">この"魔法水晶鉱山"場所はマップの真ん中の両脇です。始まってすぐ出現します。動けるようになったらすぐに取りに行こう😙</p>
-                    <p class="mt-2">そのあとは残り38分ごろから6分刻みで鉱山は出現するよ👍</p>
-                    <p class="mt-2">鉱山を見つけたプレーヤーはギルドチャットにすぐに共有してね👍早ーくみつけてみんなで取りにいったギルドがとても有利🥳ここ、定期テストに出るから覚えてね！🥳</p>
+            <div class="day-cards">
+                <div class="day-card" onclick="showPage('guild-expansion')">
+                    <h3><span class="emoji">🌸</span><span id="guildExpansionTitle">ギルド軍拡ってなに？</span></h3>
+                    <p id="guildExpansionDesc">基本ガイド</p>
                 </div>
                 
-                <img src="https://gensparkstorageprodwest.blob.core.windows.net/web-drive/8d81b158-143a-4501-b68b-b44fd5d3d740/4c0eaf05-3909-4932-bcaa-b600e51d43ea?se=2025-06-30T04%3A31%3A45Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%22hyogen-01.png%22&sig=aIJmVLQtskYI4AS74ak5xRqyRunlgMrB%2BT7pke3OIaw%3D" alt="魔法水晶鉱山の位置" class="strategy-image">
-
-                <div class="section-title">💪 強い人の戦い方</div>
-                <div class="card">
-                    <p>残り時間が半分になると、マップの中心に「浮遊島」＝「Sky island」が出現します🤯</p>
-                    <p class="mt-2">基本的にここは30m~40mのプレイヤーが集まるので強い人はこの浮遊島の占拠を目指してください👍</p>
+                <div class="day-card" onclick="showPage('frozen-battlefield')">
+                    <h3><span class="emoji">❄️</span><span id="frozenBattlefieldTitle">氷原の戦場</span></h3>
+                    <p id="frozenBattlefieldDesc">特別イベント攻略</p>
                 </div>
 
-                <img src="https://gensparkstorageprodwest.blob.core.windows.net/web-drive/8d81b158-143a-4501-b68b-b44fd5d3d740/c4e4d336-9846-44b9-be32-4168b925dcb9?se=2025-06-30T04%3A31%3A45Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%22hyogen-02.png%22&sig=PCSTbKTjrUUz/7nY2m7RcYW3iychlWkUcPTGPA9RieE%3D" alt="浮遊島の攻略" class="strategy-image">
-
-                <div class="section-title">⚔️ 中盤～後半までの戦い方</div>
-                <div class="card">
-                    <p>浮遊島が出現したあとは、浮遊島の四角に四つの施設が出現。ここに移動すると他の三つのサーバーと乱戦する可能性があるけど、鉱山にとても近くなるという大きなメリットがあるよ…😎</p>
-                    <p class="mt-2">もちろん、相手の拠点を攻撃して成功した場合も、点数に加算されるよ😙 つまり、ここでの戦い方はあなたのテクニックしだいだね！</p>
+                <div class="day-card" onclick="showPage('monday')">
+                    <h3><span class="emoji">📅</span><span id="mondayTitle">月曜日の攻略</span></h3>
+                    <p id="mondayDesc">週の始まりの戦略</p>
                 </div>
 
-                <div class="section-title">🌟 まとめ</div>
-                <div class="card">
-                    <p>以上が氷原の戦場の大まかな戦い方</p>
-                    <p class="mt-2">とにかく宝箱を見つけたら採取＆みんなに共有😎これが一番大事！ほかのギルドと戦いたい人は、浮遊島とその周辺の四つの施設で遊ぼう🥳</p>
+                <div class="day-card" onclick="showPage('tuesday')">
+                    <h3><span class="emoji">🔷</span><span id="tuesdayTitle">火曜日の攻略</span></h3>
+                    <p id="tuesdayDesc">狙子を上げる日</p>
                 </div>
 
-                <div class="section-title">💭 ちなみに…</div>
-                <div class="card">
-                    <p>この攻略はまだまだ途中です(。☌ᴗ☌｡)</p>
-                    <p class="mt-2">もしもっといい方法があったらどしどし教えてね٩(ˊᗜˋ*)و</p>
+                <div class="day-card" onclick="showPage('wednesday')">
+                    <h3><span class="emoji">💎</span><span id="wednesdayTitle">水曜日の攻略</span></h3>
+                    <p id="wednesdayDesc">週の真ん中を乗り切る</p>
                 </div>
 
-                <img src="https://gensparkstorageprodwest.blob.core.windows.net/web-drive/8d81b158-143a-4501-b68b-b44fd5d3d740/2300cfac-5a32-4d3b-946a-890cb1d5c7e5?se=2025-06-30T04%3A31%3A45Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%22hyogen-03.png%22&sig=noHEQGKs%2BQo/Y1z5NOj1Jqu8yjuf/5hjkhhEOKWjTug%3D" alt="追加情報" class="strategy-image">
+                <div class="day-card" onclick="showPage('thursday')">
+                    <h3><span class="emoji">📚</span><span id="thursdayTitle">木曜日の攻略</span></h3>
+                    <p id="thursdayDesc">週末への準備</p>
+                </div>
+
+                <div class="day-card" onclick="showPage('friday')">
+                    <h3><span class="emoji">🎁</span><span id="fridayTitle">金曜日の攻略</span></h3>
+                    <p id="fridayDesc">週の締めくくり</p>
+                </div>
+
+                <div class="day-card" onclick="showPage('saturday')">
+                    <h3><span class="emoji">📦</span><span id="saturdayTitle">土曜日の攻略</span></h3>
+                    <p id="saturdayDesc">週末を楽しもう</p>
+                </div>
+            </div>
+
+            <div class="footer">
+                💖 <span id="footerText">毎日コツコツ攻略していこう！</span> 💖
             </div>
         </div>
 
-        <!-- Other Pages -->
-        <div id="monday" class="page">
+        <div class="page" id="guild-expansion">
             <div class="card">
-                <h2 class="title text-2xl mb-4">📅 月曜日の攻略</h2>
-                <div class="section-title">🌟 週の始まりの戦略</div>
-                <div class="card">
-                    <p>月曜日は週の始まり！しっかりと準備を整えて一週間をスタートしましょう💪</p>
-                    <ul class="list-disc list-inside mt-2 space-y-1">
-                        <li>デイリーミッションの確認</li>
-                        <li>ギルド活動への参加</li>
-                        <li>リソースの管理と計画</li>
-                    </ul>
-                </div>
+                <h2><span class="emoji">🌸</span><span id="guildExpansionPageTitle">ギルド軍拡ってなぁに？</span></h2>
+                <p id="guildExpansionDescription">ギルド軍拡は二週間ごとに繰り返している他サーバーとの対戦イベントです(*'∀')。GvG（Guild vs Guild）,Arms raceともいわれます。<br>
+                月曜日から金曜日までの準備段階、土曜日の戦争段階に分かれています。準備段階に勝利したギルドが土曜日に相手サーバーに攻撃ができる。長い戦いです！</p>
             </div>
-        </div>
 
-        <div id="tuesday" class="page">
             <div class="card">
-                <h2 class="title text-2xl mb-4">🔷 火曜日の攻略</h2>
-                <div class="section-title">🎯 効率アップの日</div>
-                <div class="card">
-                    <p>火曜日は効率を重視した攻略を心がけましょう✨</p>
-                    <ul class="list-disc list-inside mt-2 space-y-1">
-                        <li>経験値アップイベントの活用</li>
-                        <li>スキル強化の実施</li>
-                        <li>装備の最適化</li>
-                    </ul>
+                <h3><span class="emoji">🌈</span><span id="importanceTitle">ギルド軍拡の重要性</span></h3>
+                <div class="highlight">
+                    <p><strong>①</strong> <span id="importance1">負けた場合、対戦ギルドが越境してきて攻撃するが、勝てば対戦相手は越境してこないため、攻撃されることがない。</span></p>
+                </div>
+                <div class="highlight">
+                    <p><strong>②</strong> <span id="importance2">サーバー内のギルド間では「対戦相手の越境を防ぐ」ことがギルドの価値の指標になりつつある<br>
+                    = 価値あるギルドとして遺跡の獲得などの交渉も有利になる可能性あり（嬉しい）</span></p>
+                </div>
+                <div class="highlight">
+                    <p><strong>③</strong> <span id="importance3">日々のミッション(宝箱を開ける)をこなすと手に入りにくいURの欠片、専用装備万能欠片が手に入る（ハッピー）</span></p>
                 </div>
             </div>
-        </div>
 
-        <div id="wednesday" class="page">
             <div class="card">
-                <h2 class="title text-2xl mb-4">💎 水曜日の攻略</h2>
-                <div class="section-title">⚡ 週の真ん中を乗り切る</div>
-                <div class="card">
-                    <p>週の真ん中、しっかりとペースを保ちましょう🌟</p>
-                    <ul class="list-disc list-inside mt-2 space-y-1">
-                        <li>特別イベントへの参加</li>
-                        <li>ギルドメンバーとの連携</li>
-                        <li>レアアイテムの収集</li>
-                    </ul>
-                </div>
+                <h3><span class="emoji">🌟</span><span id="summaryTitle">まとめ</span></h3>
+                <p id="summaryText">以上を踏まえて、ギルド軍拡でポイントを稼ぐことは個人の勝利、引いてはギルドのためになります👊<br><br>
+                では、ギルド軍拡のミッションを出来るだけ楽にこなしつつ、ポイントを稼ぐにはどうしたらいいのか。<br>
+                みんなの意見を聞きながら、まとめました！！<br>
+                これであなたも軍拡マスター✨✨✨</p>
+                <p style="text-align: right; font-style: italic; margin-top: 15px; color: #7b1fa2;">💖 powered by Mucho 💖</p>
             </div>
         </div>
 
-        <div id="thursday" class="page">
+        <div class="page" id="frozen-battlefield">
             <div class="card">
-                <h2 class="title text-2xl mb-4">📚 木曜日の攻略</h2>
-                <div class="section-title">📖 過去への準備</div>
-                <div class="card">
-                    <p>木曜日は週末に向けての準備を進めましょう🎯</p>
-                    <ul class="list-disc list-inside mt-2 space-y-1">
-                        <li>週末イベントの準備</li>
-                        <li>戦力の最終チェック</li>
-                        <li>アイテムの在庫確認</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div id="friday" class="page">
-            <div class="card">
-                <h2 class="title text-2xl mb-4">🎁 金曜日の攻略</h2>
-                <div class="section-title">🎉 週の締めくくり</div>
-                <div class="card">
-                    <p>金曜日は週の締めくくり！しっかりと成果を出しましょう🌈</p>
-                    <ul class="list-disc list-inside mt-2 space-y-1">
-                        <li>週間目標の達成確認</li>
-                        <li>ボーナスイベントへの参加</li>
-                        <li>来週への準備</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div id="saturday" class="page">
-            <div class="card">
-                <h2 class="title text-2xl mb-4">📦 土曜日の攻略</h2>
-                <div class="section-title">🏆 週末を楽しもう</div>
-                <div class="card">
-                    <p>土曜日は週末！楽しみながら攻略を進めましょう🎊</p>
-                    <ul class="list-disc list-inside mt-2 space-y-1">
-                        <li>週末限定イベントへの参加</li>
-                        <li>フレンドとの協力プレイ</li>
-                        <li>新しい戦略の試行</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- English Content (Hidden by default) -->
-    <div id="english-content" style="display: none;">
-        <!-- English navigation items -->
-        <div id="en-nav">
-            <div class="nav-item" onclick="showPage('home')">
-                <i class="fas fa-home mr-3"></i>🏠 Home
-            </div>
-            <div class="nav-item" onclick="showPage('guild-expansion')">
-                <i class="fas fa-info-circle mr-3"></i>🌸 What is Guild Military Expansion?
-            </div>
-            <div class="nav-item" onclick="showPage('frozen-battlefield')">
-                <i class="fas fa-snowflake mr-3"></i>❄️ Frozen Battlefield
-            </div>
-            <div class="nav-item" onclick="showPage('monday')">
-                <i class="fas fa-calendar-day mr-3"></i>📅 Monday Strategy
-            </div>
-            <div class="nav-item" onclick="showPage('tuesday')">
-                <i class="fas fa-calendar-day mr-3"></i>🔷 Tuesday Strategy
-            </div>
-            <div class="nav-item" onclick="showPage('wednesday')">
-                <i class="fas fa-calendar-day mr-3"></i>💎 Wednesday Strategy
-            </div>
-            <div class="nav-item" onclick="showPage('thursday')">
-                <i class="fas fa-calendar-day mr-3"></i>📚 Thursday Strategy
-            </div>
-            <div class="nav-item" onclick="showPage('friday')">
-                <i class="fas fa-calendar-day mr-3"></i>🎁 Friday Strategy
-            </div>
-            <div class="nav-item" onclick="showPage('saturday')">
-                <i class="fas fa-calendar-day mr-3"></i>📦 Saturday Strategy
-            </div>
-        </div>
-
-        <!-- English page content -->
-        <div id="en-home">
-            <div class="card text-center">
-                <div class="text-6xl mb-4">😊</div>
-                <h2 class="title text-2xl mb-4">YMK Strategy Guide</h2>
-                <p class="text-purple-600 mb-6">Check daily strategy information!</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="card cursor-pointer" onclick="showPage('guild-expansion')">
-                        <div class="text-3xl mb-2">🌸</div>
-                        <h3 class="font-bold text-purple-700">What is Guild Military Expansion?</h3>
-                        <p class="text-sm text-purple-600">Basic Guide</p>
-                    </div>
-                    <div class="card cursor-pointer" onclick="showPage('frozen-battlefield')">
-                        <div class="text-3xl mb-2">❄️</div>
-                        <h3 class="font-bold text-purple-700">Frozen Battlefield</h3>
-                        <p class="text-sm text-purple-600">Battle Strategy</p>
-                    </div>
-                </div>
-                <div class="mt-6">
-                    <p class="text-center text-purple-600">💖 Let's work on strategies every day! 💖</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="en-guild-expansion">
-            <div class="card">
-                <h2 class="title text-2xl mb-4">🌸✨ What is Guild Military Expansion? ✨🌸</h2>
+                <h2><span class="emoji">❄️</span><span id="frozenBattlefieldPageTitle">氷原の戦場</span></h2>
                 
-                <p class="mb-4">💫 <strong>Guild Military Expansion</strong> is a cross-server battle event that repeats every two weeks (*'∀')♡<br>
-                Also known as <strong>GvG</strong> (Guild vs Guild) and <strong>Arms race</strong> 🏰⚔️</p>
+                <h3><span class="emoji">💥</span><span id="overviewTitle">概要</span></h3>
+                <p id="overviewText">基本的なマップは古戦場と変わりません。ただし、ポイントの稼ぎ方が大きく異なります💥</p>
+            </div>
 
-                <div class="section-title">📅 Schedule</div>
-                <div class="card">
-                    <p>🌙 <strong>Monday to Friday</strong>: Preparation phase - time to work hard!<br>
-                    ⚔️ <strong>Saturday</strong>: War phase - exciting battles!</p>
-                    <p class="mt-2">Guilds that win the preparation phase can attack the opponent server on Saturday! It's a long battle, but let's work together and do our best💪✨</p>
-                </div>
+            <div class="card">
+                <h3><span class="emoji">👊</span><span id="basicPointsTitle">基本的なポイントの取り方</span></h3>
+                <p id="basicPointsText">とにかく、6分毎に出現する「魔法水晶鉱山」=「Mana mine」の占拠でポイントを稼ぐことが勝利の鍵です👊<br>
+                この"魔法水晶鉱山"場所はマップの真ん中の両脇です。始まってすぐ出現します。動けるようになったらすぐに取りに行こう😙<br>
+                そのあとは残り38分ごろから6分刻みで鉱山は出現するよ👍<br>
+                鉱山を見つけたプレーヤーはギルドチャットにすぐに共有してね👍早ーくみつけてみんなで取りにいったギルドがとても有利🥳ここ、定期テストに出るから覚えてね！🥳</p>
+                <img src="https://gensparkstorageprodwest.blob.core.windows.net/web-drive/8d81b158-143a-4501-b68b-b44fd5d3d740/4c0eaf05-3909-4932-bcaa-b600e51d43ea?se=2025-06-30T04%3A31%3A45Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%22hyogen-01.png%22&sig=aIJmVLQtskYI4AS74ak5xRqyRunlgMrB%2BT7pke3OIaw%3D" class="strategy-image" alt="魔法水晶鉱山の位置">
+            </div>
 
-                <div class="section-title">🌈💕 Importance of Guild Military Expansion 💕🌈</div>
-                
-                <div class="card">
-                    <h4 class="font-bold text-purple-700 mb-2">① 🛡️ Defensive Power</h4>
-                    <p>If you lose, opposing guilds will cross borders and attack😭<br>
-                    But if you <strong>win</strong>, opponents won't cross borders, so you won't be attacked! Safe and secure💖</p>
-                </div>
+            <div class="card">
+                <h3><span class="emoji">🤯</span><span id="strongPlayersTitle">強い人の戦い方</span></h3>
+                <p id="strongPlayersText">残り時間が半分になると、マップの中心に「浮遊島」＝「Sky island」が出現します🤯<br>
+                基本的にここは30m~40mのプレイヤーが集まるので強い人はこの浮遊島の占拠を目指してください👍</p>
+                <img src="https://gensparkstorageprodwest.blob.core.windows.net/web-drive/8d81b158-143a-4501-b68b-b44fd5d3d740/c4e4d336-9846-44b9-be32-4168b925dcb9?se=2025-06-30T04%3A31%3A45Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%22hyogen-02.png%22&sig=PCSTbKTjrUUz/7nY2m7RcYW3iychlWkUcPTGPA9RieE%3D" class="strategy-image" alt="浮遊島の位置">
+            </div>
 
-                <div class="card">
-                    <h4 class="font-bold text-purple-700 mb-2">② 🏆 Guild Value UP</h4>
-                    <p>"<strong>Preventing opponent border crossing</strong>" is becoming an indicator of guild value among server guilds📈<br>
-                    = As a valuable guild🎯✨ (Great!)</p>
-                </div>
+            <div class="card">
+                <h3><span class="emoji">😎</span><span id="midLateGameTitle">中盤～後半までの戦い方</span></h3>
+                <p id="midLateGameText">浮遊島が出現したあとは、浮遊島の四角に四つの施設が出現。ここに移動すると他の三つのサーバーと乱戦する可能性があるけど、鉱山にとても近くなるという大きなメリットがあるよ…😎もちろん、相手の拠点を攻撃して成功した場合も、点数に加算されるよ 😙 つまり、ここでの戦い方はあなたのテクニックしだいだね！<br><br>
+                以上が氷原の戦場の大まかな戦い方<br>
+                とにかく宝箱を見つけたら採取＆みんなに共有😎これが一番大事！ほかのギルドと戦いたい人は、浮遊島とその周辺の四つの施設で遊ぼう🥳</p>
+            </div>
 
-                <div class="card">
-                    <h4 class="font-bold text-purple-700 mb-2">③ 🎁 Luxury Rewards GET</h4>
-                    <p>Completing daily missions (<strong>opening treasure chests</strong>) gives you hard-to-get <strong>UR fragments</strong> and <strong>exclusive equipment universal fragments</strong>🎁💎 (Happy~♡)</p>
-                </div>
-
-                <div class="section-title">🌟 Summary 🌟</div>
-                <div class="card">
-                    <p>Based on the above, <strong>earning points in guild military expansion</strong> leads to <strong>individual victory</strong> and ultimately <strong>benefits the guild</strong>👊💕</p>
-                    <p class="mt-2">So, how can we complete guild military expansion missions <strong>as easily as possible</strong> while earning points?🤔💭</p>
-                    <p class="mt-2">We've compiled this while listening to everyone's opinions!!🎉<br>
-                    <strong>Now you too can be a military expansion master</strong>✨✨✨</p>
-                </div>
-
-                <div class="text-center mt-4">
-                    <p class="text-sm text-purple-600"><em>💖 powered by Mucho 💖</em></p>
-                </div>
+            <div class="card">
+                <h3><span class="emoji">😊</span><span id="additionalInfoTitle">ちなみに…</span></h3>
+                <p id="additionalInfoText">この攻略はまだまだ途中です(。☌ᴗ☌｡)<br>
+                もしもっといい方法があったらどしどし教えてね٩(ˊᗜˋ*)و</p>
+                <img src="https://gensparkstorageprodwest.blob.core.windows.net/web-drive/8d81b158-143a-4501-b68b-b44fd5d3d740/2300cfac-5a32-4d3b-946a-890cb1d5c7e5?se=2025-06-30T04%3A31%3A45Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%22hyogen-03.png%22&sig=noHEQGKs%2BQo/Y1z5NOj1Jqu8yjuf/5hjkhhEOKWjTug%3D" class="strategy-image" alt="追加情報">
             </div>
         </div>
 
-        <div id="en-frozen-battlefield">
+        <div class="page" id="monday">
             <div class="card">
-                <h2 class="title text-2xl mb-4">🧊✨ Frozen Battlefield ✨🧊</h2>
-                
-                <div class="section-title">🌸 Overview</div>
-                <div class="card">
-                    <p>The basic map is the same as the ancient battlefield. However, the way to earn points is significantly different💥</p>
-                </div>
-
-                <div class="section-title">💎 Basic Point Earning Methods</div>
-                <div class="card">
-                    <p>The key to victory is occupying the "Mana mine" that appears every 6 minutes👊</p>
-                    <p class="mt-2">The location of this "Mana mine" is on both sides of the center of the map. It appears as soon as the battle starts. Go get it as soon as you can move😙</p>
-                    <p class="mt-2">After that, mines appear every 6 minutes starting from around 38 minutes remaining👍</p>
-                    <p class="mt-2">Players who find mines should immediately share in guild chat👍 Guilds that find them quickly and go get them together have a huge advantage🥳 Remember this because it will be on the regular test!🥳</p>
-                </div>
-                
-                <img src="https://gensparkstorageprodwest.blob.core.windows.net/web-drive/8d81b158-143a-4501-b68b-b44fd5d3d740/4c0eaf05-3909-4932-bcaa-b600e51d43ea?se=2025-06-30T04%3A31%3A45Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%22hyogen-01.png%22&sig=aIJmVLQtskYI4AS74ak5xRqyRunlgMrB%2BT7pke3OIaw%3D" alt="Mana mine location" class="strategy-image">
-
-                <div class="section-title">💪 Strong Player Strategies</div>
-                <div class="card">
-                    <p>When half the time remains, a "Sky island" appears in the center of the map🤯</p>
-                    <p class="mt-2">Basically, 30m~40m players gather here, so strong players should aim to occupy this sky island👍</p>
-                </div>
-
-                <img src="https://gensparkstorageprodwest.blob.core.windows.net/web-drive/8d81b158-143a-4501-b68b-b44fd5d3d740/c4e4d336-9846-44b9-be32-4168b925dcb9?se=2025-06-30T04%3A31%3A45Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%22hyogen-02.png%22&sig=PCSTbKTjrUUz/7nY2m7RcYW3iychlWkUcPTGPA9RieE%3D" alt="Sky island strategy" class="strategy-image">
-
-                <div class="section-title">⚔️ Mid to Late Game Strategies</div>
-                <div class="card">
-                    <p>After the sky island appears, four facilities appear around the sky island. Moving here may lead to battles with three other servers, but there's a big advantage of being very close to the mines...😎</p>
-                    <p class="mt-2">Of course, successfully attacking opponent bases also adds to your score😙 So the way you fight here depends on your technique!</p>
-                </div>
-
-                <div class="section-title">🌟 Summary</div>
-                <div class="card">
-                    <p>That's the general strategy for the frozen battlefield</p>
-                    <p class="mt-2">The most important thing is to collect treasure chests and share with everyone when you find them😎 If you want to fight other guilds, play at the sky island and its surrounding four facilities🥳</p>
-                </div>
-
-                <div class="section-title">💭 By the way...</div>
-                <div class="card">
-                    <p>This strategy is still a work in progress (。☌ᴗ☌｡)</p>
-                    <p class="mt-2">If you have better methods, please let us know٩(ˊᗜˋ*)و</p>
-                </div>
-
-                <img src="https://gensparkstorageprodwest.blob.core.windows.net/web-drive/8d81b158-143a-4501-b68b-b44fd5d3d740/2300cfac-5a32-4d3b-946a-890cb1d5c7e5?se=2025-06-30T04%3A31%3A45Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%22hyogen-03.png%22&sig=noHEQGKs%2BQo/Y1z5NOj1Jqu8yjuf/5hjkhhEOKWjTug%3D" alt="Additional information" class="strategy-image">
-            </div>
-        </div>
-
-        <!-- Other English pages -->
-        <div id="en-monday">
-            <div class="card">
-                <h2 class="title text-2xl mb-4">📅 Monday Strategy</h2>
-                <div class="section-title">🌟 Start of the Week Strategy</div>
-                <div class="card">
-                    <p>Monday is the start of the week! Let's get properly prepared and start the week strong💪</p>
-                    <ul class="list-disc list-inside mt-2 space-y-1">
-                        <li>Check daily missions</li>
-                        <li>Participate in guild activities</li>
-                        <li>Resource management and planning</li>
+                <h2><span class="emoji">📅</span><span id="mondayPageTitle">月曜日の攻略</span></h2>
+                <p id="mondayPageText">週の始まりの重要な戦略をチェック！</p>
+                <div class="highlight">
+                    <h3><span class="emoji">⭐</span><span id="mondayPointsTitle">重要ポイント</span></h3>
+                    <ul id="mondayPoints">
+                        <li>週の始まりはモチベーション管理が大切</li>
+                        <li>デイリーミッションを確実にクリア</li>
+                        <li>リソース管理を見直す絶好のタイミング</li>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <div id="en-tuesday">
+        <div class="page" id="tuesday">
             <div class="card">
-                <h2 class="title text-2xl mb-4">🔷 Tuesday Strategy</h2>
-                <div class="section-title">🎯 Efficiency Up Day</div>
-                <div class="card">
-                    <p>Tuesday focuses on efficiency-oriented strategies✨</p>
-                    <ul class="list-disc list-inside mt-2 space-y-1">
-                        <li>Utilize EXP boost events</li>
-                        <li>Implement skill enhancement</li>
-                        <li>Equipment optimization</li>
+                <h2><span class="emoji">🔷</span><span id="tuesdayPageTitle">火曜日の攻略</span></h2>
+                <p id="tuesdayPageText">狙子を上げる重要な日です！</p>
+                <div class="highlight">
+                    <h3><span class="emoji">⭐</span><span id="tuesdayPointsTitle">重要ポイント</span></h3>
+                    <ul id="tuesdayPoints">
+                        <li>火曜日は特別イベントが多い傾向</li>
+                        <li>PvP要素を重点的に攻略</li>
+                        <li>ギルド活動に積極参加</li>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <div id="en-wednesday">
+        <div class="page" id="wednesday">
             <div class="card">
-                <h2 class="title text-2xl mb-4">💎 Wednesday Strategy</h2>
-                <div class="section-title">⚡ Getting Through Midweek</div>
-                <div class="card">
-                    <p>Midweek - let's maintain a steady pace🌟</p>
-                    <ul class="list-disc list-inside mt-2 space-y-1">
-                        <li>Participate in special events</li>
-                        <li>Coordinate with guild members</li>
-                        <li>Collect rare items</li>
+                <h2><span class="emoji">💎</span><span id="wednesdayPageTitle">水曜日の攻略</span></h2>
+                <p id="wednesdayPageText">週の真ん中を乗り切る戦略！</p>
+                <div class="highlight">
+                    <h3><span class="emoji">⭐</span><span id="wednesdayPointsTitle">重要ポイント</span></h3>
+                    <ul id="wednesdayPoints">
+                        <li>中間報酬の獲得を目指す</li>
+                        <li>装備強化のタイミング</li>
+                        <li>チーム編成の見直し</li>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <div id="en-thursday">
+        <div class="page" id="thursday">
             <div class="card">
-                <h2 class="title text-2xl mb-4">📚 Thursday Strategy</h2>
-                <div class="section-title">📖 Preparing for the Past</div>
-                <div class="card">
-                    <p>Thursday is for preparing for the weekend🎯</p>
-                    <ul class="list-disc list-inside mt-2 space-y-1">
-                        <li>Prepare for weekend events</li>
-                        <li>Final power check</li>
-                        <li>Inventory check</li>
+                <h2><span class="emoji">📚</span><span id="thursdayPageTitle">木曜日の攻略</span></h2>
+                <p id="thursdayPageText">週末への準備をしっかりと！</p>
+                <div class="highlight">
+                    <h3><span class="emoji">⭐</span><span id="thursdayPointsTitle">重要ポイント</span></h3>
+                    <ul id="thursdayPoints">
+                        <li>週末イベントの準備開始</li>
+                        <li>アイテム整理とインベントリ管理</li>
+                        <li>スキル調整の最終確認</li>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <div id="en-friday">
+        <div class="page" id="friday">
             <div class="card">
-                <h2 class="title text-2xl mb-4">🎁 Friday Strategy</h2>
-                <div class="section-title">🎉 End of the Week</div>
-                <div class="card">
-                    <p>Friday is the end of the week! Let's achieve solid results🌈</p>
-                    <ul class="list-disc list-inside mt-2 space-y-1">
-                        <li>Check weekly goal achievement</li>
-                        <li>Participate in bonus events</li>
-                        <li>Prepare for next week</li>
+                <h2><span class="emoji">🎁</span><span id="fridayPageTitle">金曜日の攻略</span></h2>
+                <p id="fridayPageText">週の締めくくりを華やかに！</p>
+                <div class="highlight">
+                    <h3><span class="emoji">⭐</span><span id="fridayPointsTitle">重要ポイント</span></h3>
+                    <ul id="fridayPoints">
+                        <li>週末限定イベント参加</li>
+                        <li>ボーナス報酬の獲得</li>
+                        <li>来週の計画立案</li>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <div id="en-saturday">
+        <div class="page" id="saturday">
             <div class="card">
-                <h2 class="title text-2xl mb-4">📦 Saturday Strategy</h2>
-                <div class="section-title">🏆 Enjoy the Weekend</div>
-                <div class="card">
-                    <p>Saturday is the weekend! Let's enjoy while progressing strategies🎊</p>
-                    <ul class="list-disc list-inside mt-2 space-y-1">
-                        <li>Participate in weekend-exclusive events</li>
-                        <li>Cooperative play with friends</li>
-                        <li>Try new strategies</li>
+                <h2><span class="emoji">📦</span><span id="saturdayPageTitle">土曜日の攻略</span></h2>
+                <p id="saturdayPageText">週末を楽しみながら攻略！</p>
+                <div class="highlight">
+                    <h3><span class="emoji">⭐</span><span id="saturdayPointsTitle">重要ポイント</span></h3>
+                    <ul id="saturdayPoints">
+                        <li>大型イベントへの集中参加</li>
+                        <li>ギルド戦争の実戦</li>
+                        <li>休日ボーナスの活用</li>
                     </ul>
                 </div>
             </div>
@@ -691,137 +533,221 @@
     <script>
         let currentLanguage = 'ja';
 
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('overlay');
-            sidebar.classList.add('open');
-            overlay.classList.add('active');
-        }
+        const translations = {
+            ja: {
+                sidebarHeader: 'YMK攻略メニュー',
+                menuItems: ['ホーム', 'ギルド軍拡ってなに？', '氷原の戦場', '月曜日の攻略', '火曜日の攻略', '水曜日の攻略', '木曜日の攻略', '金曜日の攻略', '土曜日の攻略'],
+                homeTitle: 'YMK攻略ガイド',
+                homeSubtitle: '日替わり攻略情報をチェック！',
+                guildExpansionTitle: 'ギルド軍拡ってなに？',
+                guildExpansionDesc: '基本ガイド',
+                frozenBattlefieldTitle: '氷原の戦場',
+                frozenBattlefieldDesc: '特別イベント攻略',
+                mondayTitle: '月曜日の攻略',
+                mondayDesc: '週の始まりの戦略',
+                tuesdayTitle: '火曜日の攻略',
+                tuesdayDesc: '狙子を上げる日',
+                wednesdayTitle: '水曜日の攻略',
+                wednesdayDesc: '週の真ん中を乗り切る',
+                thursdayTitle: '木曜日の攻略',
+                thursdayDesc: '週末への準備',
+                fridayTitle: '金曜日の攻略',
+                fridayDesc: '週の締めくくり',
+                saturdayTitle: '土曜日の攻略',
+                saturdayDesc: '週末を楽しもう',
+                footerText: '毎日コツコツ攻略していこう！',
+                guildExpansionPageTitle: 'ギルド軍拡ってなぁに？',
+                guildExpansionDescription: 'ギルド軍拡は二週間ごとに繰り返している他サーバーとの対戦イベントです(*\'∀\')。GvG（Guild vs Guild）,Arms raceともいわれます。\n月曜日から金曜日までの準備段階、土曜日の戦争段階に分かれています。準備段階に勝利したギルドが土曜日に相手サーバーに攻撃ができる。長い戦いです！',
+                importanceTitle: 'ギルド軍拡の重要性',
+                importance1: '負けた場合、対戦ギルドが越境してきて攻撃するが、勝てば対戦相手は越境してこないため、攻撃されることがない。',
+                importance2: 'サーバー内のギルド間では「対戦相手の越境を防ぐ」ことがギルドの価値の指標になりつつある\n= 価値あるギルドとして遺跡の獲得などの交渉も有利になる可能性あり（嬉しい）',
+                importance3: '日々のミッション(宝箱を開ける)をこなすと手に入りにくいURの欠片、専用装備万能欠片が手に入る（ハッピー）',
+                summaryTitle: 'まとめ',
+                summaryText: '以上を踏まえて、ギルド軍拡でポイントを稼ぐことは個人の勝利、引いてはギルドのためになります👊\n\nでは、ギルド軍拡のミッションを出来るだけ楽にこなしつつ、ポイントを稼ぐにはどうしたらいいのか。\nみんなの意見を聞きながら、まとめました！！\nこれであなたも軍拡マスター✨✨✨',
+                frozenBattlefieldPageTitle: '氷原の戦場',
+                overviewTitle: '概要',
+                overviewText: '基本的なマップは古戦場と変わりません。ただし、ポイントの稼ぎ方が大きく異なります💥',
+                basicPointsTitle: '基本的なポイントの取り方',
+                basicPointsText: 'とにかく、6分毎に出現する「魔法水晶鉱山」=「Mana mine」の占拠でポイントを稼ぐことが勝利の鍵です👊\nこの"魔法水晶鉱山"場所はマップの真ん中の両脇です。始まってすぐ出現します。動けるようになったらすぐに取りに行こう😙\nそのあとは残り38分ごろから6分刻みで鉱山は出現するよ👍\n鉱山を見つけたプレーヤーはギルドチャットにすぐに共有してね👍早ーくみつけてみんなで取りにいったギルドがとても有利🥳ここ、定期テストに出るから覚えてね！🥳',
+                strongPlayersTitle: '強い人の戦い方',
+                strongPlayersText: '残り時間が半分になると、マップの中心に「浮遊島」＝「Sky island」が出現します🤯\n基本的にここは30m~40mのプレイヤーが集まるので強い人はこの浮遊島の占拠を目指してください👍',
+                midLateGameTitle: '中盤～後半までの戦い方',
+                midLateGameText: '浮遊島が出現したあとは、浮遊島の四角に四つの施設が出現。ここに移動すると他の三つのサーバーと乱戦する可能性があるけど、鉱山にとても近くなるという大きなメリットがあるよ…😎もちろん、相手の拠点を攻撃して成功した場合も、点数に加算されるよ 😙 つまり、ここでの戦い方はあなたのテクニックしだいだね！\n\n以上が氷原の戦場の大まかな戦い方\nとにかく宝箱を見つけたら採取＆みんなに共有😎これが一番大事！ほかのギルドと戦いたい人は、浮遊島とその周辺の四つの施設で遊ぼう🥳',
+                additionalInfoTitle: 'ちなみに…',
+                additionalInfoText: 'この攻略はまだまだ途中です(。☌ᴗ☌｡)\nもしもっといい方法があったらどしどし教えてね٩(ˊᗜˋ*)و',
+                mondayPageTitle: '月曜日の攻略',
+                mondayPageText: '週の始まりの重要な戦略をチェック！',
+                mondayPointsTitle: '重要ポイント',
+                mondayPoints: ['週の始まりはモチベーション管理が大切', 'デイリーミッションを確実にクリア', 'リソース管理を見直す絶好のタイミング'],
+                tuesdayPageTitle: '火曜日の攻略',
+                tuesdayPageText: '狙子を上げる重要な日です！',
+                tuesdayPointsTitle: '重要ポイント',
+                tuesdayPoints: ['火曜日は特別イベントが多い傾向', 'PvP要素を重点的に攻略', 'ギルド活動に積極参加'],
+                wednesdayPageTitle: '水曜日の攻略',
+                wednesdayPageText: '週の真ん中を乗り切る戦略！',
+                wednesdayPointsTitle: '重要ポイント',
+                wednesdayPoints: ['中間報酬の獲得を目指す', '装備強化のタイミング', 'チーム編成の見直し'],
+                thursdayPageTitle: '木曜日の攻略',
+                thursdayPageText: '週末への準備をしっかりと！',
+                thursdayPointsTitle: '重要ポイント',
+                thursdayPoints: ['週末イベントの準備開始', 'アイテム整理とインベントリ管理', 'スキル調整の最終確認'],
+                fridayPageTitle: '金曜日の攻略',
+                fridayPageText: '週の締めくくりを華やかに！',
+                fridayPointsTitle: '重要ポイント',
+                fridayPoints: ['週末限定イベント参加', 'ボーナス報酬の獲得', '来週の計画立案'],
+                saturdayPageTitle: '土曜日の攻略',
+                saturdayPageText: '週末を楽しみながら攻略！',
+                saturdayPointsTitle: '重要ポイント',
+                saturdayPoints: ['大型イベントへの集中参加', 'ギルド戦争の実戦', '休日ボーナスの活用']
+            },
+            en: {
+                sidebarHeader: 'YMK Strategy Menu',
+                menuItems: ['Home', 'What is Guild Military Expansion?', 'Frozen Battlefield', 'Monday Strategy', 'Tuesday Strategy', 'Wednesday Strategy', 'Thursday Strategy', 'Friday Strategy', 'Saturday Strategy'],
+                homeTitle: 'YMK Strategy Guide',
+                homeSubtitle: 'Check daily strategy information!',
+                guildExpansionTitle: 'What is Guild Military Expansion?',
+                guildExpansionDesc: 'Basic Guide',
+                frozenBattlefieldTitle: 'Frozen Battlefield',
+                frozenBattlefieldDesc: 'Special Event Strategy',
+                mondayTitle: 'Monday Strategy',
+                mondayDesc: 'Start of the week strategy',
+                tuesdayTitle: 'Tuesday Strategy',
+                tuesdayDesc: 'Day to raise targets',
+                wednesdayTitle: 'Wednesday Strategy',
+                wednesdayDesc: 'Getting through the middle of the week',
+                thursdayTitle: 'Thursday Strategy',
+                thursdayDesc: 'Preparation for the weekend',
+                fridayTitle: 'Friday Strategy',
+                fridayDesc: 'Week\'s finale',
+                saturdayTitle: 'Saturday Strategy',
+                saturdayDesc: 'Enjoy the weekend',
+                footerText: 'Let\'s work on strategies every day!',
+                guildExpansionPageTitle: 'What is Guild Military Expansion?',
+                guildExpansionDescription: 'Guild Military Expansion is a battle event with other servers that repeats every two weeks (*\'∀\'). It\'s also called GvG (Guild vs Guild) or Arms race.\nIt\'s divided into preparation stages from Monday to Friday and the war stage on Saturday. Guilds that win in the preparation stage can attack opponent servers on Saturday. It\'s a long battle!',
+                importanceTitle: 'Importance of Guild Military Expansion',
+                importance1: 'If you lose, opposing guilds will cross borders and attack, but if you win, opponents won\'t cross borders, so you won\'t be attacked.',
+                importance2: 'Among guilds within the server, "preventing opponent border-crossing" is becoming an indicator of guild value\n= There\'s potential for advantageous,
+                summaryTitle: 'Summary',
+                summaryText: 'Based on the above, earning points in Guild Military Expansion leads to individual victory and ultimately benefits the guild👊\n\nSo, how do you complete Guild Military Expansion missions as easily as possible while earning points?\nWe\'ve compiled this by listening to everyone\'s opinions!!\nNow you too can be a military expansion master✨✨✨',
+                frozenBattlefieldPageTitle: 'Frozen Battlefield',
+                overviewTitle: 'Overview',
+                overviewText: 'The basic map is the same as the ancient battlefield. However, the way to earn points is significantly different💥',
+                basicPointsTitle: 'Basic Point Earning Methods',
+                basicPointsText: 'The key to victory is earning points by occupying "Mana mines" that appear every 6 minutes👊\nThese "Mana mines" are located on both sides of the map center. They appear immediately at the start. Go get them as soon as you can move😙\nAfter that, mines appear every 6 minutes starting around 38 minutes remaining👍\nPlayers who find mines should immediately share in guild chat👍Guilds that quickly find and capture them together have a huge advantage🥳Remember this, it\'ll be on the regular test!🥳',
+                strongPlayersTitle: 'How Strong Players Fight',
+                strongPlayersText: 'When half the time remains, a "Sky island" appears in the center of the map🤯\nBasically, 30m~40m players gather here, so strong players should aim to occupy this sky island👍',
+                midLateGameTitle: 'Mid to Late Game Fighting',
+                midLateGameText: 'After the sky island appears, four facilities appear around the sky island. Moving here might lead to battles with three other servers, but you get the big advantage of being very close to the mines…😎Of course, successfully attacking opponent bases also adds to your score 😙 So your fighting style here depends on your technique!\n\nThat\'s the general fighting style for Frozen Battlefield\nMost importantly, find treasure chests → harvest & share with everyone😎That\'s the most important! Those who want to fight other guilds, play around the sky island and its four surrounding facilities🥳',
+                additionalInfoTitle: 'By the way...',
+                additionalInfoText: 'This strategy guide is still in progress(。☌ᴗ☌｡)\nIf you have better methods, please let us know٩(ˊᗜˋ*)و',
+                mondayPageTitle: 'Monday Strategy',
+                mondayPageText: 'Check important strategies for the start of the week!',
+                mondayPointsTitle: 'Key Points',
+                mondayPoints: ['Motivation management is crucial at the start of the week', 'Complete daily missions reliably', 'Perfect timing to review resource management'],
+                tuesdayPageTitle: 'Tuesday Strategy',
+                tuesdayPageText: 'An important day to raise your targets!',
+                tuesdayPointsTitle: 'Key Points',
+                tuesdayPoints: ['Tuesdays tend to have many special events', 'Focus on PvP elements', 'Actively participate in guild activities'],
+                wednesdayPageTitle: 'Wednesday Strategy',
+                wednesdayPageText: 'Strategy to get through the middle of the week!',
+                wednesdayPointsTitle: 'Key Points',
+                wednesdayPoints: ['Aim to get intermediate rewards', 'Timing for equipment enhancement', 'Review team composition'],
+                thursdayPageTitle: 'Thursday Strategy',
+                thursdayPageText: 'Prepare thoroughly for the weekend!',
+                thursdayPointsTitle: 'Key Points',
+                thursdayPoints: ['Start preparing for weekend events', 'Item organization and inventory management', 'Final skill adjustment confirmation'],
+                fridayPageTitle: 'Friday Strategy',
+                fridayPageText: 'Make the week\'s finale spectacular!',
+                fridayPointsTitle: 'Key Points',
+                fridayPoints: ['Participate in weekend-exclusive events', 'Obtain bonus rewards', 'Plan for next week'],
+                saturdayPageTitle: 'Saturday Strategy',
+                saturdayPageText: 'Enjoy the weekend while strategizing!',
+                saturdayPointsTitle: 'Key Points',
+                saturdayPoints: ['Focus on participating in major events', 'Actual guild warfare', 'Utilize holiday bonuses']
+            }
+        };
 
-        function closeSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('overlay');
-            sidebar.classList.remove('open');
-            overlay.classList.remove('active');
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Update button states
+            document.getElementById('japaneseBtn').classList.toggle('active', lang === 'ja');
+            document.getElementById('englishBtn').classList.toggle('active', lang === 'en');
+            
+            const t = translations[lang];
+            
+            // Update sidebar header
+            document.getElementById('sidebarHeader').textContent = t.sidebarHeader;
+            
+            // Update menu items
+            const menuTexts = document.querySelectorAll('.menu-text');
+            menuTexts.forEach((text, index) => {
+                if (t.menuItems[index]) {
+                    text.textContent = t.menuItems[index];
+                }
+            });
+            
+            // Update all text content
+            Object.keys(t).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    if (key.includes('Points') && Array.isArray(t[key])) {
+                        // Handle point lists
+                        element.innerHTML = '';
+                        t[key].forEach(point => {
+                            const li = document.createElement('li');
+                            li.textContent = point;
+                            element.appendChild(li);
+                        });
+                    } else {
+                        // Handle regular text, preserve line breaks
+                        element.innerHTML = t[key].replace(/\n/g, '<br>');
+                    }
+                }
+            });
         }
 
         function showPage(pageId) {
             // Hide all pages
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
             
             // Show selected page
-            const targetPage = document.getElementById(pageId);
-            if (targetPage) {
-                targetPage.classList.add('active');
-            }
+            document.getElementById(pageId).classList.add('active');
             
+            // Close sidebar
             closeSidebar();
         }
 
-        function switchLanguage(lang) {
-            currentLanguage = lang;
-            const langButtons = document.querySelectorAll('.lang-btn');
-            langButtons.forEach(btn => btn.classList.remove('active'));
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
             
-            if (lang === 'ja') {
-                document.querySelector('.lang-btn[onclick="switchLanguage(\'ja\')"]').classList.add('active');
-                document.querySelector('h1.title').textContent = '⭐ YMK攻略 ⭐';
-                document.querySelector('#sidebar h2').innerHTML = '📚 メニュー';
-                updateNavigationJapanese();
-                updatePageContentJapanese();
+            if (sidebar.classList.contains('open')) {
+                closeSidebar();
             } else {
-                document.querySelector('.lang-btn[onclick="switchLanguage(\'en\')"]').classList.add('active');
-                document.querySelector('h1.title').textContent = '⭐ YMK Strategy ⭐';
-                document.querySelector('#sidebar h2').innerHTML = '📚 Menu';
-                updateNavigationEnglish();
-                updatePageContentEnglish();
+                openSidebar();
             }
         }
 
-        function updateNavigationJapanese() {
-            const navItems = document.querySelectorAll('#sidebar .nav-item');
-            const japaneseNavItems = [
-                '🏠 ホーム',
-                '🌸 ギルド軍拡ってなに？',
-                '❄️ 氷原の戦場',
-                '📅 月曜日の攻略',
-                '🔷 火曜日の攻略',
-                '💎 水曜日の攻略',
-                '📚 木曜日の攻略',
-                '🎁 金曜日の攻略',
-                '📦 土曜日の攻略'
-            ];
-            
-            navItems.forEach((item, index) => {
-                const icon = item.querySelector('i');
-                if (icon) {
-                    item.innerHTML = `<i class="${icon.className}"></i>${japaneseNavItems[index]}`;
-                }
-            });
+        function openSidebar() {
+            document.getElementById('sidebar').classList.add('open');
         }
 
-        function updateNavigationEnglish() {
-            const navItems = document.querySelectorAll('#sidebar .nav-item');
-            const englishNavItems = [
-                '🏠 Home',
-                '🌸 What is Guild Military Expansion?',
-                '❄️ Frozen Battlefield',
-                '📅 Monday Strategy',
-                '🔷 Tuesday Strategy',
-                '💎 Wednesday Strategy',
-                '📚 Thursday Strategy',
-                '🎁 Friday Strategy',
-                '📦 Saturday Strategy'
-            ];
-            
-            navItems.forEach((item, index) => {
-                const icon = item.querySelector('i');
-                if (icon) {
-                    item.innerHTML = `<i class="${icon.className}"></i>${englishNavItems[index]}`;
-                }
-            });
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('show');
         }
 
-        function updatePageContentJapanese() {
-            // Update home page
-            const homeContent = document.getElementById('home').innerHTML;
-            document.getElementById('home').innerHTML = homeContent.replace(/YMK Strategy Guide/g, 'YMK攻略ガイド')
-                .replace(/Check daily strategy information!/g, '日替わり攻略情報をチェック！')
-                .replace(/What is Guild Military Expansion\?/g, 'ギルド軍拡ってなに？')
-                .replace(/Basic Guide/g, '基本ガイド')
-                .replace(/Frozen Battlefield/g, '氷原の戦場')
-                .replace(/Battle Strategy/g, '戦場攻略')
-                .replace(/Let's work on strategies every day!/g, '毎日コツコツ攻略していこう！');
-        }
-
-        function updatePageContentEnglish() {
-            // Get English content
-            const enHomeContent = document.getElementById('en-home').innerHTML;
-            const enGuildContent = document.getElementById('en-guild-expansion').innerHTML;
-            const enFrozenContent = document.getElementById('en-frozen-battlefield').innerHTML;
-            const enMondayContent = document.getElementById('en-monday').innerHTML;
-            const enTuesdayContent = document.getElementById('en-tuesday').innerHTML;
-            const enWednesdayContent = document.getElementById('en-wednesday').innerHTML;
-            const enThursdayContent = document.getElementById('en-thursday').innerHTML;
-            const enFridayContent = document.getElementById('en-friday').innerHTML;
-            const enSaturdayContent = document.getElementById('en-saturday').innerHTML;
-
-            // Update page content
-            document.getElementById('home').innerHTML = enHomeContent;
-            document.getElementById('guild-expansion').innerHTML = enGuildContent;
-            document.getElementById('frozen-battlefield').innerHTML = enFrozenContent;
-            document.getElementById('monday').innerHTML = enMondayContent;
-            document.getElementById('tuesday').innerHTML = enTuesdayContent;
-            document.getElementById('wednesday').innerHTML = enWednesdayContent;
-            document.getElementById('thursday').innerHTML = enThursdayContent;
-            document.getElementById('friday').innerHTML = enFridayContent;
-            document.getElementById('saturday').innerHTML = enSaturdayContent;
-        }
+        // Event listeners
+        document.getElementById('menuBtn').addEventListener('click', toggleSidebar);
+        document.getElementById('overlay').addEventListener('click', closeSidebar);
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             showPage('home');
+            switchLanguage('ja'); // Set default language
         });
     </script>
 </body>
